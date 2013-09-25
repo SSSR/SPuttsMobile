@@ -1,0 +1,1 @@
+var socialputts = angular.module('socialputts', ['ui.router']);
