@@ -1,4 +1,5 @@
-function MainCtrl($scope, $http){
+angular.module('socialputts.controllers', [])
+.controller('MainCtrl', function($scope, $http){
 	var url = "http://socialputts-test.azurewebsites.net/api/invitation/get?alt=json-in-script&callback=JSON_CALLBACK";
 	
 	$http.jsonp(url).success(function(data) {
@@ -8,4 +9,4 @@ function MainCtrl($scope, $http){
 	  });
 	  
 	$scope.Hello = "Hello SP mobile app";
-}
+});
