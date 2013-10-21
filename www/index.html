@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html  xmlns="http://www.w3.org/1999/xhtml" >
+<html ng-app="socialputts"  xmlns="http://www.w3.org/1999/xhtml" >
     <head>
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
@@ -8,18 +8,24 @@
         <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
         <title>SocialPutts</title>
 		
+		
+    </head>
+    <body>
+		<h1>Start page</h1>
+        <div class="container" ng-controller="MainCtrl">
+            <div ng-view></div>
+        </div>
+		
 		<script type="text/javascript" src="js/vendor/jquery-1.10.2.min.js"></script>
 		<script type="text/javascript" src="js/vendor/cordova.js"></script>
         <script type="text/javascript" src="js/vendor/underscore-min.js"></script>
         <script type="text/javascript" src="js/vendor/angular.min.js"></script>
         <script type="text/javascript" src="js/vendor/angular-ui-router.min.js"></script>
         <script type="text/javascript" src="js/app/app.js"></script>
+        <script type="text/javascript" src="js/app/index.js"></script>
         <script type="text/javascript" src="js/app/controllers/MainCtrl.js"></script>
-    </head>
-    <body ng-app="socialputts">
-		<h1>Start page</h1>
-        <div class="container" ng-controller="MainCtrl">
-            <div ng-view></div>
-        </div>
+		<script type="text/javascript">
+			app.initialize();
+		</script>
     </body>
 </html>
