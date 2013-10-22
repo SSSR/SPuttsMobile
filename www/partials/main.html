@@ -1,14 +1,16 @@
-<div class="row">
-	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">{{Hello}}</div>
-    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">1</div>
-    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">2</div>
-    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">3</div>
-    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">4</div>
-</div>
+<div ng-controller="MainCtrl">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">{{Hello}}</div>
+		<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">1</div>
+		<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">2</div>
+		<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">3</div>
+		<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">4</div>
+	</div>
 
-<ul>
-  <li ng-repeat="invitation in invitations">{{invitation.name}}</li>
-</ul>
-<h2>
-<a href="#/signin">Sign In</a>
-</h2>
+	<ul>
+	  <li ng-repeat="invitation in invitations">{{invitation.name}}</li>
+	</ul>
+	<h2>
+	<a href="#/signin">Sign In</a>
+	</h2>
+</div>

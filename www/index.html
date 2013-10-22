@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="socialputts"  xmlns="http://www.w3.org/1999/xhtml" >
+<html  xmlns="http://www.w3.org/1999/xhtml" >
     <head>
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
@@ -23,9 +23,9 @@
 			app.initialize();
 		</script>		
     </head>
-    <body>
+    <body ng-app="socialputts">
 		<h1>Start page</h1>
-        <div class="container" ng-controller="MainCtrl">
+        <div class="container">
             <div ng-view></div>
         </div>
     </body>
