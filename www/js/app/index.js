@@ -1,4 +1,3 @@
-var socialputts;
 var app = {
     initialize: function() {
         this.bindEvents();
@@ -8,9 +7,8 @@ var app = {
     },
 
     onDeviceReady: function() {
-		socialputts = angular.module('socialputts', ['socialputts.controllers', 'socialputts.services', 'ui.router']);
         angular.element(document).ready(function() {
-            angular.bootstrap(document, ['socialputts']);
+            angular.bootstrap(document);
         });
     },
 };
