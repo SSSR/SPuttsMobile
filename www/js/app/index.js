@@ -8,7 +8,7 @@ var app = {
 
     onDeviceReady: function() {
         angular.element(document).ready(function() {
-            angular.bootstrap(document, ['ngView']);
+            angular.bootstrap(document);
         });
     },
 };
