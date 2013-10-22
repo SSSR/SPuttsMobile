@@ -7,6 +7,6 @@ angular.module('socialputts.controllers', [])
       }).error(function(data){
 		console.log("error");
 	  });
-	  
+	
 	$scope.Hello = "Hello SP mobile app";
 });
