@@ -1,4 +1,4 @@
-var socialputts = angular.module('socialputts', ['socialputts.controllers', 'socialputts.services', 'ui.router']);
+var socialputts = socialputts || angular.module('socialputts', ['socialputts.controllers', 'socialputts.services', 'ui.router']);
 
 socialputts.config(['$routeProvider', function($routeProvider){
 	$routeProvider
