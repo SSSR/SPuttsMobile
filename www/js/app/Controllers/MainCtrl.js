@@ -8,13 +8,15 @@ angular.module('socialputts.controllers', [])
 	
 	$scope.Hello = "Hello SP mobile app";
 })
-.controller('AccountCtrl', function($scope, $http){
+.controller('AccountCtrl', function($scope, $http, $location){
 	$scope.logIn = function(){
 		var data = $("#sign-in-form").serializeObject();
 		var url = socialputtsLink + "/api/account/PostSignIn";
 		
 		$http.post(url, data).success(function(data){
-			console.log(data);
+			if(data.loginStatus){
+				$location.path('/index');
+			}
 		});
 	};
 	
