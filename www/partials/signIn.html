@@ -1,27 +1,20 @@
 <div class="sign-in-container" ng-controller="AccountCtrl">
     <div class="sign-in-form">
-        <form action="/" method="post" id="sign-in-form">
+        <form action="/" method="post" name="signInForm" id="sign-in-form" novalidate>
             <div>
-                <input type="text" id="email" name="Email" placeholder="email" />
+                <input type="email" id="email" name="Email" placeholder="email" />
             </div>
             <div>
                 <input type="password" id="password" name="Password" placeholder="password" />
             </div>
-    <div>
-        <input type="button" value="log in" ng-click="logIn()"/>
-    </div>
-    </form>
-</div>
-<div class="sign-in-error-message">
-    <div>
-        The username and/or password you entered are incorrect.
-    </div>
-    <div>
-        Please try again. (Make sure your caps lock is off.)
-    </div>
-    <div class="forgot-password">
-        <span class="fogot-password">Forgot your password?</span>
-        
-    </div>
-</div>
+			<div>
+				<input type="button" value="log in" ng-click="logIn()"/>
+			</div>
+		</form>
+	</div>
+	<div class="sign-in-error-message" ng-show="invalidForm">
+		<div>
+			The username and/or password you entered are incorrect. Try again.
+		</div>
+	</div>
 </div>
