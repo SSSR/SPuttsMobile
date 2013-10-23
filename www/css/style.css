@@ -1,0 +1,40 @@
+.page-container{
+	max-width: 70%;
+	margin: 0 auto;
+}
+footer {
+    min-height: 50px;
+    clear: both;
+    border-width: 0px;
+    border-top-width: 1px;
+    border-style: solid;
+    border-color: #75A975;
+
+    padding: 20px;
+}
+
+section#content {
+    padding-bottom: 150px;
+    overflow: visible;
+}
+
+#head {
+    padding: 20px;
+    float: left;
+	width: 100%;
+}
+
+#head img{
+	width: 50%;
+}
+
+.nav
+{
+    color: white;
+    font-weight: bold;
+}
+
+a
+{
+    color: #3665d9;
+}
