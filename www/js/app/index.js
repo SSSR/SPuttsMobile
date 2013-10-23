@@ -15,6 +15,8 @@ $.fn.serializeObject = function()
     return o;
 };
 
+var socialputtsLink = "http://socialputts-test.azurewebsites.net";
+
 var app = {
     initialize: function() {
         this.bindEvents();
