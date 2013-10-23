@@ -8,5 +8,5 @@ socialputts
 	$routeProvider
 		.when('/index', {templateUrl: 'partials/main.html', controller: 'MainCtrl'})
 		.when('/signin', {templateUrl: 'partials/signIn.html', controller: 'MainCtrl'})
-		.otherwise({ redirectTo: '/index'})
+		.otherwise({ redirectTo: '/signin'})
 }]);
