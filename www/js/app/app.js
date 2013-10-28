@@ -8,5 +8,12 @@ socialputts
 	$routeProvider
 		.when('/index', {templateUrl: 'partials/main.html', controller: 'MainCtrl'})
 		.when('/signin', {templateUrl: 'partials/signIn.html', controller: 'MainCtrl'})
+		.when('/buddies', {templateUrl: 'partials/Buddies.html', controller: 'MainCtrl'})
+		.when('/inviteYourBuddies', {templateUrl: 'partials/InviteYourBuddies.html', controller: 'MainCtrl'})
+		.when('/courseFinder', {templateUrl: 'partials/CourseFinder.html', controller: 'MainCtrl'})
+		.when('/fillYourFoursome', {templateUrl: 'partials/FillYourFoursome.html', controller: 'MainCtrl'})
+		.when('/manageInvitations', {templateUrl: 'partials/ManageInvitations.html', controller: 'MainCtrl'})
+		.when('/favoriteCourses', {templateUrl: 'partials/FavoriteCourses.html', controller: 'MainCtrl'})
+		.when('/settings', {templateUrl: 'partials/Settings.html', controller: 'MainCtrl'})
 		.otherwise({ redirectTo: '/signin'})
 }]);

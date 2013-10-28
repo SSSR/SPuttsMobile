@@ -7,6 +7,12 @@ angular.module('socialputts.controllers', [])
     });
 	
 	$scope.Hello = "Hello SP mobile app";
+	
+	$scope.$on('$locationChangeStart', function(event, next, current){
+		if(next.search("#/signin") !== -1){
+			event.preventDefault();
+		}
+	});
 })
 .controller('AccountCtrl', function($scope, $http, $location){
 	

@@ -1,5 +1,9 @@
+body{
+	padding-top: 70px;
+}
+
 .page-container{
-	max-width: 70%;
+	max-width: 60%;
 	margin: 0 auto;
 }
 footer {
@@ -9,7 +13,6 @@ footer {
     border-top-width: 1px;
     border-style: solid;
     border-color: #75A975;
-
     padding: 20px;
 }
 
@@ -24,5 +27,8 @@ section#content {
 	width: 100%;
 }
 .divider{
-	border-bottom:1px solid #ccc;
+	height: 1px;
+	margin: 9px 0;
+	overflow: hidden;
+	background-color: #e5e5e5;
 }
