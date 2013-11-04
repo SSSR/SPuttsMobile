@@ -30,3 +30,8 @@ section#content {
 	overflow: hidden;
 	background-color: #e5e5e5;
 }
+
+.dashboard-btns{
+	margin-bottom: 5%;
+	min-height: 60px;
+}
