@@ -15,5 +15,9 @@ socialputts
 		.when('/manageInvitations', {templateUrl: 'partials/ManageInvitations.html', controller: 'MainCtrl'})
 		.when('/favoriteCourses', {templateUrl: 'partials/FavoriteCourses.html', controller: 'MainCtrl'})
 		.when('/settings', {templateUrl: 'partials/Settings.html', controller: 'MainCtrl'})
+		.when('/oneClickDiscount', {templateUrl: 'partials/OneClickDiscount.html', controller: 'OneClickDiscountCtrl'})
+		.when('/courseFinder', {templateUrl: 'partials/CourseFinder.html', controller: 'CourseFinderCtrl'})
+		.when('/fillYourFoursome', {templateUrl: 'partials/FillYourFoursome.html', controller: 'FillYourFoursomeCtrl'})
+		.when('/manageInvitations', {templateUrl: 'partials/ManageInvitations.html', controller: 'ManageInvitationsCtrl'})
 		.otherwise({ redirectTo: '/signin'})
 }]);

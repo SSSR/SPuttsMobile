@@ -31,4 +31,16 @@ angular.module('socialputts.controllers', [])
 		
 	};
 	
+})
+.controller('FillYourFoursomeCtrl', function($scope, $http, $location){
+	
+})
+.controller('ManageInvitationsCtrl', function($scope, $http, $location){
+	
+})
+.controller('OneClickDiscountCtrl', function($scope, $http, $location){
+	
+})
+.controller('CourseFinderCtrl', function($scope, $http, $location){
+	
 });
