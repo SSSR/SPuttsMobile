@@ -26,6 +26,7 @@ angular.module('socialputts.controllers', [])
 				if(data.loginStatus){
 					app.userName = data.userName;
 					app.userId = data.userId;
+					app.name = data.name;
 					$location.path('/index');
 				}else{
 					$scope.invalidForm = true;
