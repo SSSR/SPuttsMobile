@@ -20,10 +20,10 @@
 			<h3>Invite your Buddies to Joins SocialpPutts TODAY!</h3>
 			<div class="row social-buttons">
 				<input type="button" class="btn btn-lg btn-primary" value="Facebook" />
-				<a class="btn btn-lg btn-danger" href="mailto:?Subject=Invitation: Please be my Golf Buddy on SocialPutts!&body=Hi,
+				<a class="btn btn-lg btn-danger" href="mailto:?Subject=Invitation:Please be my Golf Buddy on SocialPutts!&body=Hi,
     %0D%0A%0APlease click the link below to accept by invitation to be my Golf Buddy on SocialPutts, the world's first Golf-specific Social Network.
     %0D%0A%0A 
-        @ViewBag.UniqueLink%0D%0A%0ASocialPutts allows us to:
+        {{tinyUrl}}%0D%0A%0ASocialPutts allows us to:
     %0D%0A%0A
         - Fill our Foursome, get a Discount!
     %0D%0A%0A
@@ -38,7 +38,7 @@
     %0D%0A%0A
         - All for FREE!%0D%0A%0AJoin me to be a part of the SocialPutts Golf Revolution!
     %0D%0A%0A 
-        @ViewBag.UniqueLink
+        {{tinyUrl}}
     %0D%0A%0AYour Golf Buddy,
     %0D%0A%0A @ViewBag.UserName
     %0D%0A%0AFacebook: 

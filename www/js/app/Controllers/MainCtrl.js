@@ -1,10 +1,5 @@
 angular.module('socialputts.controllers', [])
 .controller('MainCtrl', function($scope, $http){
-	var url = socialputtsLink + "/api/invitation/get?alt=json-in-script&callback=JSON_CALLBACK";
-	
-	$http.jsonp(url).success(function(data) {
-        $scope.invitations = data;
-    });
 	
 	$scope.Hello = "Hello SP mobile app";
 	
@@ -13,6 +8,12 @@ angular.module('socialputts.controllers', [])
 			event.preventDefault();
 		}
 	});
+	
+	$http.jsonp(socialputtsLink + "/api/email/getTinyUrl?email=" + app.user.Email + "&alt=json-in-script&callback=JSON_CALLBACK")
+	.success(function(tinyUrl){
+		$scope.tinyUrl = tinyUrl;
+	});
+	
 })
 .controller('AccountCtrl', function($scope, $http, $location){
 	
@@ -23,6 +24,7 @@ angular.module('socialputts.controllers', [])
 			
 			$http.post(url, data).success(function(data){
 				if(data.loginStatus){
+					app.user = data.user;
 					$location.path('/index');
 				}else{
 					$scope.invalidForm = true;
