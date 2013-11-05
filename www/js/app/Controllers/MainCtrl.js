@@ -1,8 +1,13 @@
 angular.module('socialputts.controllers', [])
 .controller('MainCtrl', function($scope, $http,  $location){
+	if($.jStorage.get('user') != null){
+		$scope.Hello = $.jStorage.get('user').name;
+	}else{
+		$scope.Hello = "";
+	}
+})
+.controller('HomeCtrl', function($scope, $http,  $location){
 	checkUserLogedOff($location);
-	
-	$scope.Hello = "Hello SP mobile app";
 	
 	$scope.$on('$locationChangeStart', function(event, next, current){
 		if(next.search("#/signin") !== -1){
@@ -10,15 +15,13 @@ angular.module('socialputts.controllers', [])
 		}
 	});
 	
-	if(app.user != null || app.user != undefined){
-		$http.jsonp(socialputtsLink + "/api/email/getTinyUrl?email=" + app.user.userName + "&alt=json-in-script&callback=JSON_CALLBACK")
-		.success(function(tinyUrl){
-			$scope.tinyUrl = tinyUrl;
-		});
-	}
+	$http.jsonp(socialputtsLink + "/api/email/getTinyUrl?email=" + $.jStorage.get('user').userName + "&alt=json-in-script&callback=JSON_CALLBACK")
+	.success(function(tinyUrl){
+		$scope.tinyUrl = tinyUrl;
+	});
 })
 .controller('AccountCtrl', function($scope, $http, $location){
-	app.user = null;
+	$.jStorage.deleteKey('user');
 		
 	$scope.logIn = function(){
 		$scope.invalidForm = false;
@@ -27,10 +30,8 @@ angular.module('socialputts.controllers', [])
 			
 			$http.post(url, data).success(function(data){
 				if(data.loginStatus){
-					app.user = new User();
-					app.user.userName = data.userName;
-					app.user.userId = data.userId;
-					app.user.name = data.name;
+					$.jStorage.set('user', data);
+					$scope.Hello = data.name;
 					$location.path('/index');
 				}else{
 					$scope.invalidForm = true;
@@ -66,7 +67,7 @@ angular.module('socialputts.controllers', [])
 });
 
 function checkUserLogedOff($location){
-	if(app.user == null || app.user == undefined){
+	if($.jStorage.get('user') == null){
 		$location.path('#/signin');
 	}
 }
