@@ -34,15 +34,27 @@ angular.module('socialputts.controllers', [])
 	};
 	
 })
+.controller('BuddiesCtrl', function($scope, $http, $location){
+	
+})
+.controller('InviteYourBuddiesCtrl', function($scope, $http, $location){
+	
+})
+.controller('CourseFinderCtrl', function($scope, $http, $location){
+	
+})
 .controller('FillYourFoursomeCtrl', function($scope, $http, $location){
 	
 })
 .controller('ManageInvitationsCtrl', function($scope, $http, $location){
 	
 })
-.controller('OneClickDiscountCtrl', function($scope, $http, $location){
+.controller('FavoriteCoursesCtrl', function($scope, $http, $location){
 	
 })
-.controller('CourseFinderCtrl', function($scope, $http, $location){
+.controller('SettingsCtrl', function($scope, $http, $location){
+	
+})
+.controller('OneClickDiscountCtrl', function($scope, $http, $location){
 	
 });
