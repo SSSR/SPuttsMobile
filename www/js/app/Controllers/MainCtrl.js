@@ -1,5 +1,6 @@
 angular.module('socialputts.controllers', [])
-.controller('MainCtrl', function($scope, $http){
+.controller('MainCtrl', function($scope, $http,  $location){
+	checkUserLogedOff($location);
 	
 	$scope.Hello = "Hello SP mobile app";
 	
@@ -9,14 +10,16 @@ angular.module('socialputts.controllers', [])
 		}
 	});
 	
-	$http.jsonp(socialputtsLink + "/api/email/getTinyUrl?email=" + app.userName + "&alt=json-in-script&callback=JSON_CALLBACK")
-	.success(function(tinyUrl){
-		$scope.tinyUrl = tinyUrl;
-	});
-	
+	if(app.user != null || app.user != undefined){
+		$http.jsonp(socialputtsLink + "/api/email/getTinyUrl?email=" + app.user.userName + "&alt=json-in-script&callback=JSON_CALLBACK")
+		.success(function(tinyUrl){
+			$scope.tinyUrl = tinyUrl;
+		});
+	}
 })
 .controller('AccountCtrl', function($scope, $http, $location){
-	
+	app.user = null;
+		
 	$scope.logIn = function(){
 		$scope.invalidForm = false;
 			var data = $("#sign-in-form").serializeObject();
@@ -24,9 +27,10 @@ angular.module('socialputts.controllers', [])
 			
 			$http.post(url, data).success(function(data){
 				if(data.loginStatus){
-					app.userName = data.userName;
-					app.userId = data.userId;
-					app.name = data.name;
+					app.user = new User();
+					app.user.userName = data.userName;
+					app.user.userId = data.userId;
+					app.user.name = data.name;
 					$location.path('/index');
 				}else{
 					$scope.invalidForm = true;
@@ -37,26 +41,32 @@ angular.module('socialputts.controllers', [])
 	
 })
 .controller('BuddiesCtrl', function($scope, $http, $location){
-	
+	checkUserLogedOff($location);
 })
 .controller('InviteYourBuddiesCtrl', function($scope, $http, $location){
-	
+	checkUserLogedOff($location);
 })
 .controller('CourseFinderCtrl', function($scope, $http, $location){
-	
+	checkUserLogedOff($location);
 })
 .controller('FillYourFoursomeCtrl', function($scope, $http, $location){
-	
+	checkUserLogedOff($location);
 })
 .controller('ManageInvitationsCtrl', function($scope, $http, $location){
-	
+	checkUserLogedOff($location);
 })
 .controller('FavoriteCoursesCtrl', function($scope, $http, $location){
-	
+	checkUserLogedOff($location);
 })
 .controller('SettingsCtrl', function($scope, $http, $location){
-	
+	checkUserLogedOff($location);
 })
 .controller('OneClickDiscountCtrl', function($scope, $http, $location){
-	
+	checkUserLogedOff($location);
 });
+
+function checkUserLogedOff($location){
+	if(app.user == null || app.user == undefined){
+		$location.path('#/signin');
+	}
+}
