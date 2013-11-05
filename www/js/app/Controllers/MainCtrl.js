@@ -9,7 +9,7 @@ angular.module('socialputts.controllers', [])
 		}
 	});
 	
-	$http.jsonp(socialputtsLink + "/api/email/getTinyUrl?email=" + app.user.Email + "&alt=json-in-script&callback=JSON_CALLBACK")
+	$http.jsonp(socialputtsLink + "/api/email/getTinyUrl?email=" + app.userName + "&alt=json-in-script&callback=JSON_CALLBACK")
 	.success(function(tinyUrl){
 		$scope.tinyUrl = tinyUrl;
 	});
@@ -24,7 +24,8 @@ angular.module('socialputts.controllers', [])
 			
 			$http.post(url, data).success(function(data){
 				if(data.loginStatus){
-					app.user = data.user;
+					app.userName = data.userName;
+					app.userId = data.userId;
 					$location.path('/index');
 				}else{
 					$scope.invalidForm = true;
