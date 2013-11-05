@@ -31,7 +31,6 @@ angular.module('socialputts.controllers', [])
 			$http.post(url, data).success(function(data){
 				if(data.loginStatus){
 					$.jStorage.set('user', data);
-					$scope.Hello = data.name;
 					$location.path('/index');
 				}else{
 					$scope.invalidForm = true;
