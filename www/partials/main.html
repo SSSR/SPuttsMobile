@@ -1,5 +1,5 @@
 <div ng-include src="'partials/Navigation.html'"></div>
-<div>
+<div ng-controller="HomeCtrl">
 	<div class="row">
 		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 			<a href="#/oneClickDiscount" class="btn btn-lg btn-warning btn-block dashboard-btns">One CLick Discount</a>
@@ -18,7 +18,7 @@
 		<div class="center-block">
 			<h3>Invite your Buddies to Joins SocialpPutts TODAY!</h3>
 			<div class="row social-buttons">
-				<input type="button" class="btn btn-lg btn-primary" value="Facebook" />
+				<a class="btn btn-lg btn-primary" ng-click="inviteFbFriends($event)" href="#">Facebook</a>
 				<a class="btn btn-lg btn-danger" href="mailto:?Subject=Invitation:Please be my Golf Buddy on SocialPutts!&body=Hi,
     %0D%0A%0APlease click the link below to accept by invitation to be my Golf Buddy on SocialPutts, the world's first Golf-specific Social Network.
     %0D%0A%0A 
@@ -44,7 +44,7 @@
         https://www.facebook.com/SocialPutts
     %0D%0A%0ATwitter: 
         http://twitter.com/socialputts">Gmail</a>
-				<input type="button" class="btn btn-lg btn-info" value="Twitter" />
+				<a type="button" class="btn btn-lg btn-info" href="#" ng-click="inviteTwitterFriends($event)">Twitter</a>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 news-feed">
 				<textarea class="form-control" placeholder="Write Your Message Here..."></textarea>

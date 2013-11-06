@@ -15,6 +15,8 @@
 		<script type="text/javascript" src="js/vendor/underscore-min.js"></script>
 		<script type="text/javascript" src="js/vendor/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/vendor/jstorage.js"></script>
+		<script type="text/javascript" src="js/vendor/cdv-plugin-fb-connect.js"></script>
+		<script type="text/javascript" src="js/vendor/facebook-js-sdk.js"></script>
         
 		<script type="text/javascript" src="js/app/index.js"></script>
         <script type="text/javascript" src="js/app/app.js"></script>
@@ -23,9 +25,19 @@
         
 		<script type="text/javascript">
 			app.initialize();
-		</script>		
+		</script>
+
+		<meta property="og:title" content="SocialPutts" />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="http://socialputts.com/Home/Golfers/" />
+		<meta property="og:image" content="http://socialputts.com/Content/images/logo-short.png" />
+		<meta property="og:site_name" content="SocialPutts" />
+		<meta property="og:description" content="SocialPutts is the world's only true golf social network, allowing you to easily create your own network of golf buddies at your favorite courses! Invite friends & make new friends who play where you play using our Golfer Match and Invitation features. Play More Rounds! Have more FUN!"/>
+		<meta property="fb:admins" content="100002628241048" />		
     </head>
     <body ng-app="socialputts">
+		<div id="fb-root"></div>
+		
 		<div class="page-container">
 			<section id="content">
 				<div class="container">

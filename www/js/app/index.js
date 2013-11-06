@@ -29,6 +29,14 @@ var app = {
         angular.element(document).ready(function() {
             angular.bootstrap(document, ['ngView']);
         });
+		FB.init({
+                  appId: '186063394870474',
+                  nativeInterface: CDV.FB,
+                  status     : true, // check login status
+                  //cookie     : true, // enable cookies to allow the server to access the session
+                 // xfbml: true,
+                  useCachedDialogs: false
+              });
     },
 };
 

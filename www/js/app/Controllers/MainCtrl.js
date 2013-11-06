@@ -19,6 +19,32 @@ angular.module('socialputts.controllers', [])
 	.success(function(tinyUrl){
 		$scope.tinyUrl = tinyUrl;
 	});
+	
+	$scope.inviteFbFriends = function($event){
+		$event.preventDefault();
+		 FB.ui({
+			method: 'send',
+			link: socialputtsLink
+		});
+	};
+	
+	$scope.inviteTwitterFriends = function($event){
+		$event.preventDefault();
+		var width = 575,
+		height = 400,
+		left = ($(window).width() - width) / 2,
+		top = ($(window).height() - height) / 2,
+		url = "http://twitter.com/share?text=%23Join%20me%20for%20%23FREE%20on%20%23SocialPutts%2C%20the%20World's%20First%20%23Golf%20Social%20Network!%20%23Connect%2C%20play%20golf%20%26%20have%20more%20%23fun!%20 " + $scope.tinyUrl + "&url=",
+		opts = 'status=1' +
+				 ',width=' + width +
+				 ',height=' + height +
+				 ',top=' + top +
+				 ',left=' + left;
+
+		window.open(url, 'twitter', opts);
+
+		return false;
+	};
 })
 .controller('AccountCtrl', function($scope, $http, $location){
 	$.jStorage.deleteKey('user');
