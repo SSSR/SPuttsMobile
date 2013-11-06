@@ -22,9 +22,20 @@ angular.module('socialputts.controllers', [])
 	
 	$scope.inviteFbFriends = function($event){
 		$event.preventDefault();
-		var url = "https://m.facebook.com/dialog/feed?client_id=1382806861962418&redirect_uri=http://localhost&display=touch";
-		 window.open(url);
-		 return false;
+		var width = 575,
+		height = 400,
+		left = ($(window).width() - width) / 2,
+		top = ($(window).height() - height) / 2,
+		url = "https://m.facebook.com/dialog/feed?client_id=1382806861962418&redirect_uri=http://facebook.com";
+		opts = 'status=1' +
+				 ',width=' + width +
+				 ',height=' + height +
+				 ',top=' + top +
+				 ',left=' + left;
+
+		window.open(url, 'facebook', opts);
+		
+		return false;
 	};
 	
 	$scope.inviteTwitterFriends = function($event){
