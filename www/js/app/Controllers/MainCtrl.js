@@ -22,11 +22,9 @@ angular.module('socialputts.controllers', [])
 	
 	$scope.inviteFbFriends = function($event){
 		$event.preventDefault();
-		 FB.ui({
-			method: 'send',
-			link: socialputtsLink,
-			display:'touch'
-		});
+		var url = "https://m.facebook.com/dialog/feed?client_id=1382806861962418&redirect_uri=http://localhost&display=touch";
+		 window.open(url);
+		 return false;
 	};
 	
 	$scope.inviteTwitterFriends = function($event){
