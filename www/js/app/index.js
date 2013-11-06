@@ -31,7 +31,6 @@ var app = {
         });
 		FB.init({
                   appId: '1382806861962418',
-                  nativeInterface: CDV.FB,
                   status     : true, // check login status
                   //cookie     : true, // enable cookies to allow the server to access the session
                  // xfbml: true,
