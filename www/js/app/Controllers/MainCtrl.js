@@ -23,7 +23,7 @@ angular.module('socialputts.controllers', [])
 	$scope.inviteFbFriends = function($event){
 		$event.preventDefault();
 		var windowSize = "width=" + window.innerWidth + ",height=" + window.innerHeight + ",scrollbars=no";
-		url = "https://facebook.com/dialog/feed?client_id=1382806861962418&redirect_uri=http://facebook.com";
+		url = "https://facebook.com/dialog/feed?client_id=1382806861962418&link=http://socialputts.com&redirect_uri=http://facebook.com";
 		window.open(url, 'popup', windowSize);
 		
 		return false;
