@@ -24,7 +24,8 @@ angular.module('socialputts.controllers', [])
 		$event.preventDefault();
 		 FB.ui({
 			method: 'send',
-			link: socialputtsLink
+			link: socialputtsLink,
+			display:'touch'
 		});
 	};
 	
