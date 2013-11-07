@@ -1,4 +1,4 @@
-angular.module('socialputts.controllers', [])
+angular.module('socialputts.controllers', ["google-maps"])
 .controller('MainCtrl', function($scope, $http,  $location){
 	if($.jStorage.get('user') != null){
 		$scope.Hello = $.jStorage.get('user').name;
@@ -80,6 +80,48 @@ angular.module('socialputts.controllers', [])
 
 .controller('CourseFinderCtrl', function($scope, $http, $location){
 	checkUserLogedOff($location);
+	
+	google.maps.visualRefresh = true;
+	
+	angular.extend($scope, {
+	  
+	    position: {
+	      coords: {
+	        latitude: 45,
+	        longitude: -73
+	      }
+	    },
+		
+		/** the initial center of the map */
+		centerProperty: {
+			latitude: 45,
+			longitude: -73
+		},
+		
+		/** the initial zoom level of the map */
+		zoomProperty: 4,
+		
+		/** list of markers to put in the map */
+		markersProperty: [ {
+				latitude: 45,
+				longitude: -74
+			}],
+		
+		// These 2 properties will be set when clicking on the map
+		clickedLatitudeProperty: null,	
+		clickedLongitudeProperty: null,
+		
+		eventsProperty: {
+		  click: function (mapModel, eventName, originalEventArgs) {	
+		    // 'this' is the directive's scope
+		    $log.log("user defined event on map directive with scope", this);
+		    $log.log("user defined event: " + eventName, mapModel, originalEventArgs);
+		  }
+		}
+	});
+	
+	//loadMapScript();
+	
 	$scope.coursesOnMap = [];
 	$scope.allMarkers = [];
 	$scope.coursesToSort = [];
@@ -209,8 +251,6 @@ angular.module('socialputts.controllers', [])
         });
 		
 	};
-	
-	loadMapScript();
 })
 
 
