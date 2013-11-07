@@ -80,15 +80,137 @@ angular.module('socialputts.controllers', [])
 
 .controller('CourseFinderCtrl', function($scope, $http, $location){
 	checkUserLogedOff($location);
-	
+	$scope.coursesOnMap = [];
+	$scope.allMarkers = [];
+	$scope.coursesToSort = [];
+	$scope.coordsArray = [];
+	$scope.favCourses = [];
+	$scope.favsCoordArray = [];
+		
 	$scope.searchCourse = function($event){
 		$event.preventDefault();
-		alert("search course");
+		
+		$.each($scope.allMarkers, function (markerInd, markerValue) {
+            markerValue.setMap(null);
+            google.maps.event.clearListeners(markerValue, 'click');
+        });
+		var country = $('#country option:selected').text();
+        var city = $('#city').val();
+        var state = $('#state').val();
+        var zip = $("#zip").val();
+        var adress = zip + ' ' + city + '+' + country + '+' + state;
+		var courseForm = $('#course-finder-form'); //form course
+		var courseFormModel = $(courseForm).serializeObject();
+		
+		
+		var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ 'address': adress }, function (results, status) {
+            initializeMap();
+			var zoom = 17;
+            if (status == google.maps.GeocoderStatus.OK) {
+                switch (results[0].address_components[0].types[0]) {
+
+                    case "route":
+                        break;
+                    case "administrative_area_level_2":
+                        zoom = 6;
+                        break;
+                    case "administrative_area_level_1":
+                        zoom = 7;
+                        break;
+                    case "locality":
+                        zoom = 10;
+                        break;
+                    case "country":
+                        zoom = 4;
+                        break;
+                }
+
+                var mileage = courseFormModel["Mileage"];
+                if (mileage != "0") {
+                    switch (mileage) {
+                        case "15":
+                            zoom = 12; break;
+                        case "30":
+                            zoom = 11; break;
+                        case "50":
+                            zoom = 9; break;
+                        case "75":
+                            zoom = 8; break;
+                    }
+                } else if ((city != "") || (zip != "")) {
+                    zoom = 11;
+                }
+                map.setZoom(zoom);
+                map.setCenter(results[0].geometry.location);
+            }
+
+           
+            
+            var center = map.getCenter();
+            var packet = {
+                CourseModel: courseFormModel,
+                LatLng: {
+                    Latitude: center.lat(),
+                    Longitude: center.lng()
+                }
+            };
+
+			$http.post(socialputtsLink + "/api/Course/GetSearchedCourses?email=" + $.jStorage.get('user').userName, packet)
+			.success(function(courses){
+				var myOptions = {
+                            zoom: map.getZoom(),
+                            center: map.getCenter(),
+                            mapTypeId: google.maps.MapTypeId.ROADMAP
+                        };
+
+				$scope.coursesToSort = [];
+				$scope.coordsArray = [];
+
+				$.each($scope.favCourses, function (index, course) {
+					$scope.coursesToSort.push(course);
+				});
+				$.each($scope.favsCoordArray, function (index, coord) {
+					$scope.coordsArray.push(coord);
+				});
+				
+				$.each(courses, function (index, value) {
+					var courseToAdd = new Course(value);
+
+					$scope.coursesToSort.push(courseToAdd);
+
+					var coord = new Coords(value);
+					$scope.coordsArray.push(coord);
+
+				});
+
+				markMap($scope.coordsArray, myOptions);
+				
+				$scope.coursesToSort.sort(function (first, seccond) {
+					if (first.discount > seccond.discount) {
+						return -1;
+					} else if (first.discount < seccond.discount) {
+						return 1;
+					} else if (first.mileage < seccond.mileage) {
+						return -1;
+					} else if (first.mileage > seccond.mileage) {
+						return 1;
+					} else {
+						return 0;
+					}
+				});
+
+				$scope.coursesToSort = $scope.coursesToSort.removeDuplicates();
+
+				$.each($scope.coursesToSort, function (index, course) {
+					$scope.coursesOnMap.push(course);
+				});
+			});
+        });
+		
 	};
-	if(document.getElementById("map") != null){
-		loadMapScript();
-	}	
 	
+	loadMapScript();
 })
 
 
