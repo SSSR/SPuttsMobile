@@ -50,3 +50,8 @@ section#content {
 .news-feed textarea{
 	margin-bottom: 20px;
 }
+
+#map{
+	width:100%;
+	height: 300px;
+}
