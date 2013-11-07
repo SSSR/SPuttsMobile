@@ -37,19 +37,19 @@ var app = {
                  // xfbml: true,
                   useCachedDialogs: false
               });
-		
-		loadMapScript();
     }
 };
 
 function User(){};
 
 function loadMapScript(){
-	var script = document.createElement("script");
-	script.type = "text/javascript";
-	script.id = "googleMaps"
-	script.src = "https://maps.googleapis.com/maps/api/js?sensor=false&callback=initializeMap";
-	document.body.appendChild(script);
+    if(document.getElementById("googleMaps") == null){
+		var script = document.createElement("script");
+		script.type = "text/javascript";
+		script.id = "googleMaps"
+		script.src = "https://maps.googleapis.com/maps/api/js?sensor=false&callback=initializeMap";
+		document.body.appendChild(script);
+	}	
 };
 
 function initializeMap() {

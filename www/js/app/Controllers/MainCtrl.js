@@ -6,6 +6,8 @@ angular.module('socialputts.controllers', [])
 		$scope.Hello = "";
 	}
 })
+
+
 .controller('HomeCtrl', function($scope, $http,  $location){
 	checkUserLogedOff($location);
 	
@@ -44,6 +46,8 @@ angular.module('socialputts.controllers', [])
 		return false;
 	};
 })
+
+
 .controller('AccountCtrl', function($scope, $http, $location){
 	$.jStorage.deleteKey('user');
 		
@@ -64,12 +68,16 @@ angular.module('socialputts.controllers', [])
 	};
 	
 })
+
+
 .controller('BuddiesCtrl', function($scope, $http, $location){
 	checkUserLogedOff($location);
 })
 .controller('InviteYourBuddiesCtrl', function($scope, $http, $location){
 	checkUserLogedOff($location);
 })
+
+
 .controller('CourseFinderCtrl', function($scope, $http, $location){
 	checkUserLogedOff($location);
 	
@@ -77,7 +85,13 @@ angular.module('socialputts.controllers', [])
 		$event.preventDefault();
 		alert("search course");
 	};
+	if(document.getElementById("map") != null){
+		loadMapScript();
+	}	
+	
 })
+
+
 .controller('FillYourFoursomeCtrl', function($scope, $http, $location){
 	checkUserLogedOff($location);
 })
