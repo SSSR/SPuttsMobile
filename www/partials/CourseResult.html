@@ -1,7 +1,47 @@
 <div ng-include src="'partials/Navigation.html'"></div>
-<div >
+<div>
 	<div class="row">
-		Course Find Result
+		<div ng-switch on="ready">
+                <div ng-switch-when="true">
+                    <div class="courses-result-container">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>
+										Add to Favorite
+									</th>
+									<th>
+										Course Name
+									</th>
+									<th >
+										Foursome Discount (%)
+									</th>
+									<th>
+									</th>
+								</tr>
+							</thead>
+							<tbody ng-repeat="course in coursesOnMap" class="searchlist">
+								<tr>
+									<td>
+										<a href="" class="addToFavsIcon" id="{{course.id}}" ng-click="addToFavorite"  title="Add to Favorite" />
+									</td>
+									<td>
+										<a class="big-href" onmouseover="">{{course.combinedNameAndMileage}}
+										</a>
+									</td>
+									<td style="text-align: center; width: 60px;">
+										<label>{{course.combinedDiscountAndText}}
+										</label>
+									</td>
+									<td style="text-align: center;">
+										<a class="btn btn-default select">Select</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+                </div>
+            </div>	
 	</div>
 	<div class="row">
 		<div id="map"><div>

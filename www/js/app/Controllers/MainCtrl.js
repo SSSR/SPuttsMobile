@@ -78,23 +78,21 @@ angular.module('socialputts.controllers', [])
 })
 
 
-.controller('CourseFinderCtrl', function($scope, $http, $location){
+.controller('CourseFinderCtrl', function($rootScope, $scope, $http, $location){
 	checkUserLogedOff($location);
+	$rootScope.ready = false;
 	
-	$scope.coursesOnMap = [];
-	$scope.allMarkers = [];
-	$scope.coursesToSort = [];
-	$scope.coordsArray = [];
-	$scope.favCourses = [];
-	$scope.favsCoordArray = [];
-		
 	$scope.searchCourse = function($event){
 		$event.preventDefault();
 		
-		$.each($scope.allMarkers, function (markerInd, markerValue) {
-            markerValue.setMap(null);
-            google.maps.event.clearListeners(markerValue, 'click');
-        });
+		$rootScope.coursesOnMap = [];
+		$rootScope.allMarkers = [];
+		$rootScope.coursesToSort = [];
+		$rootScope.coordsArray = [];
+		$rootScope.favCourses = [];
+		$rootScope.favsCoordArray = [];
+		
+		
 		var country = $('#country option:selected').text();
         var city = $('#city').val();
         var state = $('#state').val();
@@ -165,29 +163,29 @@ angular.module('socialputts.controllers', [])
                             mapTypeId: google.maps.MapTypeId.ROADMAP
                         };
 
-				$scope.coursesToSort = [];
-				$scope.coordsArray = [];
+				$rootScope.coursesToSort = [];
+				$rootScope.coordsArray = [];
 
 				$.each($scope.favCourses, function (index, course) {
-					$scope.coursesToSort.push(course);
+					$rootScope.coursesToSort.push(course);
 				});
 				$.each($scope.favsCoordArray, function (index, coord) {
-					$scope.coordsArray.push(coord);
+					$rootScope.coordsArray.push(coord);
 				});
 				
 				$.each(courses, function (index, value) {
 					var courseToAdd = new Course(value);
 
-					$scope.coursesToSort.push(courseToAdd);
+					$rootScope.coursesToSort.push(courseToAdd);
 
 					var coord = new Coords(value);
-					$scope.coordsArray.push(coord);
+					$rootScope.coordsArray.push(coord);
 
 				});
 
 				markMap($scope.coordsArray, myOptions);
 				
-				$scope.coursesToSort.sort(function (first, seccond) {
+				$rootScope.coursesToSort.sort(function (first, seccond) {
 					if (first.discount > seccond.discount) {
 						return -1;
 					} else if (first.discount < seccond.discount) {
@@ -201,11 +199,13 @@ angular.module('socialputts.controllers', [])
 					}
 				});
 
-				$scope.coursesToSort = $scope.coursesToSort.removeDuplicates();
+				$rootScope.coursesToSort = $rootScope.coursesToSort.removeDuplicates();
 
-				$.each($scope.coursesToSort, function (index, course) {
-					$scope.coursesOnMap.push(course);
+				$.each($rootScope.coursesToSort, function (index, course) {
+					$rootScope.coursesOnMap.push(course);
 				});
+				
+				$rootScope.ready = $rootScope.coursesOnMap.length > 0;
 			});
         });
 		
