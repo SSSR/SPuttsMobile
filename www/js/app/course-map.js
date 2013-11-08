@@ -55,16 +55,6 @@ function Coords(data) {
 
 };
 
-function loadMapScript(){
-    if(document.getElementById("googleMaps") == null){
-		var script = document.createElement("script");
-		script.type = "text/javascript";
-		script.id = "googleMaps"
-		script.src = "https://maps.googleapis.com/maps/api/js?sensor=true&callback=initializeMap";
-		document.body.appendChild(script);
-	}	
-};
-
 function initializeMap() {
 	if(document.getElementById("map") != null){
 		map = new google.maps.Map(document.getElementById("map"));

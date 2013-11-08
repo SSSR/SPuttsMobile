@@ -81,7 +81,7 @@ angular.module('socialputts.controllers', [])
 .controller('CourseFinderCtrl', function($scope, $http, $location){
 	checkUserLogedOff($location);
 	
-	loadMapScript();
+	initializeMap();
 	
 	$scope.coursesOnMap = [];
 	$scope.allMarkers = [];
@@ -108,7 +108,7 @@ angular.module('socialputts.controllers', [])
 		
 		var geocoder = new google.maps.Geocoder();
         geocoder.geocode({ 'address': adress }, function (results, status) {
-            initializeMap();
+            
 			var zoom = 17;
             if (status == google.maps.GeocoderStatus.OK) {
                 switch (results[0].address_components[0].types[0]) {
