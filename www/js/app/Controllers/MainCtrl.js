@@ -139,6 +139,7 @@ angular.module('socialputts.controllers', [])
                     }
                 } else if ((city != "") || (zip != "")) {
                     zoom = 11;
+					courseFormModel.Mileage = "30"
                 }
                 map.setZoom(zoom);
                 map.setCenter(results[0].geometry.location);
