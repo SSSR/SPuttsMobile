@@ -20,7 +20,7 @@
 							<tbody ng-repeat="course in coursesOnMap" class="searchlist">
 								<tr>
 									<td>
-										<a href="" class="addToFavsIcon" id="{{course.id}}" ng-click="addToFavorite"  title="Add to Favorite" />
+										<a href="#" class="addToFavsIcon" id="{{course.id}}" ng-click="addToFavorite($event)" ng-show="course.isNotFavorite" title="Add to Favorite" />
 									</td>
 									<td>
 										<a class="big-href" onmouseover="">{{course.combinedNameAndMileage}}

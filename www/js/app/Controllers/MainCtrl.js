@@ -209,6 +209,23 @@ angular.module('socialputts.controllers', [])
 				});
 			});
         });
+		
+	$scope.addToFavorite = function($event){
+		$event.preventDefault();
+		var id = $($event.target).attr("id");
+		$http.post(socialputtsLink + "/api/Course/AddCourseToFavorite?email=" + $.jStorage.get('user').userName + "&id=" + id)
+		.success(function(result){
+			if(result){
+				var courseToFav = _.find($scope.coursesOnMap, function(course){
+					return course.id == id;
+				});
+				courseToFav.isNotFavorite = false;
+				alert("Course has been added!");
+			}else{
+				alert("Error!");
+			}
+		});
+	};
 })
 
 .controller('FillYourFoursomeCtrl', function($scope, $http, $location){

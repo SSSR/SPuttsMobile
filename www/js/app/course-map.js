@@ -107,35 +107,32 @@ function markMap(coordinatesArray, options, $scope) {
             $scope.markers.push(marker); // parallel arrays of markers and infoWindows
             $scope.infoWindows.push(infowindow);
 
-            var iconsFolder = ((options == null) | !coordinatesArray[i].HasActualEvents) ? "pins" : "pins-searched";
-
-
-            /*(switch (coordinatesArray[i].type) {
+            switch (coordinatesArray[i].type) {
                 case 0:
                     //public
-                    marker.setIcon("/Content/images/" + iconsFolder + "/red.png");
+                    marker.setIcon("imgs/pins/red.png");
                     break;
                 case 1:
                     //private
-                    marker.setIcon("/Content/images/" + iconsFolder + "/blue.png");
+                    marker.setIcon("imgs/pins/blue.png");
                     break;
                 case 2:
                     //semiprivate
-                    marker.setIcon("/Content/images/" + iconsFolder + "/violet.png");
+                    marker.setIcon("imgs/pins/violet.png");
                     break;
                 case 3:
                     //military
-                    marker.setIcon("/Content/images/" + iconsFolder + "/yellow.png");
+                    marker.setIcon("imgs/pins/yellow.png");
                     break;
                 case 4:
                     //resort
-                    marker.setIcon("/Content/images/" + iconsFolder + "/green.png");
+                    marker.setIcon("imgs/pins/green.png");
                     break;
                 case 5:
                     //resort
-                    marker.setIcon("/Content/images/" + iconsFolder + "/pink.png");
+                    marker.setIcon("imgs/pins/pink.png");
                     break;
-            }*/
+            }
         }
         
 };
