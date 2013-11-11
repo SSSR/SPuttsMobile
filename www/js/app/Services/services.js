@@ -34,6 +34,12 @@ angular.module('socialputts.services', [])
 			},
 			getAddress:function(){
 				return object.Zip + ' ' + object.City + '+' + object.Country + '+' + object.State;
+			},
+			setFavoriteCourses: function(array){
+				object.favCourses = [];
+				_.each(array, function(course){
+					object.favCourses.push(course);
+				});
 			}
 		};
 		

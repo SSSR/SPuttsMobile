@@ -65,14 +65,16 @@
 				</div>
             </div>
 		</form>
-		<div class="row col-lg-6 col-md-7 col-sm-12 col-xs-12 col-lg-offset-2">
-		<ul>
-			<li>test</li>
-			<li>test</li>
-			<li>test</li>
-			<li>test</li>
-			<li>test</li>
-		</ul>
+		<div class="row col-lg-6 col-md-7 col-sm-12 col-xs-12 col-lg-offset-3 pre-scrollable">
+			<div ng-repeat="favCourse in favCourses" style="height: 55px;">
+				<div class="pull-left col-lg-8 col-md-7 col-sm-10 col-xs-10">
+					{{favCourse.courseName}}
+				</div>
+				<div class="pull-right col-lg-3">
+					<a href="#" class="btn  btn-default" ng-click="addToSearch($event)">Select</a>
+				</div>
+			</div>
+		
 		</div>
 		
 		<div class="col-lg-offset-4 col-lg-10">

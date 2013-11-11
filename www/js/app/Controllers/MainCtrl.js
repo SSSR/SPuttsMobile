@@ -80,16 +80,28 @@ angular.module('socialputts.controllers', [])
 
 .controller('CourseFinderCtrl', function($scope, $http, $location, courseFinderService){
 	checkUserLogedOff($location);
-		
+	
+	$scope.favCourses = [];
+	
+	$http.jsonp(socialputtsLink + "/api/Course/GetFavoriteCoursesForUser?email=" + $.jStorage.get('user').userName + "&alt=json-in-script&callback=JSON_CALLBACK")
+		.success(function(result){
+			courseFinderService.setFavoriteCourses(result);
+			_.each(result, function(course){
+				$scope.favCourses.push(course);
+			});
+		});
+	
 	$scope.searchCourse = function($event){
 		$event.preventDefault();
-				
+						
 		var courseForm = $('#course-finder-form'); //form course
 		var courseFormModel = $(courseForm).serializeObject();
 		
 		courseFinderService.setObject(courseFormModel);
 		courseFinderService.setCountry($('#country option:selected').text());
 		
+		
+			
 		$location.path("/courseResult");
 	};
 })
@@ -100,7 +112,6 @@ angular.module('socialputts.controllers', [])
 	$scope.allMarkers = [];
 	$scope.coursesToSort = [];
 	$scope.coordsArray = [];
-	$scope.favCourses = [];
 	$scope.favsCoordArray = [];
 	$scope.markers = [];
 	$scope.infoWindows = [];
@@ -169,7 +180,7 @@ angular.module('socialputts.controllers', [])
                             mapTypeId: google.maps.MapTypeId.ROADMAP
                         };
 
-				$.each($scope.favCourses, function (index, course) {
+				$.each(formObject.favCourses, function (index, course) {
 					$scope.coursesToSort.push(course);
 				});
 				$.each($scope.favsCoordArray, function (index, coord) {
