@@ -78,32 +78,35 @@ angular.module('socialputts.controllers', [])
 })
 
 
-.controller('CourseFinderCtrl', function($rootScope, $scope, $http, $location){
+.controller('CourseFinderCtrl', function($scope, $http, $location, courseFinderService){
 	checkUserLogedOff($location);
-	$rootScope.ready = false;
-	
+		
 	$scope.searchCourse = function($event){
 		$event.preventDefault();
-		
-		$rootScope.coursesOnMap = [];
-		$rootScope.allMarkers = [];
-		$rootScope.coursesToSort = [];
-		$rootScope.coordsArray = [];
-		$rootScope.favCourses = [];
-		$rootScope.favsCoordArray = [];
-		
-		
-		var country = $('#country option:selected').text();
-        var city = $('#city').val();
-        var state = $('#state').val();
-        var zip = $("#zip").val();
-        var adress = zip + ' ' + city + '+' + country + '+' + state;
+				
 		var courseForm = $('#course-finder-form'); //form course
 		var courseFormModel = $(courseForm).serializeObject();
 		
+		courseFinderService.setObject(courseFormModel);
+		courseFinderService.setCountry($('#country option:selected').text());
 		
-		var geocoder = new google.maps.Geocoder();
-        geocoder.geocode({ 'address': adress }, function (results, status) {
+		$location.path("/courseResult");
+	};
+})
+.controller('CourseResultCtrl', function($scope, $http, $location, courseFinderService){
+	checkUserLogedOff($location);
+	
+	$scope.coursesOnMap = [];
+	$scope.allMarkers = [];
+	$scope.coursesToSort = [];
+	$scope.coordsArray = [];
+	$scope.favCourses = [];
+	$scope.favsCoordArray = [];
+	
+	var formObject = courseFinderService.getObject();
+	
+	var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ 'address': courseFinderService.getAddress() }, function (results, status) {
             initializeMap();
 			var zoom = 17;
             if (status == google.maps.GeocoderStatus.OK) {
@@ -125,7 +128,7 @@ angular.module('socialputts.controllers', [])
                         break;
                 }
 
-                var mileage = courseFormModel["Mileage"];
+                var mileage = formObject.Mileage;
                 if (mileage != "0") {
                     switch (mileage) {
                         case "15":
@@ -137,9 +140,9 @@ angular.module('socialputts.controllers', [])
                         case "75":
                             zoom = 8; break;
                     }
-                } else if ((city != "") || (zip != "")) {
+                } else if ((formObject.City != "") || (formObject.Zip != "")) {
                     zoom = 11;
-					courseFormModel.Mileage = "30"
+					formObject.Mileage = "30"
                 }
                 map.setZoom(zoom);
                 map.setCenter(results[0].geometry.location);
@@ -149,7 +152,7 @@ angular.module('socialputts.controllers', [])
             
             var center = map.getCenter();
             var packet = {
-                CourseModel: courseFormModel,
+                CourseModel: formObject,
                 LatLng: {
                     Latitude: center.lat(),
                     Longitude: center.lng()
@@ -164,29 +167,26 @@ angular.module('socialputts.controllers', [])
                             mapTypeId: google.maps.MapTypeId.ROADMAP
                         };
 
-				$rootScope.coursesToSort = [];
-				$rootScope.coordsArray = [];
-
 				$.each($scope.favCourses, function (index, course) {
-					$rootScope.coursesToSort.push(course);
+					$scope.coursesToSort.push(course);
 				});
 				$.each($scope.favsCoordArray, function (index, coord) {
-					$rootScope.coordsArray.push(coord);
+					$scope.coordsArray.push(coord);
 				});
 				
 				$.each(courses, function (index, value) {
 					var courseToAdd = new Course(value);
 
-					$rootScope.coursesToSort.push(courseToAdd);
+					$scope.coursesToSort.push(courseToAdd);
 
 					var coord = new Coords(value);
-					$rootScope.coordsArray.push(coord);
+					$scope.coordsArray.push(coord);
 
 				});
 
 				markMap($scope.coordsArray, myOptions);
 				
-				$rootScope.coursesToSort.sort(function (first, seccond) {
+				$scope.coursesToSort.sort(function (first, seccond) {
 					if (first.discount > seccond.discount) {
 						return -1;
 					} else if (first.discount < seccond.discount) {
@@ -200,19 +200,14 @@ angular.module('socialputts.controllers', [])
 					}
 				});
 
-				$rootScope.coursesToSort = $rootScope.coursesToSort.removeDuplicates();
+				$scope.coursesToSort = $scope.coursesToSort.removeDuplicates();
 
-				$.each($rootScope.coursesToSort, function (index, course) {
-					$rootScope.coursesOnMap.push(course);
+				$.each($scope.coursesToSort, function (index, course) {
+					$scope.coursesOnMap.push(course);
 				});
-				
-				$rootScope.ready = $rootScope.coursesOnMap.length > 0;
 			});
         });
-		
-	};
 })
-
 
 .controller('FillYourFoursomeCtrl', function($scope, $http, $location){
 	checkUserLogedOff($location);

@@ -32,7 +32,9 @@
 			<div class="form-group">
 				<label class="control-label col-lg-4">Country:</label>
 				<div class="col-lg-4">
-					<input type="text" class="form-control" id="country" name="CountryId" value="1" />
+					<select id="country" class="form-control" name="CountryId">
+						<option selected="selected" value="1">United States</option>
+					</select>
 				</div>
             </div>
 			
@@ -74,7 +76,7 @@
 		</div>
 		
 		<div class="col-lg-offset-4 col-lg-10">
-				<a href="#/courseResult" class="btn btn-success btn-lg col-lg-offset-1" ng-click="searchCourse($event)">Search Course</a>
+				<a href="#" class="btn btn-success btn-lg col-lg-offset-1" ng-click="searchCourse($event)">Search Course</a>
 			</div>
 	</div>
 </div>

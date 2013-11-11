@@ -17,4 +17,24 @@ angular.module('socialputts.services', [])
                 return impl.apply(this, arguments);
             };
         };
-    }]);
+    }])
+	
+	.factory('courseFinderService', function(){
+		var object = {};
+		
+        return{
+			getObject: function(){
+				return object;
+			},
+			setObject:function(value){
+				object = value;
+			},
+			setCountry:function(country){
+				object.Country = country;
+			},
+			getAddress:function(){
+				return object.Zip + ' ' + object.City + '+' + object.Country + '+' + object.State;
+			}
+		};
+		
+	});
