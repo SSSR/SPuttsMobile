@@ -21,25 +21,29 @@ angular.module('socialputts.services', [])
 	
 	.factory('courseFinderService', function(){
 		var object = {};
+		object.favCourses = [];
 		
         return{
 			getObject: function(){
 				return object;
 			},
 			setObject:function(value){
-				object = value;
+				object.form = value;
 			},
 			setCountry:function(country){
-				object.Country = country;
+				object.form.Country = country;
 			},
 			getAddress:function(){
-				return object.Zip + ' ' + object.City + '+' + object.Country + '+' + object.State;
+				return object.form.Zip + ' ' + object.form.City + '+' + object.form.Country + '+' + object.form.State;
 			},
-			setFavoriteCourses: function(array){
+			setFavoriteCourses: function(favCourse){
+				object.favCourses.push(favCourse);
+			},
+			removeFavoriteCourse: function(id){
+				_.without(object.favCourses, _.findWhere(object.favCourses, {id: id}))
+			},
+			clearFavoriteCoursesArray:function(){
 				object.favCourses = [];
-				_.each(array, function(course){
-					object.favCourses.push(course);
-				});
 			}
 		};
 		

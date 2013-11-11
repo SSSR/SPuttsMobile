@@ -82,10 +82,10 @@ angular.module('socialputts.controllers', [])
 	checkUserLogedOff($location);
 	
 	$scope.favCourses = [];
+	courseFinderService.clearFavoriteCoursesArray();
 	
 	$http.jsonp(socialputtsLink + "/api/Course/GetFavoriteCoursesForUser?email=" + $.jStorage.get('user').userName + "&alt=json-in-script&callback=JSON_CALLBACK")
 		.success(function(result){
-			courseFinderService.setFavoriteCourses(result);
 			_.each(result, function(course){
 				$scope.favCourses.push(course);
 			});
@@ -104,6 +104,37 @@ angular.module('socialputts.controllers', [])
 			
 		$location.path("/courseResult");
 	};
+	
+	$scope.addToSearch = function($event, id){
+		$event.preventDefault();
+		
+		_.each($scope.favCourses, function(course){
+			if(course.id == id){
+				course.isAdded = true;
+			}
+		});
+		
+		$scope.getFavoriteCourseForUser(id);
+	};
+	
+	$scope.removeFromSearch = function($event, id){
+		_.each($scope.favCourses, function(course){
+			if(course.id == id){
+				course.isAdded = false;
+			}
+		});
+		
+		courseFinderService.removeFavoriteCourse(id);
+	}
+	
+	$scope.getFavoriteCourseForUser = function(id){
+		$http.jsonp(socialputtsLink + "/api/Course/GetFavoriteCourseForUser?email=" + $.jStorage.get('user').userName + "&courseId=" + id + "&alt=json-in-script&callback=JSON_CALLBACK")
+		.success(function(course){
+			var courseToAdd = new Course(course);
+			courseToAdd.isAdded
+			courseFinderService.setFavoriteCourses(courseToAdd);
+		})
+	};	
 })
 .controller('CourseResultCtrl', function($scope, $http, $location, courseFinderService){
 	checkUserLogedOff($location);
@@ -141,7 +172,7 @@ angular.module('socialputts.controllers', [])
                         break;
                 }
 
-                var mileage = formObject.Mileage;
+                var mileage = formObject.form.Mileage;
                 if (mileage != "0") {
                     switch (mileage) {
                         case "15":
@@ -153,9 +184,9 @@ angular.module('socialputts.controllers', [])
                         case "75":
                             zoom = 7; break;
                     }
-                } else if ((formObject.City != "") || (formObject.Zip != "")) {
+                } else if ((formObject.form.City != "") || (formObject.form.Zip != "")) {
                     zoom = 10;
-					formObject.Mileage = "30"
+					formObject.form.Mileage = "30"
                 }
                 map.setZoom(zoom);
                 map.setCenter(results[0].geometry.location);
@@ -165,7 +196,7 @@ angular.module('socialputts.controllers', [])
             
             var center = map.getCenter();
             var packet = {
-                CourseModel: formObject,
+                CourseModel: formObject.form,
                 LatLng: {
                     Latitude: center.lat(),
                     Longitude: center.lng()
