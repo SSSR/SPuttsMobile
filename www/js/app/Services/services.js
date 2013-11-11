@@ -40,7 +40,7 @@ angular.module('socialputts.services', [])
 				object.favCourses.push(favCourse);
 			},
 			removeFavoriteCourse: function(id){
-				_.without(object.favCourses, _.findWhere(object.favCourses, {id: id}))
+				object.favCourses = _.without(object.favCourses, _.findWhere(object.favCourses, {id: id}));
 			},
 			clearFavoriteCoursesArray:function(){
 				object.favCourses = [];

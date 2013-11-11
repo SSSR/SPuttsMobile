@@ -118,6 +118,8 @@ angular.module('socialputts.controllers', [])
 	};
 	
 	$scope.removeFromSearch = function($event, id){
+		$event.preventDefault();
+		
 		_.each($scope.favCourses, function(course){
 			if(course.id == id){
 				course.isAdded = false;
