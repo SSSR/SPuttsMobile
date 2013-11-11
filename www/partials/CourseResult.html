@@ -1,6 +1,6 @@
 <div ng-include src="'partials/Navigation.html'"></div>
 <div>
-	<div class="row">
+	<div class="row pre-scrollable searched-course-result">
 		<table class="table">
 							<thead>
 								<tr>
@@ -10,7 +10,7 @@
 									<th>
 										Course Name
 									</th>
-									<th >
+									<th style="text-align:center;">
 										Foursome Discount (%)
 									</th>
 									<th>
@@ -26,7 +26,7 @@
 										<a class="big-href" onmouseover="">{{course.combinedNameAndMileage}}
 										</a>
 									</td>
-									<td style="text-align: center; width: 60px;">
+									<td style="text-align: center;">
 										<label>{{course.combinedDiscountAndText}}
 										</label>
 									</td>

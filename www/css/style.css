@@ -62,6 +62,6 @@ section#content {
 	width: 32px;
 	height: 45px;
 }
-.favorite-container{
+.favorite-container, .searched-course-result{
 	margin-bottom: 30px;
 }
