@@ -102,6 +102,8 @@ angular.module('socialputts.controllers', [])
 	$scope.coordsArray = [];
 	$scope.favCourses = [];
 	$scope.favsCoordArray = [];
+	$scope.markers = [];
+	$scope.infoWindows = [];
 	
 	var formObject = courseFinderService.getObject();
 	
@@ -132,16 +134,16 @@ angular.module('socialputts.controllers', [])
                 if (mileage != "0") {
                     switch (mileage) {
                         case "15":
-                            zoom = 12; break;
-                        case "30":
                             zoom = 11; break;
+                        case "30":
+                            zoom = 10; break;
                         case "50":
-                            zoom = 9; break;
-                        case "75":
                             zoom = 8; break;
+                        case "75":
+                            zoom = 7; break;
                     }
                 } else if ((formObject.City != "") || (formObject.Zip != "")) {
-                    zoom = 11;
+                    zoom = 10;
 					formObject.Mileage = "30"
                 }
                 map.setZoom(zoom);
@@ -184,7 +186,7 @@ angular.module('socialputts.controllers', [])
 
 				});
 
-				markMap($scope.coordsArray, myOptions);
+				markMap($scope.coordsArray, myOptions, $scope);
 				
 				$scope.coursesToSort.sort(function (first, seccond) {
 					if (first.discount > seccond.discount) {

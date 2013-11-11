@@ -62,7 +62,7 @@ function initializeMap() {
 	}	
 };
 
-function markMap(coordinatesArray, options) {
+function markMap(coordinatesArray, options, $scope) {
 
         var myOptions;
 
@@ -92,4 +92,50 @@ function markMap(coordinatesArray, options) {
         }
 
         map.setOptions(myOptions);
+		
+		
+        //markers
+        for (var i = 0; i < coordinatesArray.length; i++) {
+            var marker = new google.maps.Marker(
+                {
+                    map: map,
+                    position: new google.maps.LatLng(coordinatesArray[i].lat, coordinatesArray[i].long)
+                });
+
+            var infowindow = new google.maps.InfoWindow();
+            $scope.allMarkers.push(marker);
+            $scope.markers.push(marker); // parallel arrays of markers and infoWindows
+            $scope.infoWindows.push(infowindow);
+
+            var iconsFolder = ((options == null) | !coordinatesArray[i].HasActualEvents) ? "pins" : "pins-searched";
+
+
+            /*(switch (coordinatesArray[i].type) {
+                case 0:
+                    //public
+                    marker.setIcon("/Content/images/" + iconsFolder + "/red.png");
+                    break;
+                case 1:
+                    //private
+                    marker.setIcon("/Content/images/" + iconsFolder + "/blue.png");
+                    break;
+                case 2:
+                    //semiprivate
+                    marker.setIcon("/Content/images/" + iconsFolder + "/violet.png");
+                    break;
+                case 3:
+                    //military
+                    marker.setIcon("/Content/images/" + iconsFolder + "/yellow.png");
+                    break;
+                case 4:
+                    //resort
+                    marker.setIcon("/Content/images/" + iconsFolder + "/green.png");
+                    break;
+                case 5:
+                    //resort
+                    marker.setIcon("/Content/images/" + iconsFolder + "/pink.png");
+                    break;
+            }*/
+        }
+        
 };
