@@ -104,9 +104,10 @@
 		})
         .error(function (data, status, headers, config) {
             console.log(config); 
-        }); 
+        });
 
-    $scope.searchCourse = function ($event) {
+        $scope.searchCourse = function ($event) {
+            
         $event.preventDefault();
 
         var courseForm = $('#course-finder-form'); //form course
