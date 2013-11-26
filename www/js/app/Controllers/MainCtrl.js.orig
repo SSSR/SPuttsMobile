@@ -82,9 +82,8 @@
     checkUserLogedOff($location);
 
     $scope.favCourses = [];
-    $scope.searchCourseModel = [];
-    $scope.autocompleteItem = {};
-    
+    $scope.searchCourseModel = []; 
+
     courseFinderService.clearFavoriteCoursesArray();
 
     $http.jsonp(socialputtsLink + "/api/Course/GetFavoriteCoursesForUser?email=" + $.jStorage.get('user').userName + "&alt=json-in-script&callback=JSON_CALLBACK")
@@ -101,10 +100,26 @@
     $http.jsonp(socialputtsLink + "/api/Course/GetCountriesAndStatesForAutoCompleat?email=" + $.jStorage.get('user').userName + "&alt=json-in-script&callback=JSON_CALLBACK")
 		.success(function (result) {
 
-		    $scope.searchCourseModel = result; 
+		    $scope.searchCourseModel = result;
+            
+		    var namesStates = [];
+		    		    
+		    _.each( $scope.searchCourseModel.states,function (state) {
+		    	namesStates.push(state.name);
+		    });
+             
+		    $("#searchField").autocomplete({
+		        target: $('#suggestions'),
+		        source: namesStates,
+		        minLength: 1
+		    });
 		})
         .error(function (data, status, headers, config) {
+<<<<<<< HEAD
+            console.log(config); 
+=======
             console.log(config);
+>>>>>>> 3aa363facaea75d002c987b0cb4b9add3f87f8c6
         });
 
         $scope.searchCourse = function ($event) {

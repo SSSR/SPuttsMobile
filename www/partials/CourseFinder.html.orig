@@ -21,11 +21,8 @@
 				<label class="control-label col-lg-4">State:</label>
 				<div class="col-lg-4">
           
-		           <input type="text" data-ng-model="autocompleteItem.name" list="statetitle" class="form-control" id="state" name="StateName">
-				    <datalist id="statetitle">
-				        <option  data-ng-repeat="state in searchCourseModel.states" value="{{state.name}}"> </option>
-				    </datalist> 
-				 
+				    <input type="text" id="searchField" class="form-control"  >
+                    <ul id="suggestions" data-role="listview" data-inset="true"></ul>
 				</div>
             </div>
 			<div class="form-group">
@@ -56,7 +53,11 @@
 				</div>
             </div>
 			<div class="form-group">
+<<<<<<< HEAD
 				<label class="col-lg-4 control-label">№ of Holes:</label>
+=======
+				<label class="col-lg-4 control-label"> of Holes:</label>
+>>>>>>> 3aa363facaea75d002c987b0cb4b9add3f87f8c6
 				<div class="col-lg-4">
 					<label>
 						<input type="radio" name="NumberOfHoles" checked="checked" value="0"/> All
