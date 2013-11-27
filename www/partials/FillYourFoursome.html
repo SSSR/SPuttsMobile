@@ -1,2 +1,356 @@
-<div ng-include src="'partials/Navigation.html'"></div>
-<div>Create Invitation</div>
+﻿<div ng-include src="'partials/Navigation.html'">
+</div>
+<div>
+    <div class="row">
+        <div class="col-lg-4">
+            <h2 class="green  pull-right">
+                Create Invitation</h2>
+        </div>
+    </div>
+    <div class="create-invitation-form">
+        <form action="/" method="post" class="form-horizontal" name="create-invitation" id="create-invitation-form"
+        novalidate>
+        <div class="form-group">
+            <label class="control-label col-lg-4 pt0">
+                Required fields :</label>
+            <div class="col-lg-4">
+                <div class="mode-container">
+                    <input type="radio" name="mode" value="course-admin" />Course Admin Mode
+                    <input type="radio" name="mode" value="golfer" checked="checked" />Golfer Mode
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-4">
+                Invitation name:
+            </label>
+            <div class="col-lg-4">
+                <input type="text" class="form-control" id="invitation-name" name="invitation name" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-4">
+                Favorite Courses:
+            </label>
+            <div class="col-lg-4 ">
+                <select class="form-control" id="favorite-course" name="Mileage">
+                    <option value="0">Favorite Course 1</option>
+                    <option value="15">Favorite Course 2</option>
+                    <option value="30">Favorite Course 3</option>
+                    <option value="50">Favorite Course 4</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <h3 class="col-lg-offset-6">
+                OR</h3>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-4">
+                Course:
+            </label>
+            <div class="col-lg-4">
+                <input type="text" class="form-control" id="сourse" name="сourse" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-4">
+                Date:
+            </label>
+            <div class="col-lg-4">
+                <input type="text" class="form-control" id="date" name="date" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-4">
+                Exact Time:
+            </label>
+            <div class="col-lg-4">
+                <input type="text" class="form-control" id="exact-time" name="exact-time" />
+                <p>
+                    <small><strong>(Book a tee time at the course and enter the time here) </strong>
+                    </small>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <h3 class="col-lg-offset-6">
+                OR</h3>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-4">
+                Timeframe:
+            </label>
+            <div class="col-lg-4">
+                <select class="form-control" id="timeframe" name="timeframe">
+                    <option value="0">select Timeframe </option>
+                    <option value="15">Timeframe 1 </option>
+                    <option value="30">Timeframe 2</option>
+                    <option value="50">Timeframe 3</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-4">
+                Cost of Greens Fee:
+            </label>
+            <div class="col-lg-4">
+                <select class="form-control" id="cost-greens-fee" name="cost-greens-fee">
+                    <option value="0">&lt;20$ </option>
+                    <option value="15">20$ - 39.99$ </option>
+                    <option value="30">40$ - 59.99$ </option>
+                    <option value="50">60$ - 79.99$ </option>
+                    <option value="50">80$ </option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <h2 class="green pull-right ">
+                    Select Buddies
+                </h2>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-4">
+                <button type="button" class="btn btn-success control-label pull-right ">
+                    Select Buddies</button>
+            </div>
+            <div class="col-lg-4">
+                <p>
+                    <strong>Select the Buddies you would like to invite to play golf. Invite as many as
+                        you'd like, if too many accept your invitation you can select who you want to play
+                        with! </strong>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <h2 class="green pull-right ">
+                    Golfer Match
+                </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="is-active-golfer">
+                <h4 class="pull-right">
+                    Activate Golfer Match</h4>
+                <input type="checkbox" class="pull-right checkbox" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 w24pers pull-left">
+            </div>
+            <div class="col-lg-6 w43pers pull-left">
+                <p>
+                    <strong>Use the following fields to find golfers like you to Fill Your Foursome! Please
+                        provide as much information as possible to best Fill Your Foursome with golfer like
+                        you. </strong>
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-4">
+                Exact Time:
+            </label>
+            <div class="col-lg-4">
+                <input type="text" class="form-control" id="Text1" name="exact-time" />
+                <p>
+                    <small><strong>(Book a tee time at the course and enter the time here) </strong>
+                    </small>
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-4">
+                City:
+            </label>
+            <div class="col-lg-4">
+                <input type="text" class="form-control" id="city" name="city" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="mrgL45per">
+                <h4 class="pull-left mrg0">
+                    AND</h4>
+                <h3 class="pull-left mrg0 mrgL10">
+                    OR</h3>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-4">
+                Zip:
+            </label>
+            <div class="col-lg-4">
+                <input type="text" class="form-control" id="zip" name="zip" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-4">
+                State:
+            </label>
+            <div class="col-lg-4">
+                <input type="text" class="form-control" id="state" name="state" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 w24pers pull-left">
+            </div>
+            <div class="col-lg-6 w43pers pull-left">
+                <input type="checkbox" class="pull-left mrgR10" />
+                <p>
+                    <strong>Include golfers who are not local to where you are playing, but often travel
+                        to play in this area </strong>
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-4">
+                Within:
+            </label>
+            <div class="col-lg-4">
+                <select class="form-control" id="within" name="within">
+                    <option value="0">15 miles </option>
+                    <option value="15">30 miles</option>
+                    <option value="30">50 miles </option>
+                    <option value="50">75 miles </option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-4">
+                Golfer profile:
+            </label>
+            <div class="controls col-lg-4 ">
+                <div class="checkbox-group">
+                    <label class="checkbox">
+                        <input type="checkbox" />
+                        <span>Beginner</span></label>
+                    <label class="checkbox">
+                        <input type="checkbox" />
+                        <span>Serious golfer</span></label>
+                    <label class="checkbox">
+                        <input type="checkbox" />
+                        <span>Just for fun</span></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-4">
+                Gender:
+            </label>
+            <div class="controls col-lg-4 ">
+                <div class="checkbox-group">
+                    <label class="checkbox first">
+                        <input type="radio" />
+                        <span>Male</span></label>
+                    <label class="checkbox">
+                        <input type="radio" />
+                        <span>Female</span></label>
+                    <label class="checkbox">
+                        <input type="radio" />
+                        <span>Just for fun</span></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-4">
+                Age:
+            </label>
+            <select multiple="multiple" class="col-lg-4 group-select ">
+                <option value="0" selected="selected">All</option>
+                <option value="1">&lt;21</option>
+                <option value="2">21-30</option>
+                <option value="3">31-40</option>
+                <option value="4">41-50</option>
+                <option value="5">51-60</option>
+                <option value="6">61+</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-4 pt0">
+                Handicap:
+            </label>
+            <select multiple="multiple" class="col-lg-4 group-select">
+                <option value="0" selected="selected">All</option>
+                <option value="1">&lt;5</option>
+                <option value="2">5-10</option>
+                <option value="3">11-15</option>
+                <option value="4">16-20</option>
+                <option value="5">21-25</option>
+                <option value="6">26+</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-4">
+                Getting around:
+            </label>
+            <div class="controls col-lg-4 ">
+                <div class="checkbox-group">
+                    <label class="checkbox first">
+                        <input type="radio" />
+                        <span>Walk</span></label>
+                    <label class="checkbox">
+                        <input type="radio" />
+                        <span>Ride</span></label>
+                    <label class="checkbox">
+                        <input type="radio" />
+                        <span>Doesn't matter</span></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-4">
+                Smoke?
+            </label>
+            <div class="controls col-lg-4 ">
+                <div class="checkbox-group">
+                    <label class="checkbox first">
+                        <input type="radio" />
+                        <span>Yes</span></label>
+                    <label class="checkbox">
+                        <input type="radio" />
+                        <span>No</span></label>
+                    <label class="checkbox">
+                        <input type="radio" />
+                        <span>Doesn't matter</span></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-4">
+                Drink?
+            </label>
+            <div class="controls col-lg-4 ">
+                <div class="checkbox-group">
+                    <label class="checkbox first">
+                        <input type="radio" />
+                        <span>Yes</span></label>
+                    <label class="checkbox">
+                        <input type="radio" />
+                        <span>No</span></label>
+                    <label class="checkbox">
+                        <input type="radio" />
+                        <span>Doesn't matter</span></label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <button type="submit" class="btn btn-warning col-lg-offset-3">
+                Save preferences as Default</button>
+        </div>
+            <div class="row mrgT20">
+                <div class="pull-left mrgR30 col-lg-offset-3 ">
+                    <button type="button" class="btn btn-success" id="send-invitations-button">
+                    Send Invitations</button>
+                <button type="button" class="btn">
+                    Cancel</button>
+
+                </div>
+               
+    
+                <h2 id="invt-pending" class="pull-left mrg0" > 0 Invitation Pending</h2>
+            </div>
+        </form>
+    </div>
+</div>

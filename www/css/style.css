@@ -65,3 +65,78 @@ section#content {
 .favorite-container, .searched-course-result{
 	margin-bottom: 30px;
 }
+
+/*Fill Your Foursome page ================================================================================== */
+h2.green 
+{
+    font-weight: normal;
+    font-size: 20px;
+    color: #66AE64;
+}
+
+.mode-container {
+    width: 265px;
+    float: right; 
+}
+
+.mode-container input 
+{    
+    margin-left: 10px;
+}
+
+.create-invitation-form .control-label .pt0
+{    
+    padding-top: 0! important;
+}
+
+.create-invitation-form .checkbox{
+ 
+    margin-right: 20px;
+}
+
+.is-active-golfer {
+    width: 40%;
+}
+
+.w24pers {
+    width: 24%;
+}
+
+.w43pers {
+    width: 43%;
+}
+
+.checkbox-group .checkbox span
+{
+    float: none;
+    white-space: nowrap;
+}
+
+.checkbox-group .checkbox 
+{
+    float: left;   
+    cursor: pointer;
+}
+
+.checkbox-group .first 
+{
+    padding-left: 0;
+}
+
+.form-group .controls 
+{
+    width: 35% !important; 
+}
+
+ .group-select   {
+    padding-left: 0;
+    padding-right: 0px;
+    margin-left: 20px;
+    width: 30.5%;
+}
+
+#invt-pending {
+    
+}
+ 
+/*Fill Your Foursome end-page ================================================================================== */
