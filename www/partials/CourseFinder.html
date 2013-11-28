@@ -20,14 +20,9 @@
 			<div class="form-group">
 				<label class="control-label col-lg-4">State:</label>
 				<div class="col-lg-4"> 
-                   AngularJS  <input type="text" autocomplete="on"  data-ng-model="autocompleteItem.name" list="statetitle" class="form-control" id="state" name="StateName">
-                     <datalist id="statetitle">
-                         <option  data-ng-repeat="state in searchCourseModel.states" value="{{state.name}}"> </option>
-                     </datalist>
-                              JQuery UI    <input id="statesId" type="text"  class="form-control"  name="StateName">
-                              
-                              
-                              AngularJS 2  <div><input type="text" class="form-control" ng-model="selected" typeahead="state.name for state in searchCourseModel.states | filter:$viewValue:startsWith"></div>
+					<div>
+						<input type="text" class="form-control" ng-model="selected" typeahead="state.name for state in searchCourseModel.states | filter:$viewValue:startsWith">
+					</div>
 				</div>
             </div>
 			<div class="form-group">
