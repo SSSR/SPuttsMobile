@@ -19,14 +19,12 @@
             </div>
 			<div class="form-group">
 				<label class="control-label col-lg-4">State:</label>
-				<div class="col-lg-4">
-          
-		           <input type="text" data-ng-model="autocompleteItem.name" list="statetitle" class="form-control" id="state" name="StateName">
-				    <datalist id="statetitle">
-				        <option  data-ng-repeat="state in searchCourseModel.states" value="{{state.name}}"> </option>
-				    </datalist> 
-				 
-				</div>
+				<div class="col-lg-4"> 
+                     <input type="text" data-ng-model="autocompleteItem.name" list="statetitle" class="form-control" id="state" name="StateName">
+                         <datalist id="statetitle">
+                            <option  data-ng-repeat="state in searchCourseModel.states" value="{{state.name}}"> </option>
+                         </datalist>
+                </div>
             </div>
 			<div class="form-group">
 				<label class="control-label col-lg-4">Zip:</label>
@@ -38,7 +36,7 @@
 				<label class="control-label col-lg-4">Country:</label>
 				<div class="col-lg-4">
 					<select id="country" class="form-control" name="CountryId" disabled="disabled">
-                        <option  ng-repeat="country in searchCourseModel.countries">{{country.name}} </option>
+                        <option  ng-repeat="country in searchCourseModel.countries" value="{{country.id}}">{{country.name}} </option>
 					</select>
 				</div>
             </div>

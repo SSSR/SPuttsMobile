@@ -84,32 +84,27 @@
     $scope.favCourses = [];
     $scope.searchCourseModel = [];
     $scope.autocompleteItem = {};
-    
+
     courseFinderService.clearFavoriteCoursesArray();
 
     $http.jsonp(socialputtsLink + "/api/Course/GetFavoriteCoursesForUser?email=" + $.jStorage.get('user').userName + "&alt=json-in-script&callback=JSON_CALLBACK")
-		.success(function (result) {
-		    _.each(result, function (course) {
-		        $scope.favCourses.push(course);
-		    });
-		})
-        .error(function (data, status, headers, config) {
-            console.log(config);
-
+        .success(function (result) {
+            _.each(result, function (course) {
+                $scope.favCourses.push(course);
+            });
         });
 
     $http.jsonp(socialputtsLink + "/api/Course/GetCountriesAndStatesForAutoCompleat?email=" + $.jStorage.get('user').userName + "&alt=json-in-script&callback=JSON_CALLBACK")
-		.success(function (result) {
+        .success(function(result) {
 
-		    $scope.searchCourseModel = result; 
-		})
-        .error(function (data, status, headers, config) {
-            console.log(config);
+            $scope.searchCourseModel = result;
         });
 
-        $scope.searchCourse = function ($event) {
-            
+    $scope.searchCourse = function ($event) {
+
         $event.preventDefault();
+
+      $("#country").removeAttr("disabled");
 
         var courseForm = $('#course-finder-form'); //form course
         var courseFormModel = $(courseForm).serializeObject();
