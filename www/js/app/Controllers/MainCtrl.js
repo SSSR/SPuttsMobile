@@ -114,7 +114,7 @@
 
 
 
-        $location.path("/courseResult");
+        $location.path("/courseResult");
     };
 
     $scope.addToSearch = function ($event, id) {
@@ -284,8 +284,421 @@
     };
 })
 
-.controller('FillYourFoursomeCtrl', function ($scope, $http, $location) {
+.controller('FillYourFoursomeCtrl', function ($scope, $http, $location, $route) {
     checkUserLogedOff($location);
+	var invitationId = $route.current.params.invitationId;
+    var declinedInvitationId = $route.current.params.declinedInvitationId;
+    var mode = $route.current.params.mode ? $route.current.params.mode : "golfer";
+    $scope.displayBuddiesContaner = false;
+
+    if (invitationId != null) {
+        $http
+            .get("/profile/GetFillYourFoursome?invitationId=" + invitationId + "&mode=" + mode)
+            .success(function (data) {
+                _.each(data.Buddies, function (buddyId) {
+                    _.each(data.UserBuddies, function (buddy) {
+                        if (buddy.Id == buddyId) {
+                            buddy.IsSelected = true;
+                            return;
+                        }
+                    });
+                });
+
+                if (data.Timeframe == null) {
+                    data.ExactTime = data.ExactTimeString; //convertTime(data.Date);
+                }
+
+                if (data.GolferMatch.State == null)
+                    data.GolferMatch.State = data.GolferMatch.States[0].Id;
+
+                data.GolferMatch.AgesValues.unshift({ 'Id': '0', 'DisplayValue': 'All' });
+                data.GolferMatch.HandicapsValues.unshift({ 'Id': '0', 'DisplayValue': 'All' });
+
+                if (data.GolferMatch.Ages.length == 0)
+                    data.GolferMatch.Ages.push(data.GolferMatch.AgesValues[0].Id);
+
+                if (data.GolferMatch.Handicaps.length == 0)
+                    data.GolferMatch.Handicaps.push(data.GolferMatch.HandicapsValues[0].Id);
+
+                data.Date = convertDate(data.Date);
+
+                $scope.invitation = data;
+                $scope.SetDisplayBuddyContainer();
+            });
+    } else if (declinedInvitationId != null) {
+        
+        $http
+            .get("/profile/GetDeclinedInvitation?declinedInvitationId=" + declinedInvitationId)
+            .success(function (data) {
+                data.Buddies = null;
+
+                if (data.GolferMatch.State == null)
+                    data.GolferMatch.State = data.GolferMatch.States[0].Id;
+
+                data.GolferMatch.AgesValues.unshift({ 'Id': '0', 'DisplayValue': 'All' });
+                data.GolferMatch.HandicapsValues.unshift({ 'Id': '0', 'DisplayValue': 'All' });
+
+                if (data.GolferMatch.Ages.length == 0)
+                    data.GolferMatch.Ages.push(data.GolferMatch.AgesValues[0].Id);
+
+                if (data.GolferMatch.Handicaps.length == 0)
+                    data.GolferMatch.Handicaps.push(data.GolferMatch.HandicapsValues[0].Id);
+
+                data.Date = convertDate(data.Date);
+                $scope.invitation = data;
+                $scope.invitation.Name = "";
+                $scope.SetDisplayBuddyContainer();
+            });
+    } else {
+        var courseId = $route.current.params.courseId;
+
+        $http
+            .jsonp(socialputtsLink + "/api/FoursomeInvitation/GetInvitation?userId=" + $.jStorage.get('user').userId + "&courseId=" + courseId + "&mode=" + mode + "&alt=json-in-script&callback=JSON_CALLBACK")
+            .success(function (data) {
+                if (courseId == null) {
+                    data.Date = "";
+                    data.Timeframe = null;
+                    data.FavoriteCourse = null;
+
+                    if (data.GolferMatch.State == null)
+                        data.GolferMatch.State = data.GolferMatch.States[0].Id;
+
+                    data.GolferMatch.AgesValues.unshift({ 'Id': '0', 'DisplayValue': 'All' });
+                    data.GolferMatch.HandicapsValues.unshift({ 'Id': '0', 'DisplayValue': 'All' });
+
+                    if (data.GolferMatch.Ages.length == 0)
+                        data.GolferMatch.Ages.push(data.GolferMatch.AgesValues[0].Id);
+
+                    if (data.GolferMatch.Handicaps.length == 0)
+                        data.GolferMatch.Handicaps.push(data.GolferMatch.HandicapsValues[0].Id);
+
+                    $scope.invitation = data;
+                    $scope.SetDisplayBuddyContainer();
+                } else {
+                    if ($.jStorage.get('fill-your-foursome-model') != null) {
+                        var model = $.jStorage.get('fill-your-foursome-model');
+                        $.jStorage.deleteKey('fill-your-foursome-model');
+                        model.Date = new Date(model.Date);
+                        $scope.invitation = model;
+                        $scope.invitation.Course = data.Course;
+                    } else {
+                        $scope.invitation = data;
+                        $scope.invitation.Date = "";
+                    }
+                }
+
+            });
+    }
+
+    $scope.CourseFinder = function () {
+        $scope.invitation.FavoriteCourse = null;
+
+        $.jStorage.set('fill-your-foursome-model', $scope.invitation);
+
+        window.location.href = "/course/courses";
+    };
+
+    $scope.ShowSelectBuddiesPopup = function () {
+        $scope.IsShowBuddiesPopup = true;
+
+        $("#select-buddies-popup")
+            .dialog({
+                /*autoOpen: false,*/
+                width: 600,
+                height: 400,
+                modal: true,
+                resizable: false,
+                buttons: {
+                    Close: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+    };
+
+    $scope.AddBuddy = function () {
+        this.buddy.IsSelected = true;
+        $scope.displayBuddiesContaner = true;
+    };
+
+    $scope.RemoveBuddy = function () {
+        this.buddy.IsSelected = false;
+        var selectedBuddies = $scope.invitation.UserBuddies.filter(function (item) {
+            return item.IsSelected;
+        });
+        $scope.displayBuddiesContaner = selectedBuddies.length > 0;
+    };
+
+    $scope.SetDisplayBuddyContainer = function() {
+        var selectedBuddies = $scope.invitation.UserBuddies.filter(function(item) {
+            return item.IsSelected;
+        });
+        $scope.displayBuddiesContaner = selectedBuddies.length > 0;
+    };
+
+    $scope.SendInvitations = function () {
+        
+        if ($("#FavoriteCourse").length > 0) {
+            if (
+            ($scope.invitation.FavoriteCourse == null || $scope.invitation.FavoriteCourse == '')
+                && $scope.invitation.Course != null) {
+                if (!$scope.CheckCourseIfExist($scope.invitation.Course)) {
+                    alert('Course does not exist');
+                    return;
+                }
+            }
+        } else {
+            if ($scope.invitation.Course.Id == 0 && $scope.invitation.Course != null) {
+                alert('Course is not selected!');
+                return;
+            }
+        }
+
+        
+
+        var selectedBuddies = $scope.invitation.UserBuddies.filter(function (item) {
+            return item.IsSelected;
+        });
+
+        $scope.invitation.Buddies = _.pluck(selectedBuddies, 'Id');
+        $scope.invitation.GolfersNeeded =
+            $scope.invitation.SpecialOffer == null
+                ? 3
+                : $scope.invitation.GolfersNeeded == 0
+                    ? 4
+                    : $scope.invitation.GolfersNeeded;
+        if ($scope.validateForm()) {
+            $http
+                .post("/profile/SendInvitations/", $scope.invitation)
+                    .success(function (data) {
+                        $scope.invitationsSent = parseInt(data);
+                        $scope.isSentInvitationsMany = $scope.invitationsSent > 1;
+                        $scope.dispalyIf0InvitationsSent = data == 0;
+                        $(".successfully-sent-invitations").show();
+                        $("input, select, textarea").not("form#view-mode>input").attr("readonly", true).attr("disabled", "disabled");
+                    });
+        } else {
+            $scope.markInvalidFields();
+        }
+    };
+
+    $scope.validateForm = function () {
+        $(".required-text-warning").hide();
+        if ($scope.invitation.Name != null && $scope.invitation.Name.length > 0
+            && $scope.invitation.Date.length > 0
+            && (($scope.invitation.ExactTime != null && $scope.invitation.ExactTime.toString().length > 0) || $scope.invitation.Timeframe != null)) {
+
+            if (new Date($("#Date").val()).toDateString() == (new Date()).toDateString()) {
+                var st = (new Date()).toTimeString();
+                var et = $("#exacttime").val();
+                if (Date.parse((new Date()).toDateString() + " " + st) > Date.parse((new Date()).toDateString() + " " + et)) {
+                    alert("Time can not be earlier than now for today!");
+                    return false;
+                }
+            }
+
+            if ($scope.invitation.GolferMatch.ActivateGolferMatch) {
+                if ((($scope.invitation.GolferMatch.City != null && $scope.invitation.GolferMatch.City.length > 0) || $scope.invitation.GolferMatch.ZipCode != null && $scope.invitation.GolferMatch.ZipCode.length > 0)) {
+                    if (!$scope.checkGolfersMatch())
+                        return false;
+                } else {
+                    $(".required-text-warning").show();
+                    return false;
+                }
+            }
+
+            if ($("#specialOffer").length > 0 && 
+                ($scope.invitation.SpecialOffer == null
+                    || $scope.invitation.SpecialOffer == ""
+                    || $scope.invitation.SpecialOffer == undefined)) {
+                $(".required-text-warning").show();
+                return false;
+            }
+
+            return true;
+        }
+        $(".required-text-warning").show();
+        return false;
+    };
+
+    $scope.checkGolfersMatch = function () {
+        if (!$scope.invitation.GolferMatch.ProfileBeginner &&
+            !$scope.invitation.GolferMatch.ProfileSerious &&
+                !$scope.invitation.GolferMatch.JustForFun) {
+            alert("Please select a 'Golfer profile'.");
+            return false;
+        }
+
+        if (!$scope.invitation.GolferMatch.TeesRed &&
+            !$scope.invitation.GolferMatch.TeesWhite &&
+                !$scope.invitation.GolferMatch.TeesBlue &&
+                    !$scope.invitation.GolferMatch.TeesBlack) {
+            alert("Please select a 'Tees'.");
+            return false;
+        }
+
+        if (!$scope.invitation.GolferMatch.FormatsPlayYourOwnBall &&
+            !$scope.invitation.GolferMatch.FormatsScramble &&
+                !$scope.invitation.GolferMatch.FormatsBestBall &&
+                    !$scope.invitation.GolferMatch.FormatsSkins) {
+            alert("Please select a 'Formats'.");
+            return false;
+        }
+
+        return true;
+    };
+
+    $scope.markInvalidFields = function () {
+        if ($scope.invitation.Name == null || $scope.invitation.Name.length == 0) {
+            $("#InvitationName").addClass("error-input");
+        } else {
+            $("#InvitationName").removeClass("error-input");
+        }
+
+        if ($scope.invitation.Date.length == 0) {
+            $("#Date").addClass("error-input");
+        } else {
+            $("#Date").removeClass("error-input");
+        }
+
+        if (($scope.invitation.ExactTime == null || $scope.invitation.ExactTime.length == 0) && $scope.invitation.Timeframe == null) {
+            $("#exacttime").addClass("error-input");
+            $("#timeframe").addClass("error-input");
+        } else {
+            $("#exacttime").removeClass("error-input");
+            $("#timeframe").removeClass("error-input");
+        }
+
+        if (($scope.invitation.GolferMatch.City == null || $scope.invitation.GolferMatch.City.length == 0) && ($scope.invitation.GolferMatch.ZipCode == null || $scope.invitation.GolferMatch.ZipCode.length == 0)) {
+            $("#city-name").addClass("error-input");
+            $("#zip-code").addClass("error-input");
+        } else {
+            $("#city-name").removeClass("error-input");
+            $("#zip-code").removeClass("error-input");
+        }
+
+        if (new Date($("#Date").val()).toDateString() == (new Date()).toDateString()) {
+            var st = (new Date()).toTimeString();
+            var et = $("#exacttime").val();
+            if (Date.parse((new Date()).toDateString() + " " + st) > Date.parse((new Date()).toDateString() + " " + et)) {
+                $("#Date").addClass("error-input");
+                $("#exacttime").addClass("error-input");
+            } else {
+                $("#Date").removeClass("error-input");
+                $("#exacttime").removeClass("error-input");
+            }
+        }
+        if ($("#specialOffer").length > 0 &&
+                ($scope.invitation.SpecialOffer == null
+                    || $scope.invitation.SpecialOffer == ""
+                    || $scope.invitation.SpecialOffer == undefined)) {
+
+            $("#specialOffer").addClass("error-input");
+        } else {
+            $("#specialOffer").removeClass("error-input");
+        }
+    };
+
+    $scope.SaveGolferMatchAsDefault = function () {
+
+        if (!$scope.checkGolfersMatch())
+            return;
+
+        $http.post('/profile/SaveGolfersMatchDefault', $scope.invitation.GolferMatch)
+            .success(function (data) {
+                
+            });
+    };
+
+    $scope.ChangeDate = function (e) {
+        
+    };
+
+    $scope.BookaTeeTime = function () {
+        var invitation = $scope.invitation;
+
+        var url = null;
+
+        if (invitation.FavoriteCourse != null && invitation.FavoriteCourse != 0) {
+            url = GetCourseUrlByCourseId(invitation.FavoriteCourse);
+        } else if (invitation.Course != null) {
+            var course = invitation.Course;
+
+            if (course.CourseSiteBookingUrl != null && course.CourseSiteBookingUrl != '') {
+                url = course.CourseSiteBookingUrl;
+            } else if (course.CourseName) {
+                url = GetCourseUrlByCourseName(course.CourseName);
+            }
+        }
+        if (url != null) {
+            OpenBookATeeTimeWindow(url);
+        } else {
+            alert("Course does not exist");
+        }
+    };
+
+    $scope.EditInvitation = function () {
+        if (($scope.invitation.FavoriteCourse == null || $scope.invitation.FavoriteCourse == '')
+                && $scope.invitation.Course != null) {
+            if (!$scope.CheckCourseIfExist($scope.invitation.Course)) {
+                alert('Course does not exist');
+                return;
+            }
+        }
+
+        var invitationId = $.url().param('invitationId');
+
+        var selectedBuddies = $scope.invitation.UserBuddies.filter(function (item) {
+            return item.IsSelected;
+        });
+
+        $scope.invitation.Buddies = _.pluck(selectedBuddies, 'Id');
+
+        $http.post('/FoursomeInvitation/EditInvitation?invitationId=' + invitationId, $scope.invitation)
+            .success(function (data) {
+                $scope.invitationsSent = parseInt(data);
+                $scope.isSentInvitationsMany = $scope.invitationsSent > 1;
+                $(".successfully-sent-invitations").show();
+            });
+    };
+
+    $scope.CheckCourseIfExist = function (course) {
+        var isValid = false;
+        $.ajax({
+            url: "/Course/CheckCourseExist?courseName=" + course.CourseName,
+            type: "GET",
+            async: false,
+            success: function (courseId) {
+                if (courseId != 0) {
+                    isValid = true;
+                    course.Id = courseId;
+                }
+            }
+        });
+        return isValid;
+    };
+
+    $scope.ChangeGolferMatch = function () {
+        if (($scope.invitation.GolferMatch.ZipCode != null && $scope.invitation.GolferMatch.ZipCode.length != 5) && ($scope.invitation.GolferMatch.City == null || $scope.invitation.GolferMatch.City.length == 0)) {
+            return;
+        }
+
+        $scope.IsSearchGolfersMatch = true;
+        $scope.IsSearchedGolfersMatch = false;
+
+        $http
+            .post("/profile/GetCountMatchedGolfers/", $scope.invitation)
+                .success(function (data) {
+                    $scope.IsSearchGolfersMatch = false;
+                    $scope.IsSearchedGolfersMatch = true;
+                    $scope.countInvitationsPending = parseInt(data);
+                    $scope.isGreaterThenOne = $scope.countInvitationsPending > 1;
+                })
+            .error(function () {
+                $scope.IsSearchGolfersMatch = false;
+                $scope.IsSearchedGolfersMatch = false;
+            });
+    };
 })
 .controller('ManageInvitationsCtrl', function ($scope, $http, $location) {
     checkUserLogedOff($location);
