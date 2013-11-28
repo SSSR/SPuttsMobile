@@ -383,7 +383,7 @@
                         $scope.invitation.Course = data.Course;
                     } else {
                         $scope.invitation = data;
-                        $scope.invitation.Date = "";
+                        $scope.invitation.date = "";
                     }
                 }
 

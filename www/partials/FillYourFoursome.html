@@ -25,7 +25,7 @@
                 Invitation name:
             </label>
             <div class="col-lg-4">
-                <input type="text" class="form-control" id="invitation-name" name="invitation name" />
+                <input type="text" class="form-control" id="invitation-name" name="invitation name" ng-model="invitation.Name" />
             </div>
         </div>
         <div class="form-group">
@@ -33,12 +33,14 @@
                 Favorite Courses:
             </label>
             <div class="col-lg-4 ">
-                <select class="form-control" id="favorite-course" name="Mileage">
-                    <option value="0">Favorite Course 1</option>
-                    <option value="15">Favorite Course 2</option>
-                    <option value="30">Favorite Course 3</option>
-                    <option value="50">Favorite Course 4</option>
-                </select>
+				<select class="fav-courses form-control" name="FavoriteCourse" id="FavoriteCourse"
+					ng-model="invitation.favoriteCourse"
+					ng-options="c.id as c.courseName for c in invitation.favoriteCourses"
+					ng-disabled="invitation.course.courseName.length > 0">
+					<option value="">Select course</option>
+				</select>
+            <p></p>
+                
             </div>
         </div>
         <div class="row">
@@ -50,7 +52,7 @@
                 Course:
             </label>
             <div class="col-lg-4">
-                <input type="text" class="form-control" id="сourse" name="сourse" />
+                <input type="text" class="form-control" id="сourse" name="сourse" ng-model="invitation.course.courseName" ng-disabled="!(invitation.favoriteCourse == null || invitation.favoriteCourse == '')"/>
             </div>
         </div>
         <div class="form-group">
@@ -58,7 +60,7 @@
                 Date:
             </label>
             <div class="col-lg-4">
-                <input type="text" class="form-control" id="date" name="date" />
+                <input type="text" class="form-control" id="date" name="date" coursedatepicker ng-model="invitation.date"/>
             </div>
         </div>
         <div class="form-group">
@@ -66,7 +68,9 @@
                 Exact Time:
             </label>
             <div class="col-lg-4">
-                <input type="text" class="form-control" id="exact-time" name="exact-time" />
+                <input type="text" class="form-control" id="exact-time" name="exact-time" ng-model="invitation.exactTime"
+                ng-disabled="!((invitation.timeframe == null || invitation.timeframe == '') && invitation.timeframe != 0)"
+                exacttimepicker />
                 <p>
                     <small><strong>(Book a tee time at the course and enter the time here) </strong>
                     </small>
@@ -82,11 +86,11 @@
                 Timeframe:
             </label>
             <div class="col-lg-4">
-                <select class="form-control" id="timeframe" name="timeframe">
-                    <option value="0">select Timeframe </option>
-                    <option value="15">Timeframe 1 </option>
-                    <option value="30">Timeframe 2</option>
-                    <option value="50">Timeframe 3</option>
+				<select name="Timeframe" id="timeframe" class="form-control"
+					ng-model="invitation.timeframe"
+					ng-options="t.value as t.text for t in invitation.timeFrames"
+					ng-disabled="invitation.exactTime">
+					<option value="">Select timeframe</option>
                 </select>
             </div>
         </div>
@@ -95,13 +99,12 @@
                 Cost of Greens Fee:
             </label>
             <div class="col-lg-4">
-                <select class="form-control" id="cost-greens-fee" name="cost-greens-fee">
-                    <option value="0">&lt;20$ </option>
-                    <option value="15">20$ - 39.99$ </option>
-                    <option value="30">40$ - 59.99$ </option>
-                    <option value="50">60$ - 79.99$ </option>
-                    <option value="50">80$ </option>
-                </select>
+				<select name="CostOfGreensFee" id="cost-greens-fee" class="form-control"
+					ng-model="invitation.costOfGreensFeeValue"
+					ng-options="t.value as t.text for t in invitation.costOfGreensFee">
+					<option value="">Select Cost of Greens Fee</option>
+				</select>
+            <p></p>
             </div>
         </div>
         <div class="row">
