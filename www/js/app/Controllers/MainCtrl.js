@@ -84,6 +84,14 @@
     $scope.favCourses = [];
     $scope.searchCourseModel = [];
     $scope.autocompleteItem = {};
+    /*temp*/
+    $scope.selected = undefined;
+//    $scope.states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+
+    $scope.startsWith = function(state, viewValue) {
+        return state.substr(0, viewValue.length).toLowerCase() == viewValue.toLowerCase();
+    };
+
 
     courseFinderService.clearFavoriteCoursesArray();
 
@@ -95,16 +103,27 @@
         });
 
     $http.jsonp(socialputtsLink + "/api/Course/GetCountriesAndStatesForAutoCompleat?email=" + $.jStorage.get('user').userName + "&alt=json-in-script&callback=JSON_CALLBACK")
-        .success(function(result) {
+        .success(function (result) {
 
             $scope.searchCourseModel = result;
+
+            var namesStates = [];
+
+            _.each($scope.searchCourseModel.states, function (state) {
+                namesStates.push(state.name);
+            });
+
+            $("#statesId").autocomplete({
+                source: namesStates
+            });
+
         });
 
     $scope.searchCourse = function ($event) {
 
         $event.preventDefault();
 
-      $("#country").removeAttr("disabled");
+        $("#country").removeAttr("disabled");
 
         var courseForm = $('#course-finder-form'); //form course
         var courseFormModel = $(courseForm).serializeObject();
@@ -114,7 +133,7 @@
 
 
 
-        $location.path("/courseResult");
+        $location.path("/courseResult");
     };
 
     $scope.addToSearch = function ($event, id) {

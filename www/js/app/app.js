@@ -1,4 +1,4 @@
-var socialputts = angular.module('socialputts', ['socialputts.controllers', 'socialputts.services', 'ui.router']);
+var socialputts = angular.module('socialputts', ['socialputts.controllers', 'socialputts.services', 'ui.router', 'ui.bootstrap']);
 
 socialputts
 .config(function ($compileProvider){
@@ -22,3 +22,5 @@ socialputts
 		.when('/manageInvitations', {templateUrl: 'partials/ManageInvitations.html', controller: 'ManageInvitationsCtrl'})
 		.otherwise({ redirectTo: '/signin'})
 }]);
+
+
