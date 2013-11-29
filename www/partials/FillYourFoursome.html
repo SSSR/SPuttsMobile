@@ -2,9 +2,9 @@
 </div>
 <div>
     <div class="row">
-        <div class="col-lg-4">
-            <h2 class="green  pull-right">
-                Create Invitation</h2>
+        <div id="indent-create-invitation" class="col-lg-2"></div>
+        <div class="col-lg-2">
+            <h2 class="green"> Create Invitation</h2>
         </div>
     </div>
     <div class="create-invitation-form">
@@ -105,16 +105,18 @@
             <p></p>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-4">
-                <h2 class="green pull-right ">
-                    Select Buddies
-                </h2>
-            </div>
-        </div>
-            <div class="form-group">
+            <div class="row">
+                <div id="indent-select-buddies-topic" class="col-lg-2" ></div>
                 <div class="col-lg-4">
-                    <button type="button" class="btn btn-success control-label pull-right " ng-click="ShowSelectBuddiesPopup()">
+                    <h2 class="green">
+                        Select Buddies
+                    </h2>
+                </div>
+            </div>
+            <div class="form-group">
+            <div id="indent-select-buddies" class="col-lg-2"> </div>
+                <div  class="w13pers col-lg-2">
+                    <button type="button" class="btn btn-success control-label  " ng-click="ShowSelectBuddiesPopup()">
                         Select Buddies</button> 
                 </div>
                 <div class="col-lg-4">
@@ -145,223 +147,249 @@
                 </div>
             </div>
 
+            <div class="row"> 
+                <div    class="col-lg-2 w21pers"> 
+                </div>
+
+                <div class="col-lg-2">
+                    <h2 class="green  ">
+                        Golfer Match
+                    </h2>
+                </div>
+            </div>
+
             <div class="row">
-            <div class="col-lg-4">
-                <h2 class="green pull-right ">
-                    Golfer Match
-                </h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="is-active-golfer">
-                <h4 class="pull-right">
-                    Activate Golfer Match</h4>
-                <input type="checkbox" class="pull-right checkbox" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-3 w24pers pull-left">
-            </div>
-            <div class="col-lg-6 w43pers pull-left">
-                <p>
-                    <strong>Use the following fields to find golfers like you to Fill Your Foursome! Please
-                        provide as much information as possible to best Fill Your Foursome with golfer like
-                        you. </strong>
-                </p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-lg-4">
-                Exact Time:
-            </label>
-            <div class="col-lg-4">
-                <input type="text" class="form-control" id="Text1" name="exact-time" />
-                <p>
-                    <small><strong>(Book a tee time at the course and enter the time here) </strong>
-                    </small>
-                </p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-lg-4">
-                City:
-            </label>
-            <div class="col-lg-4">
-                <input type="text" class="form-control" id="city" name="city" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="mrgL45per">
-                <h4 class="pull-left mrg0">
-                    AND</h4>
-                <h3 class="pull-left mrg0 mrgL10">
-                    OR</h3>
+                <div  class="col-lg-2 w21pers"> 
+                </div>
+                
+                <div class="col-lg-3">
+                    <input type="checkbox" class="mrgT10  checkbox pull-left" /> 
+                <h4 class="pull-left">
+                    
+
+                    Activate Golfer Match
+                </h4> 
+                </div> 
+                
             </div>
             
+            <div id="golfer-match-form" class="form-group " >
+                
 
-        </div>
-        <div class="form-group">
-            <label class="control-label col-lg-4">
-                Zip:
-            </label>
-            <div class="col-lg-4">
-                <input type="text" class="form-control" id="zip" name="zip" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-lg-4">
-                State:
-            </label>
-            <div class="col-lg-4">
-                <input type="text" class="form-control" id="state" name="state" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-3 w24pers pull-left">
-            </div>
-            <div class="col-lg-6 w43pers pull-left">
-                <input type="checkbox" class="pull-left mrgR10" />
-                <p>
-                    <strong>Include golfers who are not local to where you are playing, but often travel
-                        to play in this area </strong>
-                </p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-lg-4">
-                Within:
-            </label>
-            <div class="col-lg-4">
-                <select class="form-control" id="within" name="within">
-                    <option value="0">15 miles </option>
-                    <option value="15">30 miles</option>
-                    <option value="30">50 miles </option>
-                    <option value="50">75 miles </option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-lg-4">
-                Golfer profile:
-            </label>
-            <div class="controls col-lg-4 ">
-                <div class="checkbox-group">
-                    <label class="checkbox">
-                        <input type="checkbox" />
-                        <span>Beginner</span></label>
-                    <label class="checkbox">
-                        <input type="checkbox" />
-                        <span>Serious golfer</span></label>
-                    <label class="checkbox">
-                        <input type="checkbox" />
-                        <span>Just for fun</span></label>
+
+                <div class="row">
+                    <div class="col-lg-3 w24pers pull-left">
+                    </div>
+                    <div class="col-lg-6   pull-left">
+                        <p>
+                            <strong>Use the following fields to find golfers like you to Fill Your Foursome! Please
+                                provide as much information as possible to best Fill Your Foursome with golfer like
+                                you. </strong>
+                        </p>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-lg-4">
-                Gender:
-            </label>
-            <div class="controls col-lg-4 ">
-                <div class="checkbox-group">
-                    <label class="checkbox first">
-                        <input type="radio" />
-                        <span>Male</span></label>
-                    <label class="checkbox">
-                        <input type="radio" />
-                        <span>Female</span></label>
-                    <label class="checkbox">
-                        <input type="radio" />
-                        <span>Just for fun</span></label>
+
+                <div class="form-group">
+                    <label class="control-label col-lg-4">
+                        Exact Time:
+                    </label>
+                    <div class="col-lg-4">
+                        <input type="text" class="form-control" id="Text1" name="exact-time" />
+                        <p>
+                            <small><strong>(Book a tee time at the course and enter the time here) </strong>
+                            </small>
+                        </p>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-lg-4">
-                Age:
-            </label>
-            <select multiple="multiple" class="col-lg-4 group-select ">
-                <option value="0" selected="selected">All</option>
-                <option value="1">&lt;21</option>
-                <option value="2">21-30</option>
-                <option value="3">31-40</option>
-                <option value="4">41-50</option>
-                <option value="5">51-60</option>
-                <option value="6">61+</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-lg-4 pt0">
-                Handicap:
-            </label>
-            <select multiple="multiple" class="col-lg-4 group-select">
-                <option value="0" selected="selected">All</option>
-                <option value="1">&lt;5</option>
-                <option value="2">5-10</option>
-                <option value="3">11-15</option>
-                <option value="4">16-20</option>
-                <option value="5">21-25</option>
-                <option value="6">26+</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-lg-4">
-                Getting around:
-            </label>
-            <div class="controls col-lg-4 ">
-                <div class="checkbox-group">
-                    <label class="checkbox first">
-                        <input type="radio" />
-                        <span>Walk</span></label>
-                    <label class="checkbox">
-                        <input type="radio" />
-                        <span>Ride</span></label>
-                    <label class="checkbox">
-                        <input type="radio" />
-                        <span>Doesn't matter</span></label>
+                <div class="form-group">
+                    <label class="control-label col-lg-4">
+                        City:
+                    </label>
+                    <div class="col-lg-4">
+                        <input type="text" class="form-control" id="city" name="city" />
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-lg-4">
-                Smoke?
-            </label>
-            <div class="controls col-lg-4 ">
-                <div class="checkbox-group">
-                    <label class="checkbox first">
-                        <input type="radio" />
-                        <span>Yes</span></label>
-                    <label class="checkbox">
-                        <input type="radio" />
-                        <span>No</span></label>
-                    <label class="checkbox">
-                        <input type="radio" />
-                        <span>Doesn't matter</span></label>
+                <div class="row">
+                    <div class="mrgL45per">
+                        <h4 class="pull-left mrg0">
+                            AND</h4>
+                        <h3 class="pull-left mrg0 mrgL10">
+                            OR</h3>
+                    </div>
+            
+
                 </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-lg-4">
-                Drink?
-            </label>
-            <div class="controls col-lg-4 ">
-                <div class="checkbox-group">
-                    <label class="checkbox first">
-                        <input type="radio" />
-                        <span>Yes</span></label>
-                    <label class="checkbox">
-                        <input type="radio" />
-                        <span>No</span></label>
-                    <label class="checkbox">
-                        <input type="radio" />
-                        <span>Doesn't matter</span></label>
+                <div class="form-group">
+                    <label class="control-label col-lg-4">
+                        Zip:
+                    </label>
+                    <div class="col-lg-4">
+                        <input type="text" class="form-control" id="zip" name="zip" />
+                    </div>
                 </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-4">
+                        State:
+                    </label>
+                    <div class="col-lg-4">
+                        <input type="text" class="form-control" id="state" name="state" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 w24pers pull-left">
+                    </div>
+                    <div class="col-lg-6   pull-left">
+                        <input type="checkbox" class="pull-left mrgR10" />
+                        <p>
+                            <strong>Include golfers who are not local to where you are playing, but often travel
+                                to play in this area </strong>
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-4">
+                        Within:
+                    </label>
+                    <div class="col-lg-4">
+                        <select class="form-control" id="within" name="within">
+                            <option value="0">15 miles </option>
+                            <option value="15">30 miles</option>
+                            <option value="30">50 miles </option>
+                            <option value="50">75 miles </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-4">
+                        Golfer profile:
+                    </label>
+                    <div class="controls col-lg-4 ">
+                        <div class="checkbox-group">
+                            <label class="checkbox">
+                                <input type="checkbox" />
+                                <span>Beginner</span></label>
+                            <label class="checkbox">
+                                <input type="checkbox" />
+                                <span>Serious golfer</span></label>
+                            <label class="checkbox">
+                                <input type="checkbox" />
+                                <span>Just for fun</span></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-4">
+                        Gender:
+                    </label>
+                    <div class="controls col-lg-4 ">
+                        <div class="checkbox-group">
+                            <label class="checkbox first">
+                                <input type="radio" />
+                                <span>Male</span></label>
+                            <label class="checkbox">
+                                <input type="radio" />
+                                <span>Female</span></label>
+                            <label class="checkbox">
+                                <input type="radio" />
+                                <span>Just for fun</span></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">  
+                    <label class="control-label col-lg-4">
+                        Age:
+                    </label>
+                    
+                     <div class="col-lg-4">    
+                         <select multiple="multiple" class="col-lg-4 group-select ">
+                             <option value="0" selected="selected">All</option>
+                             <option value="1">&lt;21</option>
+                             <option value="2">21-30</option>
+                             <option value="3">31-40</option>
+                             <option value="4">41-50</option>
+                             <option value="5">51-60</option>
+                             <option value="6">61+</option>
+                         </select>
+                    </div> 
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-4">
+                        Handicap:
+                    </label>
+                    <div class="col-lg-4"> 
+                        <select multiple="multiple" class="col-lg-4 group-select">
+                            <option value="0" selected="selected">All</option>
+                            <option value="1">&lt;5</option>
+                            <option value="2">5-10</option>
+                            <option value="3">11-15</option>
+                            <option value="4">16-20</option>
+                            <option value="5">21-25</option>
+                            <option value="6">26+</option>
+                        </select>
+                     </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-4">
+                        Getting around:
+                    </label>
+                    <div class="controls col-lg-4 ">
+                        <div class="checkbox-group">
+                            <label class="checkbox first">
+                                <input type="radio" />
+                                <span>Walk</span></label>
+                            <label class="checkbox">
+                                <input type="radio" />
+                                <span>Ride</span></label>
+                            <label class="checkbox">
+                                <input type="radio" />
+                                <span>Doesn't matter</span></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-4">
+                        Smoke?
+                    </label>
+                    <div class="controls col-lg-4 ">
+                        <div class="checkbox-group">
+                            <label class="checkbox first">
+                                <input type="radio" />
+                                <span>Yes</span></label>
+                            <label class="checkbox">
+                                <input type="radio" />
+                                <span>No</span></label>
+                            <label class="checkbox">
+                                <input type="radio" />
+                                <span>Doesn't matter</span></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-4">
+                        Drink?
+                    </label>
+                    <div class="controls col-lg-4 ">
+                        <div class="checkbox-group">
+                            <label class="checkbox first">
+                                <input type="radio" />
+                                <span>Yes</span></label>
+                            <label class="checkbox">
+                                <input type="radio" />
+                                <span>No</span></label>
+                            <label class="checkbox">
+                                <input type="radio" />
+                                <span>Doesn't matter</span></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row"> 
+                    <div id="indent-save-pref-btn" class="col-lg-3" > </div>   
+                    <button type="submit" class="btn btn-warning mrgL10"> Save preferences as Default</button> 
+                </div>
+
             </div>
-        </div>
-        <div class="row">
-            <button type="submit" class="btn btn-warning col-lg-offset-3">
-                Save preferences as Default</button>
-        </div>
+           <!-- end id="golfer-match-form-->
+
             <div class="row mrgT20">
                 <div class="pull-left mrgR30 col-lg-offset-3 ">
                     <button type="button" class="btn btn-success" id="send-invitations-button">

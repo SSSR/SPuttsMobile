@@ -1,12 +1,16 @@
-body{
+body
+{
 	padding-top: 70px;
 }
 
-.page-container{
+.page-container
+{
 	max-width: 100%;
 	margin: 0 auto;
 }
-footer {
+
+footer 
+{
     min-height: 50px;
     clear: both;
     border-width: 0px;
@@ -16,53 +20,68 @@ footer {
     padding: 20px;
 }
 
-section#content {
+section#content 
+{
     padding-bottom: 150px;
     overflow: visible;
 }
 
-#head {
+#head 
+{
 	width: 100%;
 }
-.divider{
+
+.divider
+{
 	height: 1px;
 	margin: 9px 0;
 	overflow: hidden;
 	background-color: #e5e5e5;
 }
 
-.dashboard-btns{
+.dashboard-btns
+{
 	margin-bottom: 5%;
 	line-height: 40px;
 }
 
-.center-block{
+.center-block
+{
 	display:block;
 	margin: 0 auto;
 	text-align:center;
 }
-.social-buttons{
-	margin-bottom: 20px;
-}
-.news-feed{
-	margin-bottom: 20px;
-}
-.news-feed textarea{
+.social-buttons
+{
 	margin-bottom: 20px;
 }
 
-#map{
+.news-feed
+{
+	margin-bottom: 20px;
+}
+
+.news-feed textarea
+{
+	margin-bottom: 20px;
+}
+
+#map
+{
 	width:100%;
 	height: 300px;
 }
 
-.addToFavsIcon{
+.addToFavsIcon
+{
 	background-image: url('../imgs/favorite.png');
 	display: block;
 	width: 32px;
 	height: 45px;
 }
-.favorite-container, .searched-course-result{
+
+.favorite-container, .searched-course-result
+{
 	margin-bottom: 30px;
 }
 
@@ -74,7 +93,8 @@ h2.green
     color: #66AE64;
 }
 
-.mode-container {
+.mode-container 
+{
     width: 265px;
     float: right; 
 }
@@ -89,22 +109,10 @@ h2.green
     padding-top: 0! important;
 }
 
-.create-invitation-form .checkbox{
- 
+.create-invitation-form .checkbox
+{ 
     margin-right: 20px;
-}
-
-.is-active-golfer {
-    width: 40%;
-}
-
-.w24pers {
-    width: 24%;
-}
-
-.w43pers {
-    width: 43%;
-}
+} 
 
 .checkbox-group .checkbox span
 {
@@ -125,32 +133,71 @@ h2.green
 
 .form-group .controls 
 {
-    width: 35% !important; 
+    width: auto !important; 
 }
 
- .group-select   {
+ .group-select   
+ {
     padding-left: 0;
-    padding-right: 0px;
-    margin-left: 20px;
-    width: 30.5%;
+    padding-right: 0px; 
+    width: 100%;
 }
 
-#invt-pending {
+#invt-pending 
+{
     
 }
+
+#indent-select-buddies 
+{
+    width: 20.5%;
+}
+
+#indent-create-invitation 
+{
+    width: 18.7%;
+}
+
+#indent-golfer-match 
+{
+    width: 18.7%;
+}
+
+#indent-select-buddies-topic 
+{
+    width: 19.5%;
+}
+
+#indent-save-pref-btn
+{
+    width: 24.3%;
+}
  
+#golfer-match-form
+{
+    background-color: #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    opacity: 0.8;
+ 
+   /* cursor: not-allowed;*/
+}
+
 /*Fill Your Foursome end-page ================================================================================== */
-.buddy{
+.buddy
+{
 	overflow:hidden;
 	margin-bottom: 10px;
 }
 
-.avatar{
+.avatar
+{
 	max-width:55px;
 	margin-right: 3px;
 }
 
-img.small-avatar{
+img.small-avatar
+{
 	min-width: 40px;
 	min-height: 40px;
 	max-width: 60px;
@@ -163,6 +210,7 @@ img.small-avatar{
 	margin-right: auto;
 	margin-left: auto;
 }
+
 .buddy .name
 {
 	/*width: 59%;*/
