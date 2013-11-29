@@ -70,7 +70,7 @@
             <div class="col-lg-4">
                 <input type="text" class="form-control" id="exact-time" name="exact-time" ng-model="invitation.exactTime"
                 ng-disabled="!((invitation.timeframe == null || invitation.timeframe == '') && invitation.timeframe != 0)"
-                exacttimepicker />
+                exacttimeonblur exacttimepicker />
                 <p>
                     <small><strong>(Book a tee time at the course and enter the time here) </strong>
                     </small>

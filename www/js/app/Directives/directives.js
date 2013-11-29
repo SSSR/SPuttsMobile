@@ -5,13 +5,30 @@ socialputts.directive('exacttimepicker', function () {
         link: function (scope, element, attrs, ngModelCtrl) {
             $(function () {
                 element.timepicker({
-                    interval: 1,
-                    scrollbar: true,
-                    startHour: 6,
-                    change: function (time) {
+					ampm:true,
+					timeFormat: 'hh:mm TT',
+                    onSelect: function (time) {
                         ngModelCtrl.$setViewValue(element.val());
                         scope.$apply();
+						element.unbind('blur');
                     }
+                });
+            });
+        }
+    };
+});
+
+socialputts.directive('exacttimeonblur', function () {
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+        link: function (scope, elm, attr, ngModelCtrl) {
+            elm.bind('blur', function () {
+                scope.$apply(function () {
+					if(!scope.invitation.exactTime){
+						elm.val("");
+					}
+                    ngModelCtrl.$setViewValue(elm.val());
                 });
             });
         }
@@ -53,6 +70,7 @@ socialputts.directive('ngModelOnblur', function () {
         }
     };
 });
+
 
 socialputts.directive('onlyNumberInput', function () {
     return {
