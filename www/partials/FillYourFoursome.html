@@ -112,36 +112,40 @@
                 </h2>
             </div>
         </div>
-        <div class="form-group">
-            <div class="col-lg-4">
-                <button type="button" class="btn btn-success control-label pull-right " ng-click="ShowSelectBuddiesPopup()">
-                    Select Buddies</button>
-					<div class="buddies-list" id="buddies-list" ng-show="displayBuddiesContaner">
-						<div ng-repeat="buddy in invitation.userBuddies | filter: { IsSelected: true}">
-							<div class="buddy" >            
-								<input type="hidden" name="Buddies" value="<%= item.get('Id') %>" />
-								<div class="avatar">
-									<img src="http://socialputts.com/Profile/GetAvatar/{{buddy.username}}" alt="" class="small-avatar"/>
-								</div>
-								<div class='name'>
-									{{buddy.firstName}} {{buddy.lastName}}
-								</div>
-								<div class='buttons-panel'>
-									<button type='button' class='remove-buddy btn btn-success' ng-click="RemoveBuddy()">Remove</button>
-								</div>
-							</div>
-						</div>
-					</div>
+            <div class="form-group">
+                <div class="col-lg-4">
+                    <button type="button" class="btn btn-success control-label pull-right " ng-click="ShowSelectBuddiesPopup()">
+                        Select Buddies</button> 
+                </div>
+                <div class="col-lg-4">
+                    <p>
+                        <strong>Select the Buddies you would like to invite to play golf. Invite as many as
+                            you'd like, if too many accept your invitation you can select who you want to play
+                            with! </strong>
+                    </p>
+                </div>
             </div>
-            <div class="col-lg-4">
-                <p>
-                    <strong>Select the Buddies you would like to invite to play golf. Invite as many as
-                        you'd like, if too many accept your invitation you can select who you want to play
-                        with! </strong>
-                </p>
+            <div class="form-group">
+                <div class="col-lg-4"></div>
+                <div class="col-lg-4" id="buddies-list" ng-show="displayBuddiesContaner">
+                    <div ng-repeat="buddy in invitation.userBuddies | filter: { IsSelected: true}">
+                        <div class="buddy" >            
+                            <input type="hidden" name="Buddies" value="<%= item.get('Id') %>" />
+                            <div class="avatar pull-left">
+                                <img src="http://socialputts.com/Profile/GetAvatar/{{buddy.username}}" alt="" class="small-avatar"/>
+                            </div>
+                            <div class='name pull-left'>
+                                {{buddy.firstName}} {{buddy.lastName}}
+                            </div>
+                            <div class='buttons-panel pull-right'>
+                                <button type='button' class='remove-buddy btn btn-success' ng-click="RemoveBuddy()">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row">
+
+            <div class="row">
             <div class="col-lg-4">
                 <h2 class="green pull-right ">
                     Golfer Match

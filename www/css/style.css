@@ -163,6 +163,8 @@ img.small-avatar{
 	margin-right: auto;
 	margin-left: auto;
 }
-.buddy .name{
-	width: 70%;
+.buddy .name
+{
+	/*width: 59%;*/
+    margin-left: 3%;
 }
