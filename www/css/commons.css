@@ -1,13 +1,16 @@
 
-.mrgL45per {
+.mrgL45per 
+{
     margin-left: 45%;
 }
 
-.mrg0 {
+.mrg0 
+{
     margin: 0px;
 }
 
-.mrgL10 {
+.mrgL10 
+{
     margin-left: 10px;
 }
 
@@ -16,14 +19,36 @@
     margin-right: 10px !important   
 }
 
-.mrgR30 {
+.mrgR30 
+{
     margin-right: 30px;
 }
 
-.mrgT20 {
+.mrgT10 
+{
+    margin-top: 10px !important;
+}
+
+.mrgT20 
+{    
     margin-top: 20px;
 }
 
+.w13pers
+{
+    width: 13%;
+}
+
+.w21pers 
+{
+    width: 21%;
+}
+
+.w24pers 
+{
+    width: 24%;
+} 
+ 
 
 .checkbox-group
 {
