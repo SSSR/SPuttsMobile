@@ -442,14 +442,14 @@
 
     $scope.RemoveBuddy = function () {
         this.buddy.IsSelected = false;
-        var selectedBuddies = $scope.invitation.UserBuddies.filter(function (item) {
+        var selectedBuddies = $scope.invitation.userBuddies.filter(function (item) {
             return item.IsSelected;
         });
         $scope.displayBuddiesContaner = selectedBuddies.length > 0;
     };
 
     $scope.SetDisplayBuddyContainer = function() {
-        var selectedBuddies = $scope.invitation.UserBuddies.filter(function(item) {
+        var selectedBuddies = $scope.invitation.userBuddies.filter(function(item) {
             return item.IsSelected;
         });
         $scope.displayBuddiesContaner = selectedBuddies.length > 0;
