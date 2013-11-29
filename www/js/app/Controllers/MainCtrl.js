@@ -459,15 +459,11 @@
         
         if ($("#FavoriteCourse").length > 0) {
             if (
-            ($scope.invitation.FavoriteCourse == null || $scope.invitation.FavoriteCourse == '')
-                && $scope.invitation.Course != null) {
-                if (!$scope.CheckCourseIfExist($scope.invitation.Course)) {
-                    alert('Course does not exist');
-                    return;
-                }
+            ($scope.invitation.favoriteCourse == null || $scope.invitation.favoriteCourse == '') && $scope.invitation.course != null) {
+                $scope.CheckCourseIfExist();
             }
         } else {
-            if ($scope.invitation.Course.Id == 0 && $scope.invitation.Course != null) {
+            if ($scope.invitation.course.id == 0 && $scope.invitation.course != null) {
                 alert('Course is not selected!');
                 return;
             }
@@ -475,20 +471,20 @@
 
         
 
-        var selectedBuddies = $scope.invitation.UserBuddies.filter(function (item) {
+        var selectedBuddies = $scope.invitation.userBuddies.filter(function (item) {
             return item.IsSelected;
         });
 
-        $scope.invitation.Buddies = _.pluck(selectedBuddies, 'Id');
-        $scope.invitation.GolfersNeeded =
-            $scope.invitation.SpecialOffer == null
+        $scope.invitation.buddies = _.pluck(selectedBuddies, 'id');
+        $scope.invitation.golfersNeeded =
+            $scope.invitation.specialOffer == null
                 ? 3
-                : $scope.invitation.GolfersNeeded == 0
+                : $scope.invitation.golfersNeeded == 0
                     ? 4
-                    : $scope.invitation.GolfersNeeded;
+                    : $scope.invitation.golfersNeeded;
         if ($scope.validateForm()) {
             $http
-                .post("/profile/SendInvitations/", $scope.invitation)
+                .post(socialputtsLink + "/api/FoursomeInvitation/SendInvitations?userId=" + $.jStorage.get('user').userId, $scope.invitation)
                     .success(function (data) {
                         $scope.invitationsSent = parseInt(data);
                         $scope.isSentInvitationsMany = $scope.invitationsSent > 1;
@@ -503,11 +499,11 @@
 
     $scope.validateForm = function () {
         $(".required-text-warning").hide();
-        if ($scope.invitation.Name != null && $scope.invitation.Name.length > 0
-            && $scope.invitation.Date.length > 0
-            && (($scope.invitation.ExactTime != null && $scope.invitation.ExactTime.toString().length > 0) || $scope.invitation.Timeframe != null)) {
+        if ($scope.invitation.name != null && $scope.invitation.name.length > 0
+            && $scope.invitation.date.length > 0
+            && (($scope.invitation.exactTime != null && $scope.invitation.exactTime.toString().length > 0) || $scope.invitation.timeframe != null)) {
 
-            if (new Date($("#Date").val()).toDateString() == (new Date()).toDateString()) {
+            if (new Date($("#date").val()).toDateString() == (new Date()).toDateString()) {
                 var st = (new Date()).toTimeString();
                 var et = $("#exacttime").val();
                 if (Date.parse((new Date()).toDateString() + " " + st) > Date.parse((new Date()).toDateString() + " " + et)) {
@@ -516,8 +512,8 @@
                 }
             }
 
-            if ($scope.invitation.GolferMatch.ActivateGolferMatch) {
-                if ((($scope.invitation.GolferMatch.City != null && $scope.invitation.GolferMatch.City.length > 0) || $scope.invitation.GolferMatch.ZipCode != null && $scope.invitation.GolferMatch.ZipCode.length > 0)) {
+            if ($scope.invitation.golferMatch.activateGolferMatch) {
+                if ((($scope.invitation.golferMatch.city != null && $scope.invitation.golferMatch.city.length > 0) || $scope.invitation.golferMatch.zipCode != null && $scope.invitation.golferMatch.zipCode.length > 0)) {
                     if (!$scope.checkGolfersMatch())
                         return false;
                 } else {
@@ -657,12 +653,9 @@
     };
 
     $scope.EditInvitation = function () {
-        if (($scope.invitation.FavoriteCourse == null || $scope.invitation.FavoriteCourse == '')
-                && $scope.invitation.Course != null) {
-            if (!$scope.CheckCourseIfExist($scope.invitation.Course)) {
-                alert('Course does not exist');
-                return;
-            }
+        if (($scope.invitation.favoriteCourse == null || $scope.invitation.favoriteCourse == '')
+                && $scope.invitation.course != null) {
+            $scope.CheckCourseIfExist();
         }
 
         var invitationId = $.url().param('invitationId');
@@ -681,20 +674,16 @@
             });
     };
 
-    $scope.CheckCourseIfExist = function (course) {
-        var isValid = false;
-        $.ajax({
-            url: "/Course/CheckCourseExist?courseName=" + course.CourseName,
-            type: "GET",
-            async: false,
-            success: function (courseId) {
-                if (courseId != 0) {
-                    isValid = true;
-                    course.Id = courseId;
-                }
-            }
-        });
-        return isValid;
+    $scope.CheckCourseIfExist = function () {
+        $http.jsonp(socialputtsLink + "/api/Course/CheckCourseExist?courseName=" + $scope.invitation.course.courseName + "&alt=json-in-script&callback=JSON_CALLBACK")
+		.success(function(courseId){
+			if (courseId != 0) {
+				$scope.invitation.course.id = courseId;
+			}else{
+				alert('Course does not exist');
+				return;
+			}					
+		});
     };
 
     $scope.ChangeGolferMatch = function () {
