@@ -116,8 +116,24 @@
         </div>
         <div class="form-group">
             <div class="col-lg-4">
-                <button type="button" class="btn btn-success control-label pull-right ">
+                <button type="button" class="btn btn-success control-label pull-right " ng-click="ShowSelectBuddiesPopup()">
                     Select Buddies</button>
+					<div class="buddies-list" id="buddies-list" ng-show="displayBuddiesContaner">
+						<div ng-repeat="buddy in invitation.userBuddies | filter: { IsSelected: true}">
+							<div class="buddy" >            
+								<input type="hidden" name="Buddies" value="<%= item.get('Id') %>" />
+								<div class="avatar">
+									<img src="http://socialputts.com/Profile/GetAvatar/{{buddy.username}}" alt="" class="small-avatar"/>
+								</div>
+								<div class='name'>
+									{{buddy.firstName}} {{buddy.lastName}}
+								</div>
+								<div class='buttons-panel'>
+									<button type='button' class='remove-buddy btn btn-success' ng-click="RemoveBuddy()">Remove</button>
+								</div>
+							</div>
+						</div>
+					</div>
             </div>
             <div class="col-lg-4">
                 <p>
@@ -357,3 +373,20 @@
         </form>
     </div>
 </div>
+
+<div id="select-buddies-popup" ng-show="IsShowBuddiesPopup" class="select-buddies-popup" title="Invite to Play">
+        <div ng-repeat="buddy in invitation.userBuddies">
+            <div class="buddy" ng-class="{selected: buddy.IsSelected}">
+                <div class="avatar pull-left">
+                    <img src="http://socialputts.com/Profile/GetAvatar/{{buddy.username}}" alt="" class="small-avatar"/>
+                </div>
+                <div class='name pull-left'>
+                    {{buddy.firstName}} {{buddy.lastName}}
+                </div>
+                <div class='buttons-panel pull-right'>
+                    <button type='button' class=' btn btn-success' ng-click="AddBuddy()" ng-hide="buddy.IsSelected">Add</button>
+                    <button type='button' class='btn btn-success' ng-click="RemoveBuddy()" ng-show="buddy.IsSelected">Remove</button>
+                </div>
+            </div>
+        </div>
+    </div>
