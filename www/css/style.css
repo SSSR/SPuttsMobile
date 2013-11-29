@@ -140,3 +140,29 @@ h2.green
 }
  
 /*Fill Your Foursome end-page ================================================================================== */
+.buddy{
+	overflow:hidden;
+	margin-bottom: 10px;
+}
+
+.avatar{
+	max-width:55px;
+	margin-right: 3px;
+}
+
+img.small-avatar{
+	min-width: 40px;
+	min-height: 40px;
+	max-width: 60px;
+	max-height: 60px;
+	border-style: solid;
+	border-color: #D1E7D1;
+	border-color: #53a753;
+	border-width: 1px;
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+}
+.buddy .name{
+	width: 70%;
+}

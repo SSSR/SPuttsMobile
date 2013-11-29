@@ -422,10 +422,11 @@
         $("#select-buddies-popup")
             .dialog({
                 /*autoOpen: false,*/
-                width: 600,
-                height: 400,
-                modal: true,
+                width: $(window).width(),
+                height: $(window).height(),
                 resizable: false,
+				closeOnEscape: false,
+				open: function() { $(".ui-dialog-titlebar-close").hide(); },
                 buttons: {
                     Close: function () {
                         $(this).dialog("close");
