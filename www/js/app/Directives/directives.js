@@ -28,7 +28,6 @@ socialputts.directive('exacttimeonblur', function () {
 					if(!scope.invitation.exactTime){
 						elm.val("");
 					}
-                    ngModelCtrl.$setViewValue(elm.val());
                 });
             });
         }
