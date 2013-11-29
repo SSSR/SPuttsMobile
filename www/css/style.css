@@ -168,3 +168,8 @@ img.small-avatar{
 	/*width: 59%;*/
     margin-left: 3%;
 }
+
+#buddies-list{
+	border: 2px solid #ccc;
+	padding: 2%;
+}
