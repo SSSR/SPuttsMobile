@@ -374,21 +374,21 @@
             .jsonp(socialputtsLink + "/api/FoursomeInvitation/GetInvitation?userId=" + $.jStorage.get('user').userId + "&courseId=" + courseId + "&mode=" + mode + "&alt=json-in-script&callback=JSON_CALLBACK")
             .success(function (data) {
                 if (courseId == null) {
-                    data.Date = "";
-                    data.Timeframe = null;
-                    data.FavoriteCourse = null;
+                    data.date = "";
+                    data.timeframe = null;
+                    data.favoriteCourse = null;
 
-                    if (data.GolferMatch.State == null)
-                        data.GolferMatch.State = data.GolferMatch.States[0].Id;
+                    if (data.golferMatch.state == null)
+                        data.golferMatch.state = data.golferMatch.states[0].id;
 
-                    data.GolferMatch.AgesValues.unshift({ 'Id': '0', 'DisplayValue': 'All' });
-                    data.GolferMatch.HandicapsValues.unshift({ 'Id': '0', 'DisplayValue': 'All' });
+                    data.golferMatch.agesValues.unshift({ 'id': '0', 'displayValue': 'All' });
+                    data.golferMatch.handicapsValues.unshift({ 'id': '0', 'displayValue': 'All' });
 
-                    if (data.GolferMatch.Ages.length == 0)
-                        data.GolferMatch.Ages.push(data.GolferMatch.AgesValues[0].Id);
+                    if (data.golferMatch.ages.length == 0)
+                        data.golferMatch.ages.push(data.golferMatch.agesValues[0].id);
 
-                    if (data.GolferMatch.Handicaps.length == 0)
-                        data.GolferMatch.Handicaps.push(data.GolferMatch.HandicapsValues[0].Id);
+                    if (data.golferMatch.handicaps.length == 0)
+                        data.golferMatch.handicaps.push(data.golferMatch.handicapsValues[0].id);
 
                     $scope.invitation = data;
                     $scope.SetDisplayBuddyContainer();
