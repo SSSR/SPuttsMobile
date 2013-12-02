@@ -704,7 +704,7 @@
         $scope.IsSearchedGolfersMatch = false;
 
         $http
-            .post("/profile/GetCountMatchedGolfers/", $scope.invitation)
+            .post(socialputtsLink + "/api/FoursomeInvitation/GetCountMatchedGolfers?userId=" + $.jStorage.get('user').userId, $scope.invitation)
                 .success(function (data) {
                     $scope.IsSearchGolfersMatch = false;
                     $scope.IsSearchedGolfersMatch = true;

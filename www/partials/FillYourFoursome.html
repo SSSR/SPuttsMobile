@@ -184,21 +184,6 @@
                                 provide as much information as possible to best Fill Your Foursome with golfer like
                                 you. </strong>
                         </p>
-						
-						<div class="row">
-							<div class="col-lg-3 w24pers pull-left">
-							</div>
-							<div class="col-lg-6   pull-left">
-								<input type="checkbox" class="pull-left mrgR10" 
-								ng-model="invitation.golferMatch.includeGolfersWhoNotLocal"
-								ng-change="ChangeGolferMatch()"
-								ng-disabled="!invitation.golferMatch.activateGolferMatch"/>
-							</div>
-						</div>
-						<p>
-                            <strong>Include golfers who are not local to where you are playing, but often travel
-                                to play in this area </strong>
-                        </p>
                     </div>
                 </div>
 
@@ -229,7 +214,7 @@
                 <div class="row">
                     <div class="mrgL45per">
                         <h4 class="pull-left">
-                            AND/OR</h4>
+                            OR</h4>
                     </div>
                 </div>
                 
@@ -239,13 +224,23 @@
                     </label>
                     <div class="col-lg-4">
                         <input type="text" class="form-control" id="zip" name="zip" 
-						ng-model="invitation.GolferMatch.ZipCode"
+						ng-model="invitation.golferMatch.zipCode"
 						ng-disabled="invitation.golferMatch.city.length > 0 || !invitation.golferMatch.activateGolferMatch"
 						only-number-input=""
 						ng-change="ChangeGolferMatch()"/>
                     </div>
                 </div>
                 
+				<div class="row">
+					<div class="col-lg-12 col-lg-offset-2 mrgB20 include-golfers">
+						<input type="checkbox" class="pull-left mrgR10" 
+						ng-model="invitation.golferMatch.includeGolfersWhoNotLocal"
+						ng-change="ChangeGolferMatch()"
+						ng-disabled="!invitation.golferMatch.activateGolferMatch"/><strong>Include golfers who are not local to where you are playing, but often travel
+						to play in this area </strong>
+					</div>
+				</div>
+				
                 
                 <div class="form-group">
                     <label class="control-label col-lg-4">
@@ -349,7 +344,7 @@
                     </label>
                     <div class="controls col-lg-4 ">
                         <div class="checkbox-group">
-                            <label class="checkbox first">
+                            <label class="checkbox">
                                 <input type="checkbox"
 									ng-model="invitation.golferMatch.teesRed"
 									ng-change="ChangeGolferMatch()"
@@ -383,7 +378,7 @@
                     </label>
                     <div class="controls col-lg-4 ">
                         <div class="checkbox-group">
-                            <label class="checkbox first">
+                            <label class="checkbox">
                                 <input type="checkbox"
 									ng-model="invitation.golferMatch.formatsPlayYourOwnBall"
 									ng-change="ChangeGolferMatch()"
@@ -511,28 +506,26 @@
                     Cancel</button>
 
                 </div>
-               
-    
-                <h2 id="invt-pending" class="pull-left mrg0" > 0 Invitation Pending</h2>
 				
 				<div class="searched-invitations" ng-show="IsSearchedGolfersMatch && invitation.golferMatch.activateGolferMatch">
 					<div ng-switch on="isGreaterThenOne">
 						<div ng-switch-when="true">
 							<label>
-								<h2>
-									{{countInvitationsPending}} Invitations Pending</h2>
+								<h4>
+									{{countInvitationsPending}} Invitations Pending</h4>
 							</label>
 						</div>
 						<div ng-switch-when="false">
 							<label>
-								<h2>
-									{{countInvitationsPending}} Invitation Pending</h2>
+								<h4>
+									{{countInvitationsPending}} Invitation Pending</h4>
 							</label>
 						</div>
 					</div>
 				</div>
 				
             </div>
+			
         </form>
     </div>
 </div>
