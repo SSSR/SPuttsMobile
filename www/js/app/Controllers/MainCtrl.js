@@ -546,25 +546,25 @@
     };
 
     $scope.checkGolfersMatch = function () {
-        if (!$scope.invitation.GolferMatch.ProfileBeginner &&
-            !$scope.invitation.GolferMatch.ProfileSerious &&
-                !$scope.invitation.GolferMatch.JustForFun) {
+        if (!$scope.invitation.golferMatch.profileBeginner &&
+            !$scope.invitation.golferMatch.profileSerious &&
+                !$scope.invitation.golferMatch.justForFun) {
             alert("Please select a 'Golfer profile'.");
             return false;
         }
 
-        if (!$scope.invitation.GolferMatch.TeesRed &&
-            !$scope.invitation.GolferMatch.TeesWhite &&
-                !$scope.invitation.GolferMatch.TeesBlue &&
-                    !$scope.invitation.GolferMatch.TeesBlack) {
+        if (!$scope.invitation.golferMatch.teesRed &&
+            !$scope.invitation.golferMatch.teesWhite &&
+                !$scope.invitation.golferMatch.teesBlue &&
+                    !$scope.invitation.golferMatch.teesBlack) {
             alert("Please select a 'Tees'.");
             return false;
         }
 
-        if (!$scope.invitation.GolferMatch.FormatsPlayYourOwnBall &&
-            !$scope.invitation.GolferMatch.FormatsScramble &&
-                !$scope.invitation.GolferMatch.FormatsBestBall &&
-                    !$scope.invitation.GolferMatch.FormatsSkins) {
+        if (!$scope.invitation.golferMatch.formatsPlayYourOwnBall &&
+            !$scope.invitation.golferMatch.formatsScramble &&
+                !$scope.invitation.golferMatch.formatsBestBall &&
+                    !$scope.invitation.golferMatch.formatsSkins) {
             alert("Please select a 'Formats'.");
             return false;
         }
