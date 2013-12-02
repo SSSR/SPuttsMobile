@@ -524,6 +524,27 @@
 					</div>
 				</div>
 				
+				<div class="successfully-sent-invitations">
+					<div ng-hide="dispalyIf0InvitationsSent">
+						<div ng-switch on="isSentInvitationsMany">
+							<div ng-switch-when="true">
+								<h4>
+									{{invitationsSent}} Invitations Successfully Sent!</h4>
+								<a class="btn btn-success col-lg-offset-5 col-md-offset-5 col-sm-offset-5" href="#/manageInvitations">Ok</a>
+							</div>
+							<div ng-switch-when="false">
+								<h4>
+									{{invitationsSent}} Invitation Successfully Sent!</h4>
+								<a class="btn btn-success col-lg-offset-6 col-md-offset-4 col-sm-offset-5" href="#/manageInvitations">Ok</a>
+							</div>
+						</div>
+					</div>
+					<div ng-show="dispalyIf0InvitationsSent">
+						<h4>
+							No Matches Found. Please adjust your search criteria</h4>
+					</div>
+				</div>
+				
             </div>
 			
         </form>
