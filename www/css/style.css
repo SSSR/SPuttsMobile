@@ -173,14 +173,19 @@ h2.green
     width: 24.3%;
 }
  
-#golfer-match-form
+/*#golfer-match-form
 {
     background-color: #ccc;
     padding: 10px;
     border-radius: 5px;
     opacity: 0.8;
- 
-   /* cursor: not-allowed;*/
+}*/
+
+.disabled-section{
+	background-color: #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    opacity: 0.8;
 }
 
 /*Fill Your Foursome end-page ================================================================================== */

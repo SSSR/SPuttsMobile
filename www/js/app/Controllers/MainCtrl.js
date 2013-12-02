@@ -400,6 +400,18 @@
                         $scope.invitation = model;
                         $scope.invitation.Course = data.Course;
                     } else {
+						data.golferMatch.agesValues.unshift({ 'id': '0', 'displayValue': 'All' });
+						data.golferMatch.handicapsValues.unshift({ 'id': '0', 'displayValue': 'All' });
+						
+						if (data.golferMatch.ages.length == 0){
+							data.golferMatch.ages.push(data.golferMatch.agesValues[0].id);
+						}
+							
+						if (data.golferMatch.handicaps.length == 0){
+							data.golferMatch.handicaps.push(data.golferMatch.handicapsValues[0].id);
+						}
+							
+						
                         $scope.invitation = data;
                         $scope.invitation.date = "";
                     }
@@ -469,8 +481,6 @@
             }
         }
 
-        
-
         var selectedBuddies = $scope.invitation.userBuddies.filter(function (item) {
             return item.IsSelected;
         });
@@ -483,8 +493,7 @@
                     ? 4
                     : $scope.invitation.golfersNeeded;
         if ($scope.validateForm()) {
-            $http
-                .post(socialputtsLink + "/api/FoursomeInvitation/SendInvitations?userId=" + $.jStorage.get('user').userId, $scope.invitation)
+            $http.post(socialputtsLink + "/api/FoursomeInvitation/SendInvitations?userId=" + $.jStorage.get('user').userId, $scope.invitation)
                     .success(function (data) {
                         $scope.invitationsSent = parseInt(data);
                         $scope.isSentInvitationsMany = $scope.invitationsSent > 1;
@@ -687,7 +696,7 @@
     };
 
     $scope.ChangeGolferMatch = function () {
-        if (($scope.invitation.GolferMatch.ZipCode != null && $scope.invitation.GolferMatch.ZipCode.length != 5) && ($scope.invitation.GolferMatch.City == null || $scope.invitation.GolferMatch.City.length == 0)) {
+        if (($scope.invitation.golferMatch.zipCode != null && $scope.invitation.golferMatch.zipCode.length != 5) && ($scope.invitation.golferMatch.city == null || $scope.invitation.golferMatch.city.length == 0)) {
             return;
         }
 
