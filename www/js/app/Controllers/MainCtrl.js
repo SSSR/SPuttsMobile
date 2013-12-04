@@ -306,7 +306,6 @@
     checkUserLogedOff($location);
 	var invitationId = $route.current.params.invitationId;
     var declinedInvitationId = $route.current.params.declinedInvitationId;
-    //var mode = $route.current.params.mode ? $route.current.params.mode : "golfer";
     $scope.displayBuddiesContaner = false;
 	$scope.isUserInRole = $.jStorage.get("user").isUserInCourseAdminRole;
 	$scope.mode = "golfer";
