@@ -12,9 +12,9 @@
         novalidate>
         <div class="form-group">
             <label class="control-label col-lg-4 pt0">
-                Required fields :</label>
+                <span class="asterisk">*</span> Required fields</label>
             <div class="col-lg-4">
-                <div class="mode-container">
+                <div class="mode-container" ng-show="isUserInRole">
                     <input type="radio" name="mode" value="course-admin" />Course Admin Mode
                     <input type="radio" name="mode" value="golfer" checked="checked" />Golfer Mode
                 </div>
@@ -27,6 +27,9 @@
             <div class="col-lg-4">
                 <input type="text" class="form-control" id="invitation-name" name="invitation name" ng-model="invitation.name" />
             </div>
+			<div class="col-lg-1">
+				<span class="asterisk">*</span>
+			</div>
         </div>
         <div class="form-group">
             <label class="control-label col-lg-4">
@@ -42,6 +45,9 @@
             <p></p>
                 
             </div>
+			<div class="col-lg-1">
+				<span class="asterisk">*</span>
+			</div>
         </div>
         <div class="row">
               <h3 class="center-block" > OR</h3>  
@@ -53,6 +59,9 @@
             <div class="col-lg-4">
                 <input type="text" class="form-control" id="сourse" name="сourse" ng-model="invitation.course.courseName" ng-disabled="!(invitation.favoriteCourse == null || invitation.favoriteCourse == '')"/>
             </div>
+			<div class="col-lg-1">
+				<span class="asterisk">*</span>
+			</div>
         </div>
         <div class="form-group">
             <label class="control-label col-lg-4">
@@ -61,6 +70,9 @@
             <div class="col-lg-4">
                 <input type="text" class="form-control" id="date" name="date" coursedatepicker ng-model="invitation.date"/>
             </div>
+			<div class="col-lg-1">
+				<span class="asterisk">*</span>
+			</div>
         </div>
         <div class="form-group">
             <label class="control-label col-lg-4">
@@ -75,6 +87,9 @@
                     </small>
                 </p>
             </div>
+			<div class="col-lg-1">
+				<span class="asterisk">*</span>
+			</div>
         </div>
         <div class="row">
             <h3 class="center-block" > OR</h3>
@@ -91,6 +106,9 @@
 					<option value="">Select timeframe</option>
                 </select>
             </div>
+			<div class="col-lg-1">
+				<span class="asterisk">*</span>
+			</div>
         </div>
         <div class="form-group">
             <label class="control-label col-lg-4">
@@ -197,6 +215,9 @@
 						ng-disabled="invitation.golferMatch.zipCode.length > 0 || !invitation.golferMatch.activateGolferMatch"
 						ng-change="ChangeGolferMatch()" ng-model-onblur />
                     </div>
+					<div class="col-lg-1">
+						<span class="asterisk">*</span>
+					</div>
                 </div>
 				<div class="form-group">
                     <label class="control-label col-lg-4">
@@ -210,6 +231,9 @@
 							ng-change="ChangeGolferMatch()">
 						</select>
                     </div>
+					<div class="col-lg-1">
+						<span class="asterisk">*</span>
+					</div>
                 </div>
                 <div class="row">
                     <div class="mrgL45per">
@@ -229,6 +253,9 @@
 						only-number-input=""
 						ng-change="ChangeGolferMatch()"/>
                     </div>
+					<div class="col-lg-1">
+						<span class="asterisk">*</span>
+					</div>
                 </div>
                 
 				<div class="row">

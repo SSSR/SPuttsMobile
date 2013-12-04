@@ -308,6 +308,7 @@
     var declinedInvitationId = $route.current.params.declinedInvitationId;
     var mode = $route.current.params.mode ? $route.current.params.mode : "golfer";
     $scope.displayBuddiesContaner = false;
+	$scope.isUserInRole = $.jStorage.get("user").isUserInCourseAdminRole;
 
     if (invitationId != null) {
         $http
@@ -470,18 +471,32 @@
     $scope.SendInvitations = function () {
         
         if ($("#FavoriteCourse").length > 0) {
-            if (
-            ($scope.invitation.favoriteCourse == null || $scope.invitation.favoriteCourse == '') && $scope.invitation.course != null) {
-                $scope.CheckCourseIfExist();
-            }
+            if (($scope.invitation.favoriteCourse == null || $scope.invitation.favoriteCourse == '') && $scope.invitation.course != null) {
+				$http.get(socialputtsLink + "/api/Course/CheckCourseExist?courseName=" + $scope.invitation.course.courseName)
+					.success(function(courseId){
+						if (courseId != 0) {
+							$scope.invitation.course.id = courseId;
+							$scope.validateFormAndSendInvitations();
+						}else{
+							alert('Course does not exist');
+							return;
+						}					
+					});
+            }else{
+				$scope.validateFormAndSendInvitations();
+			}
         } else {
             if ($scope.invitation.course.id == 0 && $scope.invitation.course != null) {
                 alert('Course is not selected!');
                 return;
-            }
+            }else{
+				$scope.validateFormAndSendInvitations();
+			}
         }
-
-        var selectedBuddies = $scope.invitation.userBuddies.filter(function (item) {
+    };
+	
+	$scope.validateFormAndSendInvitations = function(){
+		var selectedBuddies = $scope.invitation.userBuddies.filter(function (item) {
             return item.IsSelected;
         });
 
@@ -499,15 +514,16 @@
                         $scope.isSentInvitationsMany = $scope.invitationsSent > 1;
                         $scope.dispalyIf0InvitationsSent = data == 0;
                         $(".successfully-sent-invitations").show();
-                        $("input, select, textarea").not("form#view-mode>input").attr("readonly", true).attr("disabled", "disabled");
+						if(data != 0){
+							$("input, select, textarea").not("form .mode-container > input").attr("readonly", true).attr("disabled", "disabled");
+						}
                     });
         } else {
-            $scope.markInvalidFields();
+            //$scope.markInvalidFields();
         }
-    };
-
+	}
+	
     $scope.validateForm = function () {
-        $(".required-text-warning").hide();
         if ($scope.invitation.name != null && $scope.invitation.name.length > 0
             && $scope.invitation.date.length > 0
             && (($scope.invitation.exactTime != null && $scope.invitation.exactTime.toString().length > 0) || $scope.invitation.timeframe != null)) {
@@ -526,7 +542,7 @@
                     if (!$scope.checkGolfersMatch())
                         return false;
                 } else {
-                    $(".required-text-warning").show();
+                    alert("Please complete all required fields");
                     return false;
                 }
             }
@@ -535,13 +551,13 @@
                 ($scope.invitation.SpecialOffer == null
                     || $scope.invitation.SpecialOffer == ""
                     || $scope.invitation.SpecialOffer == undefined)) {
-                $(".required-text-warning").show();
+                alert("Please complete all required fields");
                 return false;
             }
 
             return true;
         }
-        $(".required-text-warning").show();
+        alert("Please complete all required fields");
         return false;
     };
 
@@ -684,7 +700,7 @@
     };
 
     $scope.CheckCourseIfExist = function () {
-        $http.jsonp(socialputtsLink + "/api/Course/CheckCourseExist?courseName=" + $scope.invitation.course.courseName + "&alt=json-in-script&callback=JSON_CALLBACK")
+        $http.get(socialputtsLink + "/api/Course/CheckCourseExist?courseName=" + $scope.invitation.course.courseName)
 		.success(function(courseId){
 			if (courseId != 0) {
 				$scope.invitation.course.id = courseId;

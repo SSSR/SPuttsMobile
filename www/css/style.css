@@ -172,14 +172,6 @@ h2.green
 {
     width: 24.3%;
 }
- 
-/*#golfer-match-form
-{
-    background-color: #ccc;
-    padding: 10px;
-    border-radius: 5px;
-    opacity: 0.8;
-}*/
 
 .disabled-section{
 	background-color: #ccc;
@@ -188,7 +180,6 @@ h2.green
     opacity: 0.8;
 }
 
-/*Fill Your Foursome end-page ================================================================================== */
 .buddy
 {
 	overflow:hidden;
@@ -229,3 +220,11 @@ img.small-avatar
 .include-golfers{
 	color:green;
 }
+
+.asterisk{
+	color:red;
+	font-size: 20px;
+	line-height: 2em;
+}
+
+/*Fill Your Foursome end-page ================================================================================== */
