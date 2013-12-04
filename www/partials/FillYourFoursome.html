@@ -15,8 +15,8 @@
                 <span class="asterisk">*</span> Required fields</label>
             <div class="col-lg-4">
                 <div class="mode-container" ng-show="isUserInRole">
-                    <input type="radio" name="mode" value="course-admin" />Course Admin Mode
-                    <input type="radio" name="mode" value="golfer" checked="checked" />Golfer Mode
+                    <input type="radio" name="mode" value="course-admin" ng-model="mode" />Course Admin Mode
+                    <input type="radio" name="mode" value="golfer" checked="checked" ng-model="mode" />Golfer Mode
                 </div>
             </div>
         </div>
@@ -24,105 +24,198 @@
             <label class="control-label col-lg-4">
                 Invitation name:
             </label>
-            <div class="col-lg-4">
+            <div class="col-lg-4 col-md-11 col-sm-10 col-xs-10">
                 <input type="text" class="form-control" id="invitation-name" name="invitation name" ng-model="invitation.name" />
             </div>
 			<div class="col-lg-1">
 				<span class="asterisk">*</span>
 			</div>
         </div>
-        <div class="form-group">
-            <label class="control-label col-lg-4">
-                Favorite Courses:
-            </label>
-            <div class="col-lg-4 ">
-				<select class="fav-courses form-control" name="FavoriteCourse" id="FavoriteCourse"
-					ng-model="invitation.favoriteCourse"
-					ng-options="c.id as c.courseName for c in invitation.favoriteCourses"
-					ng-disabled="invitation.course.courseName.length > 0">
-					<option value="">Select course</option>
-				</select>
-            <p></p>
-                
-            </div>
-			<div class="col-lg-1">
-				<span class="asterisk">*</span>
+		
+		
+		
+		<div ng-switch on="mode">
+			
+			<div ng-switch-when="golfer">
+				<div class="form-group">
+					<label class="control-label col-lg-4">
+						Favorite Courses:
+					</label>
+					<div class="col-lg-4 col-md-11 col-sm-10 col-xs-10">
+						<select class="fav-courses form-control" name="FavoriteCourse" id="FavoriteCourse"
+							ng-model="invitation.favoriteCourse"
+							ng-options="c.id as c.courseName for c in invitation.favoriteCourses"
+							ng-disabled="invitation.course.courseName.length > 0">
+							<option value="">Select course</option>
+						</select>
+					<p></p>
+						
+					</div>
+					<div class="col-lg-1">
+						<span class="asterisk">*</span>
+					</div>
+				</div>
+				<div class="row">
+					  <h3 class="center-block" > OR</h3>  
+				</div>
+				<div class="form-group">
+					<label class="control-label col-lg-4">
+						Course:
+					</label>
+					<div class="col-lg-4 col-md-11 col-sm-10 col-xs-10">
+						<input type="text" class="form-control" id="сourse" name="сourse" ng-model="invitation.course.courseName" ng-disabled="!(invitation.favoriteCourse == null || invitation.favoriteCourse == '')"/>
+					</div>
+					<div class="col-lg-1">
+						<span class="asterisk">*</span>
+					</div>
+				</div>
+			
 			</div>
-        </div>
-        <div class="row">
-              <h3 class="center-block" > OR</h3>  
-        </div>
-        <div class="form-group">
-            <label class="control-label col-lg-4">
-                Course:
-            </label>
-            <div class="col-lg-4">
-                <input type="text" class="form-control" id="сourse" name="сourse" ng-model="invitation.course.courseName" ng-disabled="!(invitation.favoriteCourse == null || invitation.favoriteCourse == '')"/>
-            </div>
-			<div class="col-lg-1">
-				<span class="asterisk">*</span>
+			
+			<div ng-switch-when="course-admin">
+				<div class="form-group">
+					<label class="control-label col-lg-4">
+						Special Offer:
+					</label>
+					<div class="col-lg-4 col-md-11 col-sm-10 col-xs-10">
+						<textarea ng-model="invitation.specialOffer" id="specialOffer" class="form-control"></textarea>
+					</div>
+					<div class="col-lg-1">
+						<span class="asterisk">*</span>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="control-label col-lg-4">
+						Course:
+					</label>
+					<div class="col-lg-4 col-md-11 col-sm-10 col-xs-10">
+						<select class="fav-courses form-control" name="courseToAdmin" id="courseToAdmin"
+							ng-model="invitation.course.id"
+							ng-options="c.id as c.courseName for c in invitation.coursesToAdmin"
+							>
+							<option value="">Select course</option>
+						</select>
+						<p></p>
+					</div>
+					<div class="col-lg-1">
+						<span class="asterisk">*</span>
+					</div>
+				</div>
 			</div>
-        </div>
-        <div class="form-group">
+		</div>
+        
+		
+		
+		<div class="form-group">
             <label class="control-label col-lg-4">
                 Date:
             </label>
-            <div class="col-lg-4">
+            <div class="col-lg-4 col-md-11 col-sm-10 col-xs-10">
                 <input type="text" class="form-control" id="date" name="date" coursedatepicker ng-model="invitation.date"/>
             </div>
 			<div class="col-lg-1">
 				<span class="asterisk">*</span>
 			</div>
         </div>
-        <div class="form-group">
-            <label class="control-label col-lg-4">
-                Exact Time:
-            </label>
-            <div class="col-lg-4">
-                <input type="text" class="form-control" id="exact-time" name="exact-time" ng-model="invitation.exactTime"
-                ng-disabled="!((invitation.timeframe == null || invitation.timeframe == '') && invitation.timeframe != 0)"
-                exacttimeonblur exacttimepicker />
-                <p>
-                    <small><strong>(Book a tee time at the course and enter the time here) </strong>
-                    </small>
-                </p>
-            </div>
-			<div class="col-lg-1">
-				<span class="asterisk">*</span>
+		
+		
+		
+		
+		<div ng-switch on="mode">
+			
+			<div ng-switch-when="golfer">
+				<div class="form-group">
+					<label class="control-label col-lg-4">
+						Exact Time:
+					</label>
+					<div class="col-lg-4 col-md-11 col-sm-10 col-xs-10">
+						<input type="text" class="form-control" id="exact-time" name="exact-time" ng-model="invitation.exactTime"
+						ng-disabled="!((invitation.timeframe == null || invitation.timeframe == '') && invitation.timeframe != 0)"
+						exacttimeonblur exacttimepicker />
+						<p>
+							<small><strong>(Book a tee time at the course and enter the time here) </strong>
+							</small>
+						</p>
+					</div>
+					<div class="col-lg-1">
+						<span class="asterisk">*</span>
+					</div>
+				</div>
+				<div class="row">
+					<h3 class="center-block" > OR</h3>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-lg-4">
+						Timeframe:
+					</label>
+					<div class="col-lg-4 col-md-11 col-sm-10 col-xs-10">
+						<select name="Timeframe" id="timeframe" class="form-control"
+							ng-model="invitation.timeframe"
+							ng-options="t.value as t.text for t in invitation.timeFrames"
+							ng-disabled="invitation.exactTime">
+							<option value="">Select timeframe</option>
+						</select>
+					</div>
+					<div class="col-lg-1">
+						<span class="asterisk">*</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-lg-4">
+						Cost of Greens Fee:
+					</label>
+					<div class="col-lg-4 col-md-11 col-sm-10 col-xs-10">
+						<select name="CostOfGreensFee" id="cost-greens-fee" class="form-control"
+							ng-model="invitation.costOfGreensFeeValue"
+							ng-options="t.value as t.text for t in invitation.costOfGreensFee">
+							<option value="">Select Cost of Greens Fee</option>
+						</select>
+					<p></p>
+					</div>
+				</div>
+			
 			</div>
-        </div>
-        <div class="row">
-            <h3 class="center-block" > OR</h3>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-lg-4">
-                Timeframe:
-            </label>
-            <div class="col-lg-4">
-				<select name="Timeframe" id="timeframe" class="form-control"
-					ng-model="invitation.timeframe"
-					ng-options="t.value as t.text for t in invitation.timeFrames"
-					ng-disabled="invitation.exactTime">
-					<option value="">Select timeframe</option>
-                </select>
-            </div>
-			<div class="col-lg-1">
-				<span class="asterisk">*</span>
+			
+			<div ng-switch-when="course-admin">
+				<div class="form-group">
+					<label class="control-label col-lg-4">
+						Tee Time:
+					</label>
+					<div class="col-lg-4 col-md-11 col-sm-10 col-xs-10">
+						<input type="text" id="exacttime" name="ExactTime" class="exactTime form-control"
+							ng-model="invitation.exactTime"
+							exacttimepicker />
+					</div>
+					<div class="col-lg-1">
+						<span class="asterisk">*</span>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="control-label col-lg-4">
+						# of Golfers Needed to Fill Foursome:
+					</label>
+					<div class="col-lg-4 col-md-11 col-sm-10 col-xs-10">
+						<select class="form-control" name="GolfersNeeded"
+								ng-model="invitation.golfersNeeded"
+								ng-options="g.value as g.text for g in invitation.golfersNeededList">
+						</select>
+						<p></p>
+					</div>
+					<div class="col-lg-1">
+						<span class="asterisk">*</span>
+					</div>
+				</div>
 			</div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-lg-4">
-                Cost of Greens Fee:
-            </label>
-            <div class="col-lg-4">
-				<select name="CostOfGreensFee" id="cost-greens-fee" class="form-control"
-					ng-model="invitation.costOfGreensFeeValue"
-					ng-options="t.value as t.text for t in invitation.costOfGreensFee">
-					<option value="">Select Cost of Greens Fee</option>
-				</select>
-            <p></p>
-            </div>
-        </div>
+		</div>
+		
+		
+		
+		
+		
+		
+        
             <div class="row">
                 <div id="indent-select-buddies-topic" class="col-lg-2" ></div>
                 <div class="col-lg-4">
@@ -209,7 +302,7 @@
                     <label class="control-label col-lg-4">
                         City:
                     </label>
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 col-md-11 col-sm-10 col-xs-10">
                         <input type="text" class="form-control" id="city" name="city" 
 						ng-model="invitation.golferMatch.city"
 						ng-disabled="invitation.golferMatch.zipCode.length > 0 || !invitation.golferMatch.activateGolferMatch"
@@ -223,7 +316,7 @@
                     <label class="control-label col-lg-4">
                         State:
                     </label>
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 col-md-11 col-sm-10 col-xs-10">
 						<select id="state" name="state" class="form-control"
 							ng-model="invitation.golferMatch.state"
 							ng-options="s.id as s.name for s in invitation.golferMatch.states"
@@ -246,7 +339,7 @@
                     <label class="control-label col-lg-4">
                         Zip:
                     </label>
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 col-md-11 col-sm-10 col-xs-10">
                         <input type="text" class="form-control" id="zip" name="zip" 
 						ng-model="invitation.golferMatch.zipCode"
 						ng-disabled="invitation.golferMatch.city.length > 0 || !invitation.golferMatch.activateGolferMatch"
@@ -273,7 +366,7 @@
                     <label class="control-label col-lg-4">
                         Within:
                     </label>
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 col-md-11 col-sm-10 col-xs-10">
 						<select class="form-control" id="within" name="within"
 						ng-model="invitation.golferMatch.within"
 						ng-options="w.value as w.text for w in invitation.golferMatch.withins"
@@ -286,7 +379,7 @@
                     <label class="control-label col-lg-4">
                         Golfer profile:
                     </label>
-                    <div class="controls col-lg-4 ">
+                    <div class="controls col-lg-4  col-md-11 col-sm-10 col-xs-10">
                         <div class="checkbox-group">
                             <label class="checkbox">
                                 <input type="checkbox"
@@ -313,7 +406,7 @@
                     <label class="control-label col-lg-4">
                         Gender:
                     </label>
-                    <div class="controls col-lg-4 ">
+                    <div class="controls col-lg-4  col-md-11 col-sm-10 col-xs-10">
                         <div class="checkbox-group">
                             <label class="checkbox first">
                                 <input type="radio"
@@ -321,13 +414,13 @@
 									ng-change="ChangeGolferMatch()"
 									ng-disabled="!invitation.golferMatch.activateGolferMatch" />
                                 <span>Male</span></label>
-                            <label class="checkbox">
+                            <label class="checkbox first">
                                 <input type="radio"
 									ng-model="invitation.golferMatch.gender" value="1"
 									ng-change="ChangeGolferMatch()"
 									ng-disabled="!invitation.golferMatch.activateGolferMatch" />
                                 <span>Female</span></label>
-                            <label class="checkbox">
+                            <label class="checkbox first">
                                 <input type="radio"
 									ng-model="invitation.golferMatch.gender" value="2"
 									ng-change="ChangeGolferMatch()"
@@ -341,7 +434,7 @@
                         Age:
                     </label>
                     
-                     <div class="col-lg-4">    
+                     <div class="col-lg-4 col-md-11 col-sm-10 col-xs-10">    
 						 <select multiple="multiple" class="col-lg-4 group-select"
 							ng-multiple="true"
 							ng-model="invitation.golferMatch.ages"
@@ -355,7 +448,7 @@
                     <label class="control-label col-lg-4">
                         Handicap:
                     </label>
-                    <div class="col-lg-4"> 
+                    <div class="col-lg-4 col-md-11 col-sm-10 col-xs-10"> 
 						<select multiple="multiple" class="col-lg-4 group-select"
 							ng-multiple="true"
 							ng-model="invitation.golferMatch.handicaps"
@@ -369,7 +462,7 @@
                     <label class="control-label col-lg-4">
                         Tees:
                     </label>
-                    <div class="controls col-lg-4 ">
+                    <div class="controls col-lg-4  col-md-11 col-sm-10 col-xs-10">
                         <div class="checkbox-group">
                             <label class="checkbox">
                                 <input type="checkbox"
@@ -403,7 +496,7 @@
                     <label class="control-label col-lg-4">
                         Formats:
                     </label>
-                    <div class="controls col-lg-4 ">
+                    <div class="controls col-lg-4  col-md-11 col-sm-10 col-xs-10">
                         <div class="checkbox-group">
                             <label class="checkbox">
                                 <input type="checkbox"
@@ -437,7 +530,7 @@
                     <label class="control-label col-lg-4">
                         Getting around:
                     </label>
-                    <div class="controls col-lg-4 ">
+                    <div class="controls col-lg-4  col-md-11 col-sm-10 col-xs-10">
                         <div class="checkbox-group">
                             <label class="checkbox first">
                                 <input type="radio"
@@ -445,13 +538,13 @@
 									ng-change="ChangeGolferMatch()"
 									ng-disabled="!invitation.golferMatch.activateGolferMatch" />
 								<span>Walk</span></label>
-                            <label class="checkbox">
+                            <label class="checkbox first">
                                 <input type="radio"
 									ng-model="invitation.golferMatch.around" value="1"
 									ng-change="ChangeGolferMatch()"
 									ng-disabled="!invitation.golferMatch.activateGolferMatch" />
 								<span>Ride</span></label>
-                            <label class="checkbox">
+                            <label class="checkbox first">
                                 <input type="radio"
 									ng-model="invitation.golferMatch.Around" value="2"
 									ng-change="ChangeGolferMatch()"
@@ -465,7 +558,7 @@
                     <label class="control-label col-lg-4">
                         Smoke?
                     </label>
-                    <div class="controls col-lg-4 ">
+                    <div class="controls col-lg-4  col-md-11 col-sm-10 col-xs-10">
                         <div class="checkbox-group">
                             <label class="checkbox first">
                                 <input type="radio"
@@ -473,13 +566,13 @@
 									ng-change="ChangeGolferMatch()"
 									ng-disabled="!invitation.golferMatch.activateGolferMatch" />
 								<span>Yes</span></label>
-                            <label class="checkbox">
+                            <label class="checkbox first">
                                 <input type="radio"
 									ng-model="invitation.golferMatch.smoke" value="1"
 									ng-change="ChangeGolferMatch()"
 									ng-disabled="!invitation.golferMatch.activateGolferMatch" />
 								<span>No</span></label>
-                            <label class="checkbox">
+                            <label class="checkbox first">
                                 <input type="radio"
 									ng-model="invitation.golferMatch.Smoke" value="2"
 									ng-change="ChangeGolferMatch()"
@@ -492,7 +585,7 @@
                     <label class="control-label col-lg-4">
                         Drink?
                     </label>
-                    <div class="controls col-lg-4 ">
+                    <div class="controls col-lg-4  col-md-11 col-sm-10 col-xs-10">
                         <div class="checkbox-group">
                             <label class="checkbox first">
                                 <input type="radio"
@@ -500,13 +593,13 @@
 									ng-change="ChangeGolferMatch()"
 									ng-disabled="!invitation.golferMatch.activateGolferMatch" />
 								<span>Yes</span></label>
-                            <label class="checkbox">
+                            <label class="checkbox first">
                                <input type="radio"
 									ng-model="invitation.golferMatch.drink" value="1"
 									ng-change="ChangeGolferMatch()"
 									ng-disabled="!invitation.golferMatch.activateGolferMatch" />
 								<span>No</span></label>
-                            <label class="checkbox">
+                            <label class="checkbox first">
                                 <input type="radio"
 									ng-model="invitation.golferMatch.drink" value="2"
 									ng-change="ChangeGolferMatch()"
