@@ -62,11 +62,12 @@
 					<label class="control-label col-lg-4">
 						Course:
 					</label>
-					<div class="col-lg-4 col-md-11 col-sm-10 col-xs-10">
+					<div class="col-lg-4 col-md-9 col-sm-8 col-xs-8">
 						<input type="text" class="form-control" id="сourse" name="сourse" ng-model="invitation.course.courseName" ng-disabled="!(invitation.favoriteCourse == null || invitation.favoriteCourse == '')"/>
 					</div>
-					<div class="col-lg-1">
+					<div class="col-lg-2">
 						<span class="asterisk">*</span>
+						<a class="btn btn-success course-finder" href="#/courseFinder">Course Finder</a>
 					</div>
 				</div>
 			
@@ -138,8 +139,9 @@
 							</small>
 						</p>
 					</div>
-					<div class="col-lg-1">
+					<div class="col-lg-2">
 						<span class="asterisk">*</span>
+						<a href="#" class="btn btn-success course-finder" ng-click="BookaTeeTime($event)">Book a Tee Time</a>
 					</div>
 				</div>
 				<div class="row">
@@ -622,8 +624,8 @@
                 <div class="pull-left mrgR30 col-lg-offset-3 ">
                     <button type="button" class="btn btn-success" id="send-invitations-button" ng-click="SendInvitations()">
                     Send Invitations</button>
-                <button type="button" class="btn">
-                    Cancel</button>
+                <a href="#/index" class="btn btn-default">
+                    Cancel</a>
 
                 </div>
 				

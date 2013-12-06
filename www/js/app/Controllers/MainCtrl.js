@@ -304,130 +304,52 @@
 
 .controller('FillYourFoursomeCtrl', function ($scope, $http, $location, $route) {
     checkUserLogedOff($location);
-	var invitationId = $route.current.params.invitationId;
-    var declinedInvitationId = $route.current.params.declinedInvitationId;
+	
     $scope.displayBuddiesContaner = false;
 	$scope.isUserInRole = $.jStorage.get("user").isUserInCourseAdminRole;
 	$scope.mode = "golfer";
 	
-    if (invitationId != null) {
-        $http
-            .get("/profile/GetFillYourFoursome?invitationId=" + invitationId)
-            .success(function (data) {
-                _.each(data.Buddies, function (buddyId) {
-                    _.each(data.UserBuddies, function (buddy) {
-                        if (buddy.Id == buddyId) {
-                            buddy.IsSelected = true;
-                            return;
-                        }
-                    });
-                });
+	var courseId = $route.current.params.courseId;
 
-                if (data.Timeframe == null) {
-                    data.ExactTime = data.ExactTimeString; //convertTime(data.Date);
-                }
+	$http
+		.jsonp(socialputtsLink + "/api/FoursomeInvitation/GetInvitation?userId=" + $.jStorage.get('user').userId + "&courseId=" + courseId + "&alt=json-in-script&callback=JSON_CALLBACK")
+		.success(function (data) {
+			if (courseId == null) {
+				data.date = "";
+				data.timeframe = null;
+				data.favoriteCourse = null;
 
-                if (data.GolferMatch.State == null)
-                    data.GolferMatch.State = data.GolferMatch.States[0].Id;
+				if (data.golferMatch.state == null)
+					data.golferMatch.state = data.golferMatch.states[0].id;
 
-                data.GolferMatch.AgesValues.unshift({ 'Id': '0', 'DisplayValue': 'All' });
-                data.GolferMatch.HandicapsValues.unshift({ 'Id': '0', 'DisplayValue': 'All' });
+				data.golferMatch.agesValues.unshift({ 'id': '0', 'displayValue': 'All' });
+				data.golferMatch.handicapsValues.unshift({ 'id': '0', 'displayValue': 'All' });
 
-                if (data.GolferMatch.Ages.length == 0)
-                    data.GolferMatch.Ages.push(data.GolferMatch.AgesValues[0].Id);
+				if (data.golferMatch.ages.length == 0)
+					data.golferMatch.ages.push(data.golferMatch.agesValues[0].id);
 
-                if (data.GolferMatch.Handicaps.length == 0)
-                    data.GolferMatch.Handicaps.push(data.GolferMatch.HandicapsValues[0].Id);
+				if (data.golferMatch.handicaps.length == 0)
+					data.golferMatch.handicaps.push(data.golferMatch.handicapsValues[0].id);
 
-                data.Date = convertDate(data.Date);
-
-                $scope.invitation = data;
-                $scope.SetDisplayBuddyContainer();
-            });
-    } else if (declinedInvitationId != null) {
-        
-        $http
-            .get("/profile/GetDeclinedInvitation?declinedInvitationId=" + declinedInvitationId)
-            .success(function (data) {
-                data.Buddies = null;
-
-                if (data.GolferMatch.State == null)
-                    data.GolferMatch.State = data.GolferMatch.States[0].Id;
-
-                data.GolferMatch.AgesValues.unshift({ 'Id': '0', 'DisplayValue': 'All' });
-                data.GolferMatch.HandicapsValues.unshift({ 'Id': '0', 'DisplayValue': 'All' });
-
-                if (data.GolferMatch.Ages.length == 0)
-                    data.GolferMatch.Ages.push(data.GolferMatch.AgesValues[0].Id);
-
-                if (data.GolferMatch.Handicaps.length == 0)
-                    data.GolferMatch.Handicaps.push(data.GolferMatch.HandicapsValues[0].Id);
-
-                data.Date = convertDate(data.Date);
-                $scope.invitation = data;
-                $scope.invitation.Name = "";
-                $scope.SetDisplayBuddyContainer();
-            });
-    } else {
-        var courseId = $route.current.params.courseId;
-
-        $http
-            .jsonp(socialputtsLink + "/api/FoursomeInvitation/GetInvitation?userId=" + $.jStorage.get('user').userId + "&courseId=" + courseId + "&alt=json-in-script&callback=JSON_CALLBACK")
-            .success(function (data) {
-                if (courseId == null) {
-                    data.date = "";
-                    data.timeframe = null;
-                    data.favoriteCourse = null;
-
-                    if (data.golferMatch.state == null)
-                        data.golferMatch.state = data.golferMatch.states[0].id;
-
-                    data.golferMatch.agesValues.unshift({ 'id': '0', 'displayValue': 'All' });
-                    data.golferMatch.handicapsValues.unshift({ 'id': '0', 'displayValue': 'All' });
-
-                    if (data.golferMatch.ages.length == 0)
-                        data.golferMatch.ages.push(data.golferMatch.agesValues[0].id);
-
-                    if (data.golferMatch.handicaps.length == 0)
-                        data.golferMatch.handicaps.push(data.golferMatch.handicapsValues[0].id);
-
-                    $scope.invitation = data;
-                    $scope.SetDisplayBuddyContainer();
-                } else {
-                    if ($.jStorage.get('fill-your-foursome-model') != null) {
-                        var model = $.jStorage.get('fill-your-foursome-model');
-                        $.jStorage.deleteKey('fill-your-foursome-model');
-                        model.Date = new Date(model.Date);
-                        $scope.invitation = model;
-                        $scope.invitation.Course = data.Course;
-                    } else {
-						data.golferMatch.agesValues.unshift({ 'id': '0', 'displayValue': 'All' });
-						data.golferMatch.handicapsValues.unshift({ 'id': '0', 'displayValue': 'All' });
-						
-						if (data.golferMatch.ages.length == 0){
-							data.golferMatch.ages.push(data.golferMatch.agesValues[0].id);
-						}
-							
-						if (data.golferMatch.handicaps.length == 0){
-							data.golferMatch.handicaps.push(data.golferMatch.handicapsValues[0].id);
-						}
-							
-						
-                        $scope.invitation = data;
-                        $scope.invitation.date = "";
-                    }
-                }
-
-            });
-    }
-
-    $scope.CourseFinder = function () {
-        $scope.invitation.FavoriteCourse = null;
-
-        $.jStorage.set('fill-your-foursome-model', $scope.invitation);
-
-        window.location.href = "/course/courses";
-    };
+				$scope.invitation = data;
+				$scope.SetDisplayBuddyContainer();
+			} else {
+				data.golferMatch.agesValues.unshift({ 'id': '0', 'displayValue': 'All' });
+				data.golferMatch.handicapsValues.unshift({ 'id': '0', 'displayValue': 'All' });
+				
+				if (data.golferMatch.ages.length == 0){
+					data.golferMatch.ages.push(data.golferMatch.agesValues[0].id);
+				}
+					
+				if (data.golferMatch.handicaps.length == 0){
+					data.golferMatch.handicaps.push(data.golferMatch.handicapsValues[0].id);
+				}
+					
+				$scope.invitation = data;
+				$scope.invitation.date = "";
+			}
+		});
+    
 
     $scope.ShowSelectBuddiesPopup = function () {
         $scope.IsShowBuddiesPopup = true;
@@ -518,8 +440,6 @@
 							$("input, select, textarea").not("form .mode-container > input").attr("readonly", true).attr("disabled", "disabled");
 						}
                     });
-        } else {
-            //$scope.markInvalidFields();
         }
 	}
 	
@@ -530,7 +450,7 @@
 
             if (new Date($("#date").val()).toDateString() == (new Date()).toDateString()) {
                 var st = (new Date()).toTimeString();
-                var et = $("#exacttime").val();
+                var et = $("#exact-time").val();
                 if (Date.parse((new Date()).toDateString() + " " + st) > Date.parse((new Date()).toDateString() + " " + et)) {
                     alert("Time can not be earlier than now for today!");
                     return false;
@@ -588,57 +508,6 @@
         return true;
     };
 
-    $scope.markInvalidFields = function () {
-        if ($scope.invitation.Name == null || $scope.invitation.Name.length == 0) {
-            $("#InvitationName").addClass("error-input");
-        } else {
-            $("#InvitationName").removeClass("error-input");
-        }
-
-        if ($scope.invitation.Date.length == 0) {
-            $("#Date").addClass("error-input");
-        } else {
-            $("#Date").removeClass("error-input");
-        }
-
-        if (($scope.invitation.ExactTime == null || $scope.invitation.ExactTime.length == 0) && $scope.invitation.Timeframe == null) {
-            $("#exacttime").addClass("error-input");
-            $("#timeframe").addClass("error-input");
-        } else {
-            $("#exacttime").removeClass("error-input");
-            $("#timeframe").removeClass("error-input");
-        }
-
-        if (($scope.invitation.GolferMatch.City == null || $scope.invitation.GolferMatch.City.length == 0) && ($scope.invitation.GolferMatch.ZipCode == null || $scope.invitation.GolferMatch.ZipCode.length == 0)) {
-            $("#city-name").addClass("error-input");
-            $("#zip-code").addClass("error-input");
-        } else {
-            $("#city-name").removeClass("error-input");
-            $("#zip-code").removeClass("error-input");
-        }
-
-        if (new Date($("#Date").val()).toDateString() == (new Date()).toDateString()) {
-            var st = (new Date()).toTimeString();
-            var et = $("#exacttime").val();
-            if (Date.parse((new Date()).toDateString() + " " + st) > Date.parse((new Date()).toDateString() + " " + et)) {
-                $("#Date").addClass("error-input");
-                $("#exacttime").addClass("error-input");
-            } else {
-                $("#Date").removeClass("error-input");
-                $("#exacttime").removeClass("error-input");
-            }
-        }
-        if ($("#specialOffer").length > 0 &&
-                ($scope.invitation.SpecialOffer == null
-                    || $scope.invitation.SpecialOffer == ""
-                    || $scope.invitation.SpecialOffer == undefined)) {
-
-            $("#specialOffer").addClass("error-input");
-        } else {
-            $("#specialOffer").removeClass("error-input");
-        }
-    };
-
     $scope.SaveGolferMatchAsDefault = function () {
 
         if (!$scope.checkGolfersMatch())
@@ -650,32 +519,50 @@
             });
     };
 
-    $scope.ChangeDate = function (e) {
-        
-    };
 
-    $scope.BookaTeeTime = function () {
-        var invitation = $scope.invitation;
+    $scope.BookaTeeTime = function ($event) {
+        $event.preventDefault();
+		var invitation = $scope.invitation;
 
         var url = null;
 
-        if (invitation.FavoriteCourse != null && invitation.FavoriteCourse != 0) {
-            url = GetCourseUrlByCourseId(invitation.FavoriteCourse);
-        } else if (invitation.Course != null) {
-            var course = invitation.Course;
+        if (invitation.favoriteCourse != null && invitation.favoriteCourse != 0) {
+			$http.jsonp(socialputtsLink + "/api/Course/GetCourseUrl?courseId=" + invitation.favoriteCourse +  "&courseName=&alt=json-in-script&callback=JSON_CALLBACK")
+			.success(function(courseBookUrl){
+				if (courseBookUrl.indexOf("Course does not exist") == 0) {
+					alert("Course does not exist");
+				} else {
+					$scope.OpenBookATeeTimeWindow(courseBookUrl);
+				}
+			});
+        } else if (invitation.course != null) {
+            var course = invitation.course;
 
-            if (course.CourseSiteBookingUrl != null && course.CourseSiteBookingUrl != '') {
-                url = course.CourseSiteBookingUrl;
-            } else if (course.CourseName) {
-                url = GetCourseUrlByCourseName(course.CourseName);
+            if (course.courseSiteBookingUrl != null && course.courseSiteBookingUrl != '') {
+                url = course.crseSiteBookingUrl;
+            } else if (course.courseName) {
+                $http.jsonp(socialputtsLink + "/api/Course/GetCourseUrl?courseId=&courseName=" + course.courseName + "&alt=json-in-script&callback=JSON_CALLBACK")
+				.success(function(courseBookUrl){
+					if (courseBookUrl.indexOf("Course does not exist") == 0) {
+						alert("Course does not exist");
+					} else {
+						$scope.OpenBookATeeTimeWindow(courseBookUrl);
+					}
+				});
             }
         }
-        if (url != null) {
-            OpenBookATeeTimeWindow(url);
-        } else {
-            alert("Course does not exist");
-        }
     };
+
+	$scope.OpenBookATeeTimeWindow = function(url) {
+		if (url == "" || url == null) {
+			url = "www.golfnow.com";
+		}
+		if (url.indexOf("http://") == -1) {
+			url = "http://" + url;
+		}
+		window.open(url);
+		window.focus();
+	}
 
     $scope.EditInvitation = function () {
         if (($scope.invitation.favoriteCourse == null || $scope.invitation.favoriteCourse == '')
