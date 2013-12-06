@@ -560,7 +560,7 @@
 		if (url.indexOf("http://") == -1) {
 			url = "http://" + url;
 		}
-		navigator.app.loadUrl(url, { openExternal: true });
+		window.open(url, "_system");
 	}
 
     $scope.EditInvitation = function () {
