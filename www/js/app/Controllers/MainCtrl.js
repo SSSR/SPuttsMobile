@@ -644,9 +644,9 @@
         if (!$scope.checkGolfersMatch())
             return;
 
-        $http.post('/profile/SaveGolfersMatchDefault', $scope.invitation.GolferMatch)
-            .success(function (data) {
-                
+        $http.post(socialputtsLink + '/api/FoursomeInvitation/SaveGolfersMatchDefault?userId=' + $.jStorage.get("user").userId, $scope.invitation.golferMatch)
+            .success(function () {
+                alert("Golfer Match Successfully saved!");
             });
     };
 
