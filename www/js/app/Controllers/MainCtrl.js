@@ -560,7 +560,7 @@
 		if (url.indexOf("http://") == -1) {
 			url = "http://" + url;
 		}
-		window.open(url);
+		window.open(url, "_system");
 		window.focus();
 	}
 
