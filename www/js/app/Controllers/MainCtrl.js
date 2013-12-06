@@ -539,7 +539,7 @@
             var course = invitation.course;
 
             if (course.courseSiteBookingUrl != null && course.courseSiteBookingUrl != '') {
-                $scope.OpenBookATeeTimeWindow(course.crseSiteBookingUrl);
+                $scope.OpenBookATeeTimeWindow(course.courseSiteBookingUrl);
             } else if (course.courseName) {
                 $http.jsonp(socialputtsLink + "/api/Course/GetCourseUrl?courseId=&courseName=" + course.courseName + "&alt=json-in-script&callback=JSON_CALLBACK")
 				.success(function(courseBookUrl){
