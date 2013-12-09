@@ -9,6 +9,7 @@ socialputts
 		.when('/index', {templateUrl: 'partials/main.html', controller: 'HomeCtrl'})
 		.when('/signin', {templateUrl: 'partials/signIn.html', controller: 'AccountCtrl'})
 		.when('/buddies', {templateUrl: 'partials/Buddies.html', controller: 'BuddiesCtrl'})
+		.when('/chat', {templateUrl: 'partials/Chat.html', controller: 'ChatCtrl'})
 		.when('/inviteYourBuddies', {templateUrl: 'partials/InviteYourBuddies.html', controller: 'InviteYourBuddiesCtrl'})
 		.when('/courseFinder', {templateUrl: 'partials/CourseFinder.html', controller: 'CourseFinderCtrl'})
 		.when('/fillYourFoursome', {templateUrl: 'partials/FillYourFoursome.html', controller: 'FillYourFoursomeCtrl'})

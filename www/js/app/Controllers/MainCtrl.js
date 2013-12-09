@@ -72,9 +72,40 @@
 
 .controller('BuddiesCtrl', function ($scope, $http, $location) {
     checkUserLogedOff($location);
+	
+	$http.get(socialputtsLink + "/api/Buddies/Get?userId=" + $.jStorage.get("user").userId)
+	.success(function(buddies){
+		$scope.buddies = buddies;
+	})
+})
+.controller('ChatCtrl', function ($scope, $http, $location, $route) {
+    checkUserLogedOff($location);
+	var userId = $route.current.params.userId
+	$scope.firstName = $route.current.params.firstName;
+	$scope.lastName = $route.current.params.lastName;
+	
+	$http.get(socialputtsLink + "/api/Chat/get?userId=" + $.jStorage.get("user").userId + "&buddyId=" + userId)
+	.success(function(history){
+		_.each(history, function(message){
+			message.dateTime = moment.utc(message.dateTime).local().format('MM/DD/YYYY hh:mm A');
+		});
+		
+		$scope.history = history;
+	});
+	
+	$scope.sendMessage = function(){
+		
+		$http.post(socialputtsLink + "/api/Chat/SaveMessage?fromUserId=" + $.jStorage.get("user").userId + "&message=" + $scope.messageText + "&toUserId=" + userId)
+		.success(function(){
+			$scope.messageText = "";
+			$route.reload();
+		});
+	}
 })
 .controller('InviteYourBuddiesCtrl', function ($scope, $http, $location) {
     checkUserLogedOff($location);
+	
+	
 })
 
 

@@ -1,2 +1,25 @@
 <div ng-include src="'partials/Navigation.html'"></div>
-<div>Buddies</div>
+<div class="buddies-container">
+	<div class="item row" ng-repeat="buddy in buddies" user-id="{{buddy.id}}">
+		<div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
+			<img src="http://socialputts.com/Profile/GetAvatar/{{buddy.email}}" alt="Alternate Text" class="img-avatar">
+		</div>
+		<div class="is-online col-lg-1 col-md-1 col-sm-1 col-xs-1" ng-switch on="buddy.isOnline">
+			<div ng-switch-when="true">
+				<img src="imgs/online.png">
+			</div>
+			<div ng-switch-when="false">
+				<img src="imgs/offline.png">
+			</div>
+			
+		</div>
+		
+		<div class="col-lg-2 col-md-4 col-sm-6 col-xs-6">
+			<a href="#/chat?userId={{buddy.id}}&firstName={{buddy.firstName}}&lastName={{buddy.lastName}}" class="buddy-name">{{buddy.firstName}} {{buddy.lastName}}</a>
+		</div>
+		<div class="unread-messages-count" ng-show="buddy.incomingMessages > 0">
+			{{buddy.incomingMessages}}
+		</div>	
+
+	</div>
+</div>

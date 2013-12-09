@@ -231,3 +231,47 @@ img.small-avatar
 }
 
 /*Fill Your Foursome end-page ================================================================================== */
+
+/*Buddies styles*/
+.buddies-container .item{
+	margin-bottom: 5%;
+}
+
+.buddy-name{
+	font-size: 1.5em;
+}
+
+.unread-messages-count {
+	float:left;
+	background: red;
+	border-radius: 15px;
+	width: 18px;
+	height: 18px;
+	text-align: center;
+	line-height: 16px;
+	color: white;
+}
+
+.buddies-container .img-avatar{
+	width: 100%;
+}
+
+/*Buddies end* --------------------------------------------------------------------------------------------------------/
+
+
+/*Chat styles*/
+.opposit{
+	margin-bottom:5%;
+}
+.message{
+	margin-bottom:5%;
+	padding-right: 5%;
+}
+.text-message-field{
+	margin-top:5%;
+}
+.send-control{
+	margin-top: 1%;
+}
+
+/*Chat end*/
