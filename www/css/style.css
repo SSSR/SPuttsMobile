@@ -274,4 +274,24 @@ img.small-avatar
 	margin-top: 1%;
 }
 
-/*Chat end*/
+/*Chat end ----------------------------------------------------------------------------------------------------------------*/
+
+/*Invite Buddies*/
+.invite-buddies-container{
+	overflow: hidden;
+	padding: 5%;
+	border: 1px solid green;
+	border-radius: 10px;
+	margin-top:5%;
+}
+.send-email-message{
+	color:green;
+	margin-bottom: 5%;
+}
+.container{
+	overflow:hidden;
+}
+.add-button{
+	margin-top:-35px;
+}
+/*Invite Buddies end --------------------------------------------------------------------------------------------------------*/

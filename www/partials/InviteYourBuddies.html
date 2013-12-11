@@ -1,2 +1,42 @@
 <div ng-include src="'partials/Navigation.html'"></div>
-<div>Invite Your Buddies</div>
+<div class="center-block">
+	<h2>Invite new Users to join SocialPutts!</h2>
+</div>
+<div class="invite-buddies-container">
+	<div ng-repeat="buddyInfo in inviteBuddiesList">
+		
+	</div>
+	
+	<div class="col-lg-12 container">
+		
+		<div class="center-block send-email-message">
+			<h3>Send an email invite to your contacts</h3>
+		</div>
+		
+		<div class="full-name pull-left col-lg-6 col-md-6 col-sm-6 col-xs-6">
+			<div class="pull-left col-lg-3 col-md-4 col-sm-5 col-xs-12">
+				Full Name:
+			</div>
+			<div class="pull-left col-lg-8 col-md-8 col-sm-7 col-xs-11">
+				<input type="text" class="form-control">
+			</div>
+		</div>
+		<div class="email pull-left col-lg-5 col-md-5 col-sm-5 col-xs-6">
+			<div class="pull-left col-lg-2 col-md-3 col-sm-3 col-xs-12">
+				Email:
+			</div>
+			<div class="pull-left col-lg-9 col-md-9 col-sm-9 col-xs-11">
+				<input type="text" class="form-control">
+			</div>
+		</div>
+		
+		
+	</div>
+	<div class="col-lg-12">
+		<div class="pull-right  add-button">
+			<button type="button" class="btn btn-default">+</button>
+		</div>
+	</div>
+	
+	
+</div>
