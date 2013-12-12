@@ -301,3 +301,13 @@ img.small-avatar
 	border-color: #CC0000;
 }
 /*Invite Buddies end --------------------------------------------------------------------------------------------------------*/
+
+/*Favorite Course*/
+.favorite-courses h2{
+	color:green;
+}
+.course-item{
+	margin-bottom:3%;
+	overflow:hidden;
+}
+/*Favorite Course end ---------------------------------------------------------------------------------------------------------*/

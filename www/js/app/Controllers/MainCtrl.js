@@ -46,8 +46,6 @@
         return false;
     };
 })
-
-
 .controller('AccountCtrl', function ($scope, $http, $location) {
     $.jStorage.deleteKey('user');
 
@@ -68,8 +66,6 @@
     };
 
 })
-
-
 .controller('BuddiesCtrl', function ($scope, $http, $location) {
     checkUserLogedOff($location);
 	
@@ -183,8 +179,6 @@
 		}
 	};
 })
-
-
 .controller('CourseFinderCtrl', function ($scope, $http, $location, courseFinderService) {
     checkUserLogedOff($location);
 
@@ -201,7 +195,7 @@
 
     courseFinderService.clearFavoriteCoursesArray();
 
-    $http.jsonp(socialputtsLink + "/api/Course/GetFavoriteCoursesForUser?email=" + $.jStorage.get('user').userName + "&alt=json-in-script&callback=JSON_CALLBACK")
+    $http.jsonp(socialputtsLink + "/api/Course/GetFavoriteCoursesForUser?userId=" + $.jStorage.get('user').userId + "&alt=json-in-script&callback=JSON_CALLBACK")
         .success(function (result) {
             _.each(result, function (course) {
                 $scope.favCourses.push(course);
@@ -408,7 +402,6 @@
 		});
     };
 })
-
 .controller('FillYourFoursomeCtrl', function ($scope, $http, $location, $route) {
     checkUserLogedOff($location);
 	
@@ -729,6 +722,17 @@
 })
 .controller('FavoriteCoursesCtrl', function ($scope, $http, $location) {
     checkUserLogedOff($location);
+	$http.jsonp(socialputtsLink + "/api/Course/GetFavoriteCoursesForUser?userId=" + $.jStorage.get('user').userId + "&alt=json-in-script&callback=JSON_CALLBACK")
+        .success(function (result) {
+			$scope.favCourses = result;
+        });
+	
+	$scope.removeFromFav = function(index, course){
+		$http.post(socialputtsLink + "/api/Course/RemoveFromFavorite?userId=" + $.jStorage.get("user").userId + "&id=" + course.id)
+		.success(function(){
+			$scope.favCourses.splice(index, 1);
+		})
+	};
 })
 .controller('SettingsCtrl', function ($scope, $http, $location) {
     checkUserLogedOff($location);
