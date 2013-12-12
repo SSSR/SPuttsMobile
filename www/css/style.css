@@ -291,7 +291,13 @@ img.small-avatar
 .container{
 	overflow:hidden;
 }
-.add-button{
+.remove-button{
 	margin-top:-35px;
+}
+.buddy-info{
+	margin-bottom:5%;
+}
+.input-validation-error {
+	border-color: #CC0000;
 }
 /*Invite Buddies end --------------------------------------------------------------------------------------------------------*/
