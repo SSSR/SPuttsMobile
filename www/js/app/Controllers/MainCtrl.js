@@ -386,9 +386,9 @@
 			});
     });
 
-    $scope.addToFavorite = function ($event, course) {
+    $scope.addToFavorite = function ($event) {
         $event.preventDefault();
-        var id = course.id;
+        var id = $($event.target).attr("courseId");
         $http.post(socialputtsLink + "/api/Course/AddCourseToFavorite?userId=" + $.jStorage.get('user').userId + "&id=" + id)
 		.success(function (result) {
 		    if (result) {
@@ -396,25 +396,25 @@
 		            return course.id == id;
 		        });
 		        courseToFav.isNotFavorite = false;
+		        courseToFav.isFavourite = false;
 		        alert("Course has been added!");
 		    } else {
 		        alert("Error!");
 		    }
 		});
     };
-	$scope.removeFromFavorite = function ($event, course) {
+	$scope.removeFromFavorite = function ($event) {
         $event.preventDefault();
-        var id = course.id;
-        $http.post(socialputtsLink + "/api/Course/RemoveFromFavorite?email=" + $.jStorage.get('user').userId + "&id=" + id)
-		.success(function (result) {
-		    if (result) {
-		        var courseToFav = _.find($scope.coursesOnMap, function (course) {
-		            return course.id == id;
-		        });
-		        courseToFav.isNotFavorite = true;
-		    } else {
-		        alert("Error!");
-		    }
+        var id = $($event.target).attr("courseId");
+        $http.post(socialputtsLink + "/api/Course/RemoveFromFavorite?userId=" + $.jStorage.get('user').userId + "&id=" + id)
+		.success(function (courseId) {
+		    var courseToRemove = _.find($scope.coursesOnMap, function (course) {
+				return course.id == id;
+			});
+			courseToRemove.isNotFavorite = true;
+			
+			$(".not-fav[courseid=" + courseId + "]").hide();
+			$(".list-as-fav[courseid=" + courseId + "]").show();
 		});
     };
 	$scope.mapRoute = function (data) {

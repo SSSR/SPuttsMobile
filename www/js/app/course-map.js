@@ -143,14 +143,27 @@ function markMap(options, $scope, $http) {
 			google.maps.event.addListener(marker, 'click', function(){
 				$http.get(socialputtsLink + "/api/Course/GetCourseInfo?email=" + $.jStorage.get('user').userName + "&courseId=" + courseIdBindedToMarker)
 				.success(function(result){
+					
 					$scope.popupInfo = result;
+					
 					_.each($scope.infoWindows, function(iwindow){
 						iwindow.close();
-					})
+					});
+					
 					setTimeout(function(){
 						infoWindow.setContent($(".popup").html());
 						infoWindow.open(map, marker);
 					}, 100);
+					
+					setTimeout(function(){
+						$(".list-as-fav").click(function(event){
+							$scope.addToFavorite(event);
+						});
+						$(".not-fav").click(function(event){
+							$scope.removeFromFavorite(event);
+						});
+					}, 100);
+					
 				});
 			});
 		});
