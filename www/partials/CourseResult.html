@@ -20,10 +20,10 @@
 							<tbody ng-repeat="course in coursesOnMap" class="searchlist">
 								<tr>
 									<td>
-										<a href="#" class="addToFavsIcon" id="{{course.id}}" ng-click="addToFavorite($event)" ng-show="course.isNotFavorite" title="Add to Favorite" />
+										<a href="#" class="addToFavsIcon" id="{{course.id}}" ng-click="addToFavorite($event, course)" ng-show="course.isNotFavorite" title="Add to Favorite" />
 									</td>
 									<td>
-										<a class="big-href" onmouseover="">{{course.combinedNameAndMileage}}
+										<a class="big-href" ng-mouseover="mapRoute(course)">{{course.combinedNameAndMileage}}
 										</a>
 									</td>
 									<td style="text-align: center;">
@@ -38,7 +38,30 @@
 						</table>
 	</div>
 	<div class="row">
-		<div id="map"><div>
-	<div>
+		<div id="map"></div>
+	</div>
+	
+	<div class="popup" style="display:none;">
+		<div class="popup-info">
+			<div class="course-name">
+				<h4>{{popupInfo.courseName}}</h4>
+			</div>
+			<div class="course-info">
+				<div class="image pull-left">
+					<img src="http://socialputts-test.azurewebsites.net/Course/GetCourseImage?courseId={{popupInfo.id}}" /> 
+				</div>
+				<div class="info pull-right">
+					<div>Type: <span>{{popupInfo.courseType}}<span></div>
+					<div>Phone: <span>{{popupInfo.phone}}</span></div>
+					<div>Address: <span>{{popupInfo.address}}</span></div>
+				</div>
+			</div>
+			<div>
+				<button ng-click="addToFavorite($event, popupInfo)"  ng-show="!popupInfo.isFavourite" class="btn btn-warning">List as Favorite</button>
+				<button ng-click="removeFromFavorite($event, popupInfo)" ng-show="popupInfo.isFavourite" class="btn btn-warning">Not a Favorite</button>
+			</div>
+		</div>
+		
+	</div>
 </div>
 

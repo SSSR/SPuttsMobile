@@ -279,6 +279,7 @@
     $scope.favsCoordArray = [];
     $scope.markers = [];
     $scope.infoWindows = [];
+	$scope.popupInfo = {};
 
     var formObject = courseFinderService.getObject();
 
@@ -361,7 +362,7 @@
 
 			    });
 
-			    markMap($scope.coordsArray, myOptions, $scope);
+			    markMap(myOptions, $scope, $http);
 
 			    $scope.coursesToSort.sort(function (first, seccond) {
 			        if (first.discount > seccond.discount) {
@@ -385,10 +386,10 @@
 			});
     });
 
-    $scope.addToFavorite = function ($event) {
+    $scope.addToFavorite = function ($event, course) {
         $event.preventDefault();
-        var id = $($event.target).attr("id");
-        $http.post(socialputtsLink + "/api/Course/AddCourseToFavorite?email=" + $.jStorage.get('user').userName + "&id=" + id)
+        var id = course.id;
+        $http.post(socialputtsLink + "/api/Course/AddCourseToFavorite?userId=" + $.jStorage.get('user').userId + "&id=" + id)
 		.success(function (result) {
 		    if (result) {
 		        var courseToFav = _.find($scope.coursesOnMap, function (course) {
@@ -400,6 +401,26 @@
 		        alert("Error!");
 		    }
 		});
+    };
+	$scope.removeFromFavorite = function ($event, course) {
+        $event.preventDefault();
+        var id = course.id;
+        $http.post(socialputtsLink + "/api/Course/RemoveFromFavorite?email=" + $.jStorage.get('user').userId + "&id=" + id)
+		.success(function (result) {
+		    if (result) {
+		        var courseToFav = _.find($scope.coursesOnMap, function (course) {
+		            return course.id == id;
+		        });
+		        courseToFav.isNotFavorite = true;
+		    } else {
+		        alert("Error!");
+		    }
+		});
+    };
+	$scope.mapRoute = function (data) {
+        map.setZoom(14);
+        var latlng = new google.maps.LatLng(data.latitude, data.longitude);
+        map.setCenter(latlng);
     };
 })
 .controller('FillYourFoursomeCtrl', function ($scope, $http, $location, $route) {

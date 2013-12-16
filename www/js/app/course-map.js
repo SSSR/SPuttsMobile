@@ -58,11 +58,11 @@ function Coords(data) {
 function initializeMap() {
 	if(document.getElementById("map") != null){
 		map = new google.maps.Map(document.getElementById("map"));
-		markMap([]);
+		//markMap([]);
 	}	
 };
 
-function markMap(coordinatesArray, options, $scope) {
+function markMap(options, $scope, $http) {
 
         var myOptions;
 
@@ -70,12 +70,12 @@ function markMap(coordinatesArray, options, $scope) {
             var latlng;
             var zooom;
 
-            if ((coordinatesArray.length == 0) || ((coordinatesArray[0].pfLat == 0) & (coordinatesArray[0].pfLong == 0))) {
+            if (($scope.coordsArray.length == 0) || (($scope.coordsArray[0].pfLat == 0) & ($scope.coordsArray[0].pfLong == 0))) {
 
                 latlng = new google.maps.LatLng(30, -97);
                 zooom = 3;
             } else {
-                latlng = new google.maps.LatLng(coordinatesArray[0].pfLat, coordinatesArray[0].pfLong);
+                latlng = new google.maps.LatLng($scope.coordsArray[0].pfLat, $scope.coordsArray[0].pfLong);
                 zooom = 7;
             }
 
@@ -95,19 +95,19 @@ function markMap(coordinatesArray, options, $scope) {
 		
 		
         //markers
-        for (var i = 0; i < coordinatesArray.length; i++) {
+        for (var i = 0; i < $scope.coordsArray.length; i++) {
             var marker = new google.maps.Marker(
                 {
                     map: map,
-                    position: new google.maps.LatLng(coordinatesArray[i].lat, coordinatesArray[i].long)
+                    position: new google.maps.LatLng($scope.coordsArray[i].lat, $scope.coordsArray[i].long)
                 });
 
             var infowindow = new google.maps.InfoWindow();
             $scope.allMarkers.push(marker);
-            $scope.markers.push(marker); // parallel arrays of markers and infoWindows
+            //$scope.markers.push(marker); // parallel arrays of markers and infoWindows
             $scope.infoWindows.push(infowindow);
 
-            switch (coordinatesArray[i].type) {
+            switch ($scope.coordsArray[i].type) {
                 case 0:
                     //public
                     marker.setIcon("imgs/pins/red.png");
@@ -134,5 +134,25 @@ function markMap(coordinatesArray, options, $scope) {
                     break;
             }
         }
+		_.each($scope.allMarkers, function(marker, index){
+			var infoWindow = $scope.infoWindows[index];
+			infoWindow.setOptions({ maxWidth: 10000, maxHeight: 800 });
+			var courseIdBindedToMarker = $scope.coordsArray[index].courseId;
+			
+			
+			google.maps.event.addListener(marker, 'click', function(){
+				$http.get(socialputtsLink + "/api/Course/GetCourseInfo?email=" + $.jStorage.get('user').userName + "&courseId=" + courseIdBindedToMarker)
+				.success(function(result){
+					$scope.popupInfo = result;
+					_.each($scope.infoWindows, function(iwindow){
+						iwindow.close();
+					})
+					setTimeout(function(){
+						infoWindow.setContent($(".popup").html());
+						infoWindow.open(map, marker);
+					}, 100);
+				});
+			});
+		});
         
 };

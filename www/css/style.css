@@ -311,3 +311,29 @@ img.small-avatar
 	overflow:hidden;
 }
 /*Favorite Course end ---------------------------------------------------------------------------------------------------------*/
+
+/*Course Result*/
+.popup-info .course-name{
+	color:green;
+}
+.popup-info .course-info{
+	overflow:hidden;
+	margin-bottom:10px;
+}
+.popup-info .course-info .info div{
+	font-size:16px;
+	color:gray;
+	font-weight:bold;
+}
+.popup-info .course-info .info div span{
+	color:green;
+	font-size:16px;
+}
+.popup-info .image{
+	width:20%;
+}
+.popup-info .image img{
+	width:100%;
+}
+
+/*Course Result end ---------------------------------------------------------------------------------------------------------*/
