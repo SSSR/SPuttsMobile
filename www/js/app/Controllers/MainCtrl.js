@@ -84,10 +84,18 @@
 	$.connection.hub.url = socialputtsLink + "/signalr/hubs";
 	var hub = $.connection.messageHub;
 	$.connection.hub.qs = { "userId" : $.jStorage.get("user").userId };
-	$.connection.hub.start().done(function(){console.log("success")}).fail(function(){console.log("error")});
+	$.connection.hub.start();
 	
 	hub.client.sendMessage = function(message){
-		alert(message.Message);
+		$scope.messageText = "";
+		$scope.history.push({
+			dateTime:message.DateTime, 
+			fromUserEmail:message.FromUserEmail, 
+			fromUserId:message.FromUserId, 
+			fromUserName:message.FromUserName, 
+			message:message.Message, 
+			toUserId:message.ToUserId});
+		$scope.$apply();
 	};
 	
 	$http.get(socialputtsLink + "/api/Chat/get?userId=" + $.jStorage.get("user").userId + "&buddyId=" + userId)
