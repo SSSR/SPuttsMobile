@@ -89,8 +89,8 @@
 	hub.client.sendMessage = function(message){
 		alert(message.Message);
 		$scope.messageText = "";
-		$scope.history.push({
-			dateTime:message.DateTime, 
+		$scope.history.unshift({
+			dateTime:moment.utc(message.DateTime).local().format('MM/DD/YYYY hh:mm A'), 
 			fromUserEmail:message.FromUserEmail, 
 			fromUserId:message.FromUserId, 
 			fromUserName:message.FromUserName, 
