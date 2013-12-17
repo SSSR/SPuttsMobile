@@ -87,7 +87,7 @@
 	$.connection.hub.start().done(function(){console.log("success")}).fail(function(){console.log("error")});
 	
 	hub.client.sendMessage = function(message){
-		alert("message sent");
+		$route.reload();
 	};
 	
 	$http.get(socialputtsLink + "/api/Chat/get?userId=" + $.jStorage.get("user").userId + "&buddyId=" + userId)
