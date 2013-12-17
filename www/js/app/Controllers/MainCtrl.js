@@ -80,6 +80,16 @@
 	$scope.firstName = $route.current.params.firstName;
 	$scope.lastName = $route.current.params.lastName;
 	
+	jQuery.support.cors = true;
+	$.connection.hub.url = socialputtsLink + "/signalr/hubs";
+	var hub = $.connection.messageHub;
+	$.connection.hub.qs = { "userId" : $.jStorage.get("user").userId };
+	$.connection.hub.start().done(function(){console.log("success")}).fail(function(){console.log("error")});
+	
+	hub.client.sendMessage = function(message){
+		alert("message sent");
+	};
+	
 	$http.get(socialputtsLink + "/api/Chat/get?userId=" + $.jStorage.get("user").userId + "&buddyId=" + userId)
 	.success(function(history){
 		_.each(history, function(message){
@@ -91,11 +101,13 @@
 	
 	$scope.sendMessage = function(){
 		
+		hub.server.sendPrivateMessage($.jStorage.get("user").userId, userId, $scope.messageText);
+		/*
 		$http.post(socialputtsLink + "/api/Chat/SaveMessage?fromUserId=" + $.jStorage.get("user").userId + "&message=" + $scope.messageText + "&toUserId=" + userId)
 		.success(function(){
 			$scope.messageText = "";
 			$route.reload();
-		});
+		});*/
 	}
 })
 .controller('InviteYourBuddiesCtrl', function ($scope, $http, $location, $route) {
