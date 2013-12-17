@@ -84,6 +84,7 @@
 	$.connection.hub.url = socialputtsLink + "/signalr/hubs";
 	var hub = $.connection.messageHub;
 	$.connection.hub.qs = { "userId" : $.jStorage.get("user").userId };
+	$.connection.hub.stop();
 	$.connection.hub.start();
 	
 	hub.client.sendMessage = function(message){
