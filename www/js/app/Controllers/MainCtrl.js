@@ -87,7 +87,6 @@
 	$.connection.hub.start();
 	
 	hub.client.sendMessage = function(message){
-		alert(message.Message);
 		$scope.messageText = "";
 		$scope.history.unshift({
 			dateTime:moment.utc(message.DateTime).local().format('MM/DD/YYYY hh:mm A'), 
