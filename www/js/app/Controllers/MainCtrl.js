@@ -87,6 +87,7 @@
 	$.connection.hub.start();
 	
 	hub.client.sendMessage = function(message){
+		alert(message.Message);
 		$scope.messageText = "";
 		$scope.history.push({
 			dateTime:message.DateTime, 
