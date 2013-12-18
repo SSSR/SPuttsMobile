@@ -45,9 +45,18 @@
     };
 })
 .controller('AccountCtrl', function ($scope, $http, $location) {
-    $.jStorage.deleteKey('user');
-	
-	$.connection.messageHub.server.logout()
+    if($.jStorage.get("user") != null){
+		jQuery.support.cors = true;
+		$.connection.hub.url = socialputtsLink + "/signalr/hubs";
+		$.connection.hub.qs = { "userId" : $.jStorage.get("user").userId };
+		//$.connection.hub.stop();
+		$.connection.hub.start().done(function(){
+			console.log("connected");
+		});
+		$.connection.messageHub.server.logout();
+	}
+		
+	$.jStorage.deleteKey('user');
 	
     $scope.logIn = function () {
         $scope.invalidForm = false;
@@ -140,7 +149,7 @@
 	
 	$scope.sendMessage = function(){
 		
-		hub.server.sendPrivateMessage($.jStorage.get("user").userId, userId, $scope.messageText);
+		$.connection.messageHub.server.sendPrivateMessage($.jStorage.get("user").userId, userId, $scope.messageText);
 	}
 })
 .controller('InviteYourBuddiesCtrl', function ($scope, $http, $location, $route) {
@@ -812,7 +821,10 @@ function checkUserLogedOff($location, $scope) {
         $location.path('#/signin');
     }
 	$scope.Hello = $.jStorage.get("user").name;
-	
+	startConnection();
+}
+
+function startConnection(){
 	jQuery.support.cors = true;
 	$.connection.hub.url = socialputtsLink + "/signalr/hubs";
 	$.connection.hub.qs = { "userId" : $.jStorage.get("user").userId };
