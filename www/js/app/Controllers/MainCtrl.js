@@ -9,8 +9,8 @@
 
 
 .controller('HomeCtrl', function ($scope, $http, $location) {
-    checkUserLogedOff($location);
-	$scope.Hello = $.jStorage.get("user").name;
+    checkUserLogedOff($location, $scope);
+	
     $scope.$on('$locationChangeStart', function (event, next, current) {
         if (next.search("#/signin") !== -1) {
             event.preventDefault();
@@ -67,7 +67,7 @@
 
 })
 .controller('BuddiesCtrl', function ($scope, $http, $location) {
-    checkUserLogedOff($location);
+    checkUserLogedOff($location, $scope);
 	
 	$http.get(socialputtsLink + "/api/Buddies/Get?userId=" + $.jStorage.get("user").userId)
 	.success(function(buddies){
@@ -75,7 +75,7 @@
 	})
 })
 .controller('ChatCtrl', function ($scope, $http, $location, $route) {
-    checkUserLogedOff($location);
+    checkUserLogedOff($location, $scope);
 	var userId = $route.current.params.userId
 	$scope.firstName = $route.current.params.firstName;
 	$scope.lastName = $route.current.params.lastName;
@@ -97,6 +97,8 @@
 			message:message.Message, 
 			toUserId:message.ToUserId});
 		$scope.$apply();
+		
+		//$http.post(socialputtsLink + "/api/MarkMessageAsRead?")
 	};
 	
 	$http.get(socialputtsLink + "/api/Chat/get?userId=" + $.jStorage.get("user").userId + "&buddyId=" + userId)
@@ -111,16 +113,10 @@
 	$scope.sendMessage = function(){
 		
 		hub.server.sendPrivateMessage($.jStorage.get("user").userId, userId, $scope.messageText);
-		/*
-		$http.post(socialputtsLink + "/api/Chat/SaveMessage?fromUserId=" + $.jStorage.get("user").userId + "&message=" + $scope.messageText + "&toUserId=" + userId)
-		.success(function(){
-			$scope.messageText = "";
-			$route.reload();
-		});*/
 	}
 })
 .controller('InviteYourBuddiesCtrl', function ($scope, $http, $location, $route) {
-    checkUserLogedOff($location);
+    checkUserLogedOff($location, $scope);
 	
 	$scope.pattern = "^[_A-Za-z0-9-]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,4})$";
 	$scope.inviteBuddiesList = [];
@@ -201,7 +197,7 @@
 	};
 })
 .controller('CourseFinderCtrl', function ($scope, $http, $location, courseFinderService) {
-    checkUserLogedOff($location);
+    checkUserLogedOff($location, $scope);
 
     $scope.favCourses = [];
     $scope.searchCourseModel = [];
@@ -291,7 +287,7 @@
     };
 })
 .controller('CourseResultCtrl', function ($scope, $http, $location, courseFinderService) {
-    checkUserLogedOff($location);
+    checkUserLogedOff($location, $scope);
 
     $scope.coursesOnMap = [];
     $scope.allMarkers = [];
@@ -445,7 +441,7 @@
     };
 })
 .controller('FillYourFoursomeCtrl', function ($scope, $http, $location, $route) {
-    checkUserLogedOff($location);
+    checkUserLogedOff($location, $scope);
 	
     $scope.displayBuddiesContaner = false;
 	$scope.isUserInRole = $.jStorage.get("user").isUserInCourseAdminRole;
@@ -760,10 +756,10 @@
     };
 })
 .controller('ManageInvitationsCtrl', function ($scope, $http, $location) {
-    checkUserLogedOff($location);
+    checkUserLogedOff($location, $scope);
 })
 .controller('FavoriteCoursesCtrl', function ($scope, $http, $location) {
-    checkUserLogedOff($location);
+    checkUserLogedOff($location, $scope);
 	$http.jsonp(socialputtsLink + "/api/Course/GetFavoriteCoursesForUser?userId=" + $.jStorage.get('user').userId + "&alt=json-in-script&callback=JSON_CALLBACK")
         .success(function (result) {
 			$scope.favCourses = result;
@@ -777,14 +773,15 @@
 	};
 })
 .controller('SettingsCtrl', function ($scope, $http, $location) {
-    checkUserLogedOff($location);
+    checkUserLogedOff($location, $scope);
 })
 .controller('OneClickDiscountCtrl', function ($scope, $http, $location) {
-    checkUserLogedOff($location);
+    checkUserLogedOff($location, $scope);
 });
 
-function checkUserLogedOff($location) {
+function checkUserLogedOff($location, $scope) {
     if ($.jStorage.get('user') == null) {
         $location.path('#/signin');
     }
+	$scope.Hello = $.jStorage.get("user").name;
 }
