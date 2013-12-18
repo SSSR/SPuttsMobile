@@ -80,6 +80,10 @@
 	$scope.firstName = $route.current.params.firstName;
 	$scope.lastName = $route.current.params.lastName;
 	
+	$http.post(socialputtsLink + "/api/Chat/MarkAllMessagesAsRead?userId=" + userId + "&toUserId=" + $.jStorage.get("user").userId)
+			.success(function(){
+			});
+	
 	jQuery.support.cors = true;
 	$.connection.hub.url = socialputtsLink + "/signalr/hubs";
 	var hub = $.connection.messageHub;
@@ -98,7 +102,12 @@
 			toUserId:message.ToUserId});
 		$scope.$apply();
 		
-		//$http.post(socialputtsLink + "/api/MarkMessageAsRead?")
+		if(message.FromUserId != $.jStorage.get("user").userId){
+			$http.post(socialputtsLink + "/api/Chat/MarkAllMessagesAsRead?userId=" + message.FromUserId + "&toUserId=" + message.ToUserId)
+			.success(function(){
+			});
+		}
+		
 	};
 	
 	$http.get(socialputtsLink + "/api/Chat/get?userId=" + $.jStorage.get("user").userId + "&buddyId=" + userId)
