@@ -10,7 +10,7 @@
 
 .controller('HomeCtrl', function ($scope, $http, $location) {
     checkUserLogedOff($location);
-
+	$scope.Hello = $.jStorage.get("user").name;
     $scope.$on('$locationChangeStart', function (event, next, current) {
         if (next.search("#/signin") !== -1) {
             event.preventDefault();
@@ -48,7 +48,7 @@
 })
 .controller('AccountCtrl', function ($scope, $http, $location) {
     $.jStorage.deleteKey('user');
-
+	
     $scope.logIn = function () {
         $scope.invalidForm = false;
         var data = $("#sign-in-form").serializeObject();
