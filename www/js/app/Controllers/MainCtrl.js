@@ -6,12 +6,10 @@
         $scope.Hello = "";
     }
 })
-
-
 .controller('HomeCtrl', function ($scope, $http, $location) {
     checkUserLogedOff($location, $scope);
 	
-    $scope.$on('$locationChangeStart', function (event, next, current) {
+	$scope.$on('$locationChangeStart', function (event, next, current) {
         if (next.search("#/signin") !== -1) {
             event.preventDefault();
         }
@@ -49,6 +47,8 @@
 .controller('AccountCtrl', function ($scope, $http, $location) {
     $.jStorage.deleteKey('user');
 	
+	$.connection.messageHub.server.logout()
+	
     $scope.logIn = function () {
         $scope.invalidForm = false;
         var data = $("#sign-in-form").serializeObject();
@@ -72,7 +72,33 @@
 	$http.get(socialputtsLink + "/api/Buddies/Get?userId=" + $.jStorage.get("user").userId)
 	.success(function(buddies){
 		$scope.buddies = buddies;
-	})
+	});
+	
+	$.connection.messageHub.client.userLoggedIn = function (userId) {
+		var buddy = _.find($scope.buddies, function(buddyItem){
+			return buddyItem.id == userId;
+		});
+		buddy.isOnline = true;
+		
+		$scope.buddies = _.sortBy($scope.buddies, function(buddy){
+			return !buddy.isOnline == true;
+		});
+		
+		$scope.$apply();
+    };
+	
+	$.connection.messageHub.client.userLoggedOut = function (userId) {
+		var buddy = _.find($scope.buddies, function(buddyItem){
+			return buddyItem.id == userId;
+		});
+		buddy.isOnline = false;
+		
+		$scope.buddies = _.sortBy($scope.buddies, function(buddy){
+			return !buddy.isOnline == false;
+		});
+		
+		$scope.$apply();
+    };
 })
 .controller('ChatCtrl', function ($scope, $http, $location, $route) {
     checkUserLogedOff($location, $scope);
@@ -84,14 +110,7 @@
 			.success(function(){
 			});
 	
-	jQuery.support.cors = true;
-	$.connection.hub.url = socialputtsLink + "/signalr/hubs";
-	var hub = $.connection.messageHub;
-	$.connection.hub.qs = { "userId" : $.jStorage.get("user").userId };
-	$.connection.hub.stop();
-	$.connection.hub.start();
-	
-	hub.client.sendMessage = function(message){
+	$.connection.messageHub.client.sendMessage = function(message){
 		$scope.messageText = "";
 		$scope.history.unshift({
 			dateTime:moment.utc(message.DateTime).local().format('MM/DD/YYYY hh:mm A'), 
@@ -793,4 +812,10 @@ function checkUserLogedOff($location, $scope) {
         $location.path('#/signin');
     }
 	$scope.Hello = $.jStorage.get("user").name;
+	
+	jQuery.support.cors = true;
+	$.connection.hub.url = socialputtsLink + "/signalr/hubs";
+	$.connection.hub.qs = { "userId" : $.jStorage.get("user").userId };
+	$.connection.hub.stop();
+	$.connection.hub.start();
 }
