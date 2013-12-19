@@ -49,14 +49,14 @@
 		jQuery.support.cors = true;
 		$.connection.hub.url = socialputtsLink + "/signalr/hubs";
 		$.connection.hub.qs = { "userId" : $.jStorage.get("user").userId };
-		//$.connection.hub.stop();
+		$.jStorage.deleteKey('user');
 		$.connection.hub.start().done(function(){
 			console.log("connected");
 		});
 		$.connection.messageHub.server.logout();
 	}
 		
-	$.jStorage.deleteKey('user');
+	
 	
     $scope.logIn = function () {
         $scope.invalidForm = false;
