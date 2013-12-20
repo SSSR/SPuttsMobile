@@ -484,9 +484,44 @@
 	$scope.isUserInRole = $.jStorage.get("user").isUserInCourseAdminRole;
 	$scope.mode = "golfer";
 	
+	var invitationId = $route.current.params.invitationId;
 	var courseId = $route.current.params.courseId;
+	
+	if(invitationId != null){
+		$http.jsonp(socialputtsLink + "/api/FoursomeInvitation/GetInvitation?userId=" + $.jStorage.get('user').userId + "&invitationId=" + invitationId + "&alt=json-in-script&callback=JSON_CALLBACK")
+		.success(function(data){
+			 _.each(data.buddies, function (buddyId) {
+				_.each(data.userBuddies, function (buddy) {
+					if (buddy.id == buddyId) {
+						buddy.IsSelected = true;
+						return;
+					}
+				});
+			});
+			
+			 if (data.timeframe == null) {
+				data.exactTime = data.exactTimeString; //convertTime(data.Date);
+			}
 
-	$http
+			if (data.golferMatch.state == null)
+				data.golferMatch.state = data.golferMatch.states[0].id;
+
+			data.golferMatch.agesValues.unshift({ 'id': '0', 'displayValue': 'All' });
+			data.golferMatch.handicapsValues.unshift({ 'id': '0', 'displayValue': 'All' });
+
+			if (data.golferMatch.ages.length == 0)
+				data.golferMatch.ages.push(data.golferMatch.agesValues[0].id);
+
+			if (data.golferMatch.handicaps.length == 0)
+				data.golferMatch.handicaps.push(data.golferMatch.handicapsValues[0].Id);
+
+			data.date = moment(data.date).format("MM/DD/YYYY");
+
+			$scope.invitation = data;
+			$scope.SetDisplayBuddyContainer();
+		});
+	}else{
+		$http
 		.jsonp(socialputtsLink + "/api/FoursomeInvitation/GetInvitation?userId=" + $.jStorage.get('user').userId + "&courseId=" + courseId + "&alt=json-in-script&callback=JSON_CALLBACK")
 		.success(function (data) {
 			if (courseId == null) {
@@ -524,6 +559,8 @@
 				$scope.invitation.date = "";
 			}
 		});
+	}
+	
     
 
     $scope.ShowSelectBuddiesPopup = function () {
