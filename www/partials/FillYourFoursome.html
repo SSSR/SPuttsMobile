@@ -622,8 +622,10 @@
 
             <div class="row mrgT20">
                 <div class="pull-left mrgR30 col-lg-offset-3 ">
-                    <button type="button" class="btn btn-success" id="send-invitations-button" ng-click="SendInvitations()">
+                    <button type="button" class="btn btn-success" id="send-invitations-button" ng-show="!isEdit" ng-click="SendInvitations()">
                     Send Invitations</button>
+					<button type="button" class="btn btn-success" id="send-invitations-button" ng-show="isEdit" ng-click="EditInvitation()">
+                    Send New Invitations</button>
                 <a href="#/index" class="btn btn-default">
                     Cancel</a>
 
