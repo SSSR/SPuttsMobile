@@ -367,6 +367,11 @@ img.small-avatar
     height: 70px;
 }
 
+#manage-responses-content{
+	border: 1px solid #ccc;
+	margin-top: 30px;
+}
+
 #manage-responses-content .block-header 
 {
     border-bottom-width: 1px;
@@ -391,5 +396,10 @@ img.small-avatar
     cursor: pointer; 
  }
 
+
+.active-manage-invitation{
+	background-color:#fff;
+	border: 1px solid #ccc;
+}
 
 /* Manage Invitations end ---------------------------------------------------------------------------------------------------------*/
