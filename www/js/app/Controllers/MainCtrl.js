@@ -845,6 +845,122 @@
 })
 .controller('ManageInvitationsCtrl', function ($scope, $http, $location) {
     checkUserLogedOff($location, $scope);
+
+    $scope.IsUpcoming = "upcoming"; //  "past";
+    $scope.ManageInvitationModel = null;
+    $scope.InvitationRespons = null;
+    $scope.IsShowManageResponsesForm = false;
+    $scope.IsShowAcceptedUser = { cssClass: "arrow-right", value: false };
+    $scope.IsShowDeclinedUser = { cssClass: "arrow-right", value: false };
+    $scope.IsShowNotRepliedUser = { cssClass: "arrow-right", value: false };
+    $scope.IsUpdateTeeTime = { cssClass: "btn-default", value: false, countClick: 0 };
+    $scope.IsDisabledTime = false;
+
+
+    $scope.ChangeFlag = function (flagObject) {
+
+        if (flagObject.value) {
+            flagObject.value = false;
+            flagObject.cssClass = "arrow-right";
+        } else {
+            flagObject.value = true;
+            flagObject.cssClass = "arrow-down";
+        }
+    };
+
+    $scope.UpdateTeeTime = function () {
+
+        if ($scope.IsUpdateTeeTime.countClick == 0) {
+            $scope.IsUpdateTeeTime.countClick++;
+            $scope.IsUpdateTeeTime.cssClass = "btn-success";
+            $scope.IsUpdateTeeTime.value = true;
+            $scope.InvitationRespons.dateTime = $filter('date')($scope.InvitationRespons.dateTime, 'MM/dd/yyyy');
+
+        }
+    };
+
+    $scope.CheckTimeRange = function () {
+
+        if ($scope.InvitationRespons.timeFrameValue == null || $scope.InvitationRespons.timeFrameValue == "Select timeframe") {
+            $scope.IsDisabledTime = false;
+        } else {
+            $scope.IsDisabledTime = true;
+        }
+    };
+
+    $scope.CloseManageResponsesForm = function () {
+
+        if ($scope.IsUpcoming == "upcoming") {
+
+            $scope.IsShowManageResponsesForm = false;
+        }
+    };
+
+    $scope.isContainsHttp = function (url) {
+
+        if (url.indexOf('http://') != -1) {
+            return true;
+        }
+        return false;
+    };
+
+    $scope.ManageResponse = function (invitation) {
+
+        $scope.IsShowManageResponsesForm = true;
+
+        $http.jsonp(socialputtsLink + "/api/Profile/ManageResponses?foursomeInvitationId=" + invitation.invitationId + "&alt=json-in-script&callback=JSON_CALLBACK")
+            .success(function (result) {
+
+                $scope.InvitationRespons = result;
+                $scope.InvitationRespons.hours = $scope._parseStringToInt($scope.InvitationRespons.hours);
+                $scope.InvitationRespons.minutes = $scope._parseStringToInt($scope.InvitationRespons.minutes);
+                $scope.CheckTimeRange();
+            });
+    };
+
+    $scope._parseStringToInt = function (arrayString) {
+
+        var arrayInt = new Array();
+
+        for (var stringValue in arrayString) {
+            var intValue = parseInt(stringValue);
+            arrayInt.push(intValue);
+        }
+        return arrayInt;
+    };
+
+    $scope.AcceptInvitation = function (userInvitationId) {
+
+        $http.jsonp(socialputtsLink + "/api/FoursomeInvitation/AcceptInvitation?userInvitationId=" + userInvitationId + "&alt=json-in-script&callback=JSON_CALLBACK")
+            .success(function (result) {
+                if (result) {
+
+                }
+            });
+    };
+
+    $scope.DeclineInvitation = function (userInvitationId) {
+
+        $http.jsonp(socialputtsLink + "/api/FoursomeInvitation/DeclineInvitation?userInvitationId=" + userInvitationId + "&alt=json-in-script&callback=JSON_CALLBACK")
+        .success(function (result) {
+            if (result) {
+
+            }
+        });
+    };
+
+    $scope.GetManageInvitations = function () {
+
+        $scope.CloseManageResponsesForm();
+
+        $http.jsonp(socialputtsLink + "/api/Profile/ManageInvitations?invitation=" + $scope.IsUpcoming + "&alt=json-in-script&callback=JSON_CALLBACK")
+            .success(function (result) {
+
+                $scope.ManageInvitationModel = result.invitationViewModels;
+            });
+    };
+
+    $scope.GetManageInvitations();
 })
 .controller('FavoriteCoursesCtrl', function ($scope, $http, $location) {
     checkUserLogedOff($location, $scope);

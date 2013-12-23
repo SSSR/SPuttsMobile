@@ -337,3 +337,59 @@ img.small-avatar
 }
 
 /*Course Result end ---------------------------------------------------------------------------------------------------------*/
+
+/* Manage Invitations ---------------------------------------------------------------------------------------------------------*/
+
+.invitation-item 
+{    
+    margin: 10px  0px 30px 10px;
+    border-bottom: 1px solid #ccc;
+    overflow: hidden;
+    padding: 15px 0px;
+}
+
+.invintatio-time 
+{
+    font-size: 13px;
+    line-height: 18px;
+    color: #404040;
+}
+
+ 
+.invitation-buttons
+{
+    padding-right: 0px;
+} 
+
+.img-avatar-invintation
+{
+    width: 70px;
+    height: 70px;
+}
+
+#manage-responses-content .block-header 
+{
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #D1E7D1;
+    margin-bottom: 15px;
+}
+ 
+#manage-responses-content .arrow-right
+ {
+    background-image: url(http://socialputts.com/Content/images/dashboard-collapse/arrow_right.png);
+   height: 13px;
+    width: 8px; 
+    cursor: pointer; 
+ }
+
+#manage-responses-content .arrow-down
+ {
+    background-image: url(http://socialputts.com/Content/images/dashboard-collapse/arrow_down.png);
+   height: 8px;
+    width: 13px; 
+    cursor: pointer; 
+ }
+
+
+/* Manage Invitations end ---------------------------------------------------------------------------------------------------------*/
