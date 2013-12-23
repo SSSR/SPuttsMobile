@@ -51,30 +51,7 @@
                         <br>
                         You own this invitaion
                     </div> 
-                    <div ng-show="!manageInvitation.isConfirmed" class="pull-left mrgR4">
-                   
-                        <a ng-show="manageInvitation.specialOffer!=null" class="btn btn-default mrgT10" href="#/fillYourFoursome?invitationId={{manageInvitation.invitationId}}&mode=course-admin">
-                            Edit Details</a>
-
-                        <a ng-show="manageInvitation.specialOffer==null" class="btn btn-default mrgT10" href="#/fillYourFoursome?invitationId={{manageInvitation.invitationId}}">
-                                Edit Details</a>
-                      
-                        <a class="btn btn-default mrgT10" ng-click="ManageResponse(manageInvitation)">Manage Responses</a>
-                    </div>
-                    <div ng-show="manageInvitation.openSlots != 0 && !manageInvitation.isConfirmed" class="pull-left">
                      
-                            <a ng-show="manageInvitation.course.courseSiteBookingUrl!=null &&  isContainsHttp(manageInvitation.course.courseSiteBookingUrl) " class="btn btn-default mrgT10" href="{{manageInvitation.course.courseSiteBookingUrl}}" target="blank">
-                                Find a Tee Time </a>
-                     
-                     
-                            <a ng-show="manageInvitation.course.courseSiteBookingUrl==null" class="btn btn-default mrgT10" href="http://www.golfnow.com" target="blank">Find a Tee Time
-                            </a>
-                     
-                
-                            <a ng-show="manageInvitation.course.courseSiteBookingUrl!=null && !isContainsHttp(manageInvitation.course.courseSiteBookingUrl) " class="btn btn-default mrgT10" href="http://{{manageInvitation.course.courseSiteBookingUrl}}"
-                               target="blank">Find a Tee Time </a>
-                  
-                    </div>
                     <div ng-show="manageInvitation.isConfirmed">
                         <div><a href="#/manageInvitations" class="btn btn-default">View Invitation </a></div>
                         <div><a href="" class="btn btn-default">Cancel Event</a> </div>
@@ -104,6 +81,34 @@
                         Not Yet Replied({{ manageInvitation.notRepliedUsersCount}})
                     </div>
                 </div> 
+                
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 pull-left">
+                     <div ng-show="!manageInvitation.isConfirmed" class="pull-left mrgR4">
+                   
+                        <a ng-show="manageInvitation.specialOffer!=null" class="btn btn-default mrgT10" href="#/fillYourFoursome?invitationId={{manageInvitation.invitationId}}&mode=course-admin">
+                            Edit Details</a>
+
+                        <a ng-show="manageInvitation.specialOffer==null" class="btn btn-default mrgT10" href="#/fillYourFoursome?invitationId={{manageInvitation.invitationId}}">
+                                Edit Details</a>
+                      
+                        <a class="btn btn-default mrgT10" ng-click="ManageResponse(manageInvitation)">Manage Responses</a>
+                    </div>
+                    <div ng-show="manageInvitation.openSlots != 0 && !manageInvitation.isConfirmed" class="pull-left">
+                     
+                        <a ng-show="manageInvitation.course.courseSiteBookingUrl!=null &&  isContainsHttp(manageInvitation.course.courseSiteBookingUrl) " class="btn btn-default mrgT10" href="{{manageInvitation.course.courseSiteBookingUrl}}" target="blank">
+                            Find a Tee Time </a>
+                     
+                     
+                        <a ng-show="manageInvitation.course.courseSiteBookingUrl==null" class="btn btn-default mrgT10" href="http://www.golfnow.com" target="blank">Find a Tee Time
+                        </a>
+                     
+                
+                        <a ng-show="manageInvitation.course.courseSiteBookingUrl!=null && !isContainsHttp(manageInvitation.course.courseSiteBookingUrl) " class="btn btn-default mrgT10" href="http://{{manageInvitation.course.courseSiteBookingUrl}}"
+                           target="blank">Find a Tee Time </a>
+                  
+                    </div>
+
+                </div>
 
             </div>
             <div ng-show="!manageInvitation.isOwner">
