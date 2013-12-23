@@ -79,7 +79,8 @@
                     </div>
                 </div> 
                 
-                <div class="col-lg-6 col-md-8 col-sm-8 col-xs-8 pull-left">
+<<<<<<< HEAD
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 pull-left">
                     
                     <div ng-show="manageInvitation.isConfirmed">
                         <a href="#/manageInvitations" class="btn btn-default mrgT10">View Invitation </a> 
@@ -88,6 +89,10 @@
                     </div>
 
                     <div ng-show="!manageInvitation.isConfirmed" class="pull-left mrgR4">
+=======
+                <div class="col-lg-6 col-md-8 col-sm-8 col-xs-8 pull-left">
+                     <div ng-show="!manageInvitation.isConfirmed" class="pull-left mrgR4">
+>>>>>>> 553588462999c9eddfcd9316b2151a6e7552b9e3
                    
                         <a ng-show="manageInvitation.specialOffer!=null" class="btn btn-default mrgT10" href="#/fillYourFoursome?invitationId={{manageInvitation.invitationId}}&mode=course-admin">
                             Edit Details</a>
