@@ -52,11 +52,8 @@
                         You own this invitaion
                     </div> 
                      
-                    <div ng-show="manageInvitation.isConfirmed">
-                        <div><a href="#/manageInvitations" class="btn btn-default">View Invitation </a></div>
-                        <div><a href="" class="btn btn-default">Cancel Event</a> </div>
-                        <div><a class="btn btn-default" value="manageInvitation.invitationId" header="manageInvitation.invitationName manageInvitation.course.courseName manageInvitation.dateTime">Send a Message</a></div>
-                    </div>
+                  
+
                     <div ng-show="manageInvitation.openSlots == 0">
                         Foursome Filled! A {{manageInvitation.course.discount}} % Discount is YOURS!
                     </div>
@@ -83,13 +80,20 @@
                 </div> 
                 
                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 pull-left">
-                     <div ng-show="!manageInvitation.isConfirmed" class="pull-left mrgR4">
+                    
+                    <div ng-show="manageInvitation.isConfirmed">
+                        <a href="#/manageInvitations" class="btn btn-default mrgT10">View Invitation </a> 
+                        <a href="" class="btn btn-default mrgT10">Cancel Event</a>  
+                        <a class="btn btn-default mrgT10" value="manageInvitation.invitationId" header="manageInvitation.invitationName manageInvitation.course.courseName manageInvitation.dateTime">Send a Message</a> 
+                    </div>
+
+                    <div ng-show="!manageInvitation.isConfirmed" class="pull-left mrgR4">
                    
                         <a ng-show="manageInvitation.specialOffer!=null" class="btn btn-default mrgT10" href="#/fillYourFoursome?invitationId={{manageInvitation.invitationId}}&mode=course-admin">
                             Edit Details</a>
 
                         <a ng-show="manageInvitation.specialOffer==null" class="btn btn-default mrgT10" href="#/fillYourFoursome?invitationId={{manageInvitation.invitationId}}">
-                                Edit Details</a>
+                            Edit Details</a>
                       
                         <a class="btn btn-default mrgT10" ng-click="ManageResponse(manageInvitation)">Manage Responses</a>
                     </div>
@@ -332,7 +336,7 @@
                         </div>
                     </div>
                     <div class="confirm-control">
-                        <a href="" class="btn   btn-success" confirmed="{{userConfirm.usersConfirmed.length}}">Confirm Golfers</a>
+                        <a href="" class="btn   btn-success" ng-click="ConfirmGolfers()" confirmed="{{userConfirm.usersConfirmed.length}}">Confirm Golfers</a>
                     </div>
                     <div class="clearfix">
                     </div>
