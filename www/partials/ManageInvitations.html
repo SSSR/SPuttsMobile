@@ -313,20 +313,22 @@
                         </h4>
                     </div>
                     <div ng-repeat="userConfirm in InvitationRespons.usersConfirmed" class="col-lg-12">
-                        <div class="col-lg-4 pull-left">
-                            <img src="http://socialputts.com/Profile/GetAvatar/{{userConfirm.email}}" alt="{{userConfirm.email}}"
-                                 class="img-avatar-invintation">
+                        <div class="confirm-user-item col-lg-12">
+                            <div class="col-lg-2 pull-left">
+                                <img src="http://socialputts.com/Profile/GetAvatar/{{userConfirm.email}}" alt="{{userConfirm.email}}" class="img-avatar-invintation" />
+                            </div>
+                            <div class="col-lg-5 pd-left-0 ">
+                                <h5>
+                                    {{userConfirm.firstName}} {{userConfirm.lastName}}
+                                </h5>
+                            </div>
+                            <div ng-show="userConfirm.username != User.identity.name" class="col-lg-2">
+                                <a href="" class="btn btn-default" val="{{userConfirm.userId}}">Remove</a>
+                            </div>
                         </div>
-                        <div class="col-lg-5 pd-left-0 ">
-                            <h5>
-                                {{userConfirm.firstName}} {{userConfirm.lastName}}
-                            </h5>
-                        </div>
-                        <div ng-show="userConfirm.username != User.identity.name">
-                            <a href="" class="btn btn-default" val="{{userConfirm.userId}}">Remove</a>
-                        </div>
-                        <a href="" class="btn   btn-success" confirmed="{{userConfirm.usersConfirmed.length}}">
-                            Confirm Golfers</a>
+                    </div>
+                    <div class="confirm-control">
+                        <a href="" class="btn   btn-success" confirmed="{{userConfirm.usersConfirmed.length}}">Confirm Golfers</a>
                     </div>
                     <div class="clearfix">
                     </div>

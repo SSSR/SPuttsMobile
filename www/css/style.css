@@ -401,5 +401,11 @@ img.small-avatar
 	background-color:#fff;
 	border: 1px solid #ccc;
 }
-
+.confirm-user-item {
+	overflow: hidden;
+	margin-bottom: 5px;
+}
+.confirm-control{
+	text-align: center;
+}
 /* Manage Invitations end ---------------------------------------------------------------------------------------------------------*/
