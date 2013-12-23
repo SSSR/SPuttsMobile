@@ -906,6 +906,9 @@
     };
 
     $scope.ManageResponse = function (invitation) {
+        $(".active-manage-invitation").removeClass("active-manage-invitation");
+        $("#" + invitation.id).addClass("active-manage-invitation");
+        $(".invitations").css("background-color", "#f6f6f6");
 
         $scope.IsShowManageResponsesForm = true;
 

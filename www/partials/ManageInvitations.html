@@ -23,8 +23,8 @@
     </div>
     <div class="col-md-2  ">
     </div>
-    <div class="col-md-7">
-        <div ng-repeat="manageInvitation in ManageInvitationModel" class="row invitation-item ">
+    <div class="invitations row pre-scrollable">
+        <div ng-repeat="manageInvitation in ManageInvitationModel" class="row invitation-item " id="{{manageInvitation.id}}">
             <div ng-show="manageInvitation.isOwner">
                 <div class="col-lg-3 pull-left">
                     <div class="invintatio-time text-center">
@@ -87,7 +87,7 @@
                     </div>
                     <div ng-show="manageInvitation.openSlots != 0 && !manageInvitation.isConfirmed">
                         <div ng-show="manageInvitation.course.courseSiteBookingUrl!=null &&  isContainsHttp(manageInvitation.course.courseSiteBookingUrl) ">
-                            <a class="btn btn-default" href="manageInvitation.course.courseSiteBookingUrl" target="blank">
+                            <a class="btn btn-default" href="{{manageInvitation.course.courseSiteBookingUrl}}" target="blank">
                                 Find a Tee Time </a>
                         </div>
                         <div ng-show="manageInvitation.course.courseSiteBookingUrl==null">
@@ -100,10 +100,9 @@
                         </div>
                     </div>
                     <div ng-show="manageInvitation.isConfirmed">
-                        <a href="#/manageInvitations" class="btn btn-default">View Invitation </a><a href=""
-                                                                                                     class="btn">Cancel Event</a> <a class="btn" value="manageInvitation.invitationId"
-                                                                                                                                     header="manageInvitation.invitationName manageInvitation.course.courseName manageInvitation.dateTime">
-                                                                                                                                      Send a Message</a>
+                        <div><a href="#/manageInvitations" class="btn btn-default">View Invitation </a></div>
+                        <div><a href="" class="btn btn-default">Cancel Event</a> </div>
+                        <div><a class="btn btn-default" value="manageInvitation.invitationId" header="manageInvitation.invitationName manageInvitation.course.courseName manageInvitation.dateTime">Send a Message</a></div>
                     </div>
                 </div> 
 
@@ -196,8 +195,8 @@
                 </div>
             </div>
         </div>
-        
-         <div id="manage-responses-content" ng-show="IsShowManageResponsesForm">
+    </div>
+    <div id="manage-responses-content" ng-show="IsShowManageResponsesForm">
                     <div class="col-lg-4">
                         <h2 class="green">
                             Manage Responses</h2>
@@ -412,7 +411,6 @@
                     <div class="col-lg-4">
                         <a class="btn btn-default mrgT10">Cancel Event</a>
                     </div>
-                </div>
     </div>
     <!--<div class="pop-up" style="display: none;">
     <div>
