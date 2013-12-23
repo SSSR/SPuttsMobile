@@ -87,7 +87,7 @@
                     </div>
                     <div ng-show="manageInvitation.openSlots != 0 && !manageInvitation.isConfirmed">
                         <div ng-show="manageInvitation.course.courseSiteBookingUrl!=null &&  isContainsHttp(manageInvitation.course.courseSiteBookingUrl) ">
-                            <a class="btn btn-default" href="manageInvitation.course.courseSiteBookingUrl" target="blank">
+                            <a class="btn btn-default" href="{{manageInvitation.course.courseSiteBookingUrl}}" target="blank">
                                 Find a Tee Time </a>
                         </div>
                         <div ng-show="manageInvitation.course.courseSiteBookingUrl==null">
