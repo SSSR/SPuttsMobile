@@ -950,17 +950,28 @@
                 
                     manageInvitation.status = 3;
             });
-    };
+            };
+
+            $scope.getUserIdFromjStorage = function () {
+               
+                return $.jStorage.get('user').userId;
+            };
+
+            $scope.ConfirmGolfers = function () {
+                console.log("ConfirmGolfers");
+
+            };
 
     $scope.GetManageInvitations = function () {
 
         $scope.CloseManageResponsesForm();
 
-        $http.jsonp(socialputtsLink + "/api/ManageInvitation/ManageInvitations?invitation=" + $scope.IsUpcoming + "&alt=json-in-script&callback=JSON_CALLBACK")
+        $http.jsonp(socialputtsLink + "/api/ManageInvitation/ManageInvitations?userId=" + $.jStorage.get('user').userId + "&invitation=" + $scope.IsUpcoming + "&alt=json-in-script&callback=JSON_CALLBACK")
             .success(function (result) {
 
                 $scope.ManageInvitationModel = result.invitationViewModels;
             });
+        
     };
 
     $scope.GetManageInvitations();

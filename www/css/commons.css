@@ -62,7 +62,11 @@
 {
     width: 24%;
 } 
- 
+
+.pd-left-0 
+{
+    padding-left: 0px;
+}
 
 .checkbox-group
 {
