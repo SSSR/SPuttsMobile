@@ -117,17 +117,8 @@
                         </strong>
                     </div>
                     <div class="text-center">
-                        <div ng-show="manageInvitation.status == 1">
-                            <!--AcceptedApproved-->
-                            <img src="http://socialputts.com/Content/images/foursome-invitations/accepted-approved.png"
-                                title="Approved! Grab your clubs!" />
-                            <strong>
-                                <p>
-                                    Approved! Grab your clubs!</p>
-                            </strong>
-                        </div>
-                        <div ng-show="manageInvitation.status == 2">
-                            <!-- AcceptedPending-->
+                          <div ng-show="manageInvitation.status == 1"> <!--AcceptedPending-->
+                  
                             <img src="http://socialputts.com/Content/images/foursome-invitations/accepted-pending.png"
                                 title="Pending Organizer" />
                             <strong>
@@ -135,10 +126,20 @@
                                     Pending Organizer Approval</p>
                             </strong>
                         </div>
+                        <div ng-show="manageInvitation.status == 2"> <!--AcceptedApproved-->
+                     
+                            <img src="http://socialputts.com/Content/images/foursome-invitations/accepted-approved.png"
+                                 title="Approved! Grab your clubs!" />
+                            <strong>
+                                <p>
+                                    Approved! Grab your clubs!</p>
+                            </strong>
+                        </div>
+                      
                         <div ng-show="manageInvitation.status == 3">
                             <!--Declined-->
                             <img src="http://socialputts.com/Content/images/foursome-invitations/declined.png"
-                                title="Declined" />
+                                 title="Declined" />
                             <strong>
                                 <p>
                                     Declined</p>
@@ -146,7 +147,7 @@
                         </div>
                         <div ng-show="manageInvitation.status == 0 ">
                             <img src="http://socialputts.com/Content/images/foursome-invitations/not-replied.png"
-                                title="Not Yet Replied" />
+                                 title="Not Yet Replied" />
                             <strong>
                                 <p>
                                     Not Yet Replied</p>
