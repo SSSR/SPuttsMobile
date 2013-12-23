@@ -178,20 +178,20 @@
                 </div>
                 <div id="{{manageInvitation.id}}" class="col-lg-4 pull-left invitation-buttons">
                     <div ng-show="manageInvitation.status == 2 "> <!--'AcceptedApproved'-->
-                         <a class="btn btn-default" ng-click="AcceptInvitation(manageInvitation.id)" style="display: none;" href="">Accept</a>
-                        <a class="btn btn-default"  ng-click="DeclineInvitation(manageInvitation.id)" href="">Decline</a>
+                         <a class="btn btn-default" ng-click="AcceptInvitation(manageInvitation)" style="display: none;" href="">Accept</a>
+                        <a class="btn btn-default"  ng-click="DeclineInvitation(manageInvitation)" href="">Decline</a>
                     </div>
                     <div ng-show="manageInvitation.status == 1 "><!--'AcceptedPending'-->
-                         <a class="btn btn-default" ng-click="AcceptInvitation(manageInvitation.id)" style="display: none;" href="">Accept</a>
-                        <a class="btn btn-default"  ng-click="DeclineInvitation(manageInvitation.id)" href="">Decline</a>
+                         <a class="btn btn-default" ng-click="AcceptInvitation(manageInvitation)" style="display: none;" href="">Accept</a>
+                        <a class="btn btn-default"  ng-click="DeclineInvitation(manageInvitation)" href="">Decline</a>
                     </div>
                     <div ng-show="manageInvitation.status == 3 "><!--   'Declined' -->
-                        <a class="btn btn-default" ng-click="AcceptInvitation(manageInvitation.id)" href="">Accept</a>
-                         <a class="btn btn-default"  ng-click="DeclineInvitation(manageInvitation.id)" style="display: none;" href="">Decline</a>
+                        <a class="btn btn-default" ng-click="AcceptInvitation(manageInvitation)" href="">Accept</a>
+                         <a class="btn btn-default"  ng-click="DeclineInvitation(manageInvitation)" style="display: none;" href="">Decline</a>
                     </div>
                     <div   ng-show="manageInvitation.status == 0 ">
-                        <a class="btn btn-default" ng-click="AcceptInvitation(manageInvitation.id)" href="">Accept</a> 
-                        <a class="btn btn-default" ng-click="DeclineInvitation(manageInvitation.id)" href="">Decline</a>
+                        <a class="btn btn-default" ng-click="AcceptInvitation(manageInvitation)" href="">Accept</a> 
+                        <a class="btn btn-default" ng-click="DeclineInvitation(manageInvitation)" href="">Decline</a>
                     </div>
                 </div>
             </div>

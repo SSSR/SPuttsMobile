@@ -930,22 +930,22 @@
         return arrayInt;
     };
 
-    $scope.AcceptInvitation = function (userInvitationId) {
+    $scope.AcceptInvitation = function (manageInvitation) {
 
-        $http.jsonp(socialputtsLink + "/api/ManageInvitation/AcceptInvitation?userInvitationId=" + userInvitationId + "&alt=json-in-script&callback=JSON_CALLBACK")
+        $http.jsonp(socialputtsLink + "/api/ManageInvitation/AcceptInvitation?userInvitationId=" + manageInvitation.id + "&alt=json-in-script&callback=JSON_CALLBACK")
             .success(function (result) {
                 if (result) {
-
+                    manageInvitation.status = 1;
                 }
             });
     };
 
-    $scope.DeclineInvitation = function (userInvitationId) {
+    $scope.DeclineInvitation = function (manageInvitation) {
 
-        $http.jsonp(socialputtsLink + "/api/ManageInvitation/DeclineInvitation?userInvitationId=" + userInvitationId + "&alt=json-in-script&callback=JSON_CALLBACK")
+        $http.jsonp(socialputtsLink + "/api/ManageInvitation/DeclineInvitation?userInvitationId=" + manageInvitation.id + "&alt=json-in-script&callback=JSON_CALLBACK")
         .success(function (result) {
             if (result) {
-
+                manageInvitation.status = 3;
             }
         });
     };
@@ -972,7 +972,7 @@
 
     $scope.removeFromFav = function (index, course) {
         $http.post(socialputtsLink + "/api/Course/RemoveFromFavorite?userId=" + $.jStorage.get("user").userId + "&id=" + course.id)
-            .success(function() {
+            .success(function () {
                 $scope.favCourses.splice(index, 1);
             });
     };
