@@ -935,22 +935,21 @@
 
     $scope.AcceptInvitation = function (manageInvitation) {
 
-        $http.jsonp(socialputtsLink + "/api/ManageInvitation/AcceptInvitation?userInvitationId=" + manageInvitation.id + "&alt=json-in-script&callback=JSON_CALLBACK")
-            .success(function (result) {
-                if (result) {
+            $http.post(socialputtsLink + "/api/ManageInvitation/AcceptInvitation?userInvitationId=" + manageInvitation.id + "&userId=" + $.jStorage.get("user").userId )
+            .success(function () {
+               
                     manageInvitation.status = 1;
-                }
             });
     };
 
     $scope.DeclineInvitation = function (manageInvitation) {
+ 
 
-        $http.jsonp(socialputtsLink + "/api/ManageInvitation/DeclineInvitation?userInvitationId=" + manageInvitation.id + "&alt=json-in-script&callback=JSON_CALLBACK")
-        .success(function (result) {
-            if (result) {
-                manageInvitation.status = 3;
-            }
-        });
+        $http.post(socialputtsLink + "/api/ManageInvitation/DeclineInvitation?userInvitationId=" + manageInvitation.id + "&userId=" + $.jStorage.get("user").userId)
+            .success(function () { 
+                
+                    manageInvitation.status = 3;
+            });
     };
 
     $scope.GetManageInvitations = function () {
