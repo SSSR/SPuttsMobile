@@ -9,9 +9,18 @@
     margin: 0px;
 }
 
+.mrgL5
+{
+    margin-left: 5px;
+}
+
 .mrgL10 
 {
     margin-left: 10px;
+}
+.mrgR4 
+{
+    margin-right: 4px;
 }
 
 .mrgR10
@@ -34,7 +43,8 @@
     margin-top: 20px;
 }
 
-.mrgB20{
+.mrgB20
+{
 	margin-bottom: 20px;
 }
 

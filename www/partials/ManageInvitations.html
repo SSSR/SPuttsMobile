@@ -26,7 +26,7 @@
     <div class="invitations row pre-scrollable">
         <div ng-repeat="manageInvitation in ManageInvitationModel" class="row invitation-item " id="{{manageInvitation.id}}">
             <div ng-show="manageInvitation.isOwner">
-                <div class="col-lg-3 pull-left">
+                <div class="col-lg-3 col-md-3 col-sm-3  pull-left">
                     <div class="invintatio-time text-center">
                         <strong>{{manageInvitation.dateTime | date:'MM/dd/yyyy h:mma'}} </strong>
                     </div>
@@ -45,26 +45,40 @@
                             Approved, Foursome not Set</p>
                     </div>
                 </div>
-                <div class="col-lg-5 pull-left ">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 pull-left ">
                     <div>
                         <a href="#/buddies">{{manageInvitation.invitationName}} {{ manageInvitation.course.courseName}}</a>
                         <br>
                         You own this invitaion
+                    </div> 
+                    <div ng-show="!manageInvitation.isConfirmed" class="pull-left mrgR4">
+                   
+                        <a ng-show="manageInvitation.specialOffer!=null" class="btn btn-default mrgT10" href="#/fillYourFoursome?invitationId={{manageInvitation.invitationId}}&mode=course-admin">
+                            Edit Details</a>
+
+                        <a ng-show="manageInvitation.specialOffer==null" class="btn btn-default mrgT10" href="#/fillYourFoursome?invitationId={{manageInvitation.invitationId}}">
+                                Edit Details</a>
+                      
+                        <a class="btn btn-default mrgT10" ng-click="ManageResponse(manageInvitation)">Manage Responses</a>
                     </div>
-                    <div ng-show="manageInvitation.openSlots != 0">
-                        Open slots: {{manageInvitation.openSlots}} out of {{manageInvitation.numberOfGolfersNeededToFillFoursome}}
-                        <br />
-                        <img src="http://socialputts.com/Content/images/foursome-invitations/yes.png" height="15"
-                            width="15" />
-                        Yes({{manageInvitation.acceptedUsersCount}})
-                        <br />
-                        <img src="http://socialputts.com//Content/images/foursome-invitations/no.png" height="15"
-                            width="15" />
-                        No({{ manageInvitation.declinedUsersCount }})
-                        <br />
-                        <img src="http://socialputts.com//Content/images/foursome-invitations/not-yet-replied.png"
-                            height="15" width="15" />
-                        Not Yet Replied({{ manageInvitation.notRepliedUsersCount}})
+                    <div ng-show="manageInvitation.openSlots != 0 && !manageInvitation.isConfirmed" class="pull-left">
+                     
+                            <a ng-show="manageInvitation.course.courseSiteBookingUrl!=null &&  isContainsHttp(manageInvitation.course.courseSiteBookingUrl) " class="btn btn-default mrgT10" href="{{manageInvitation.course.courseSiteBookingUrl}}" target="blank">
+                                Find a Tee Time </a>
+                     
+                     
+                            <a ng-show="manageInvitation.course.courseSiteBookingUrl==null" class="btn btn-default mrgT10" href="http://www.golfnow.com" target="blank">Find a Tee Time
+                            </a>
+                     
+                
+                            <a ng-show="manageInvitation.course.courseSiteBookingUrl!=null && !isContainsHttp(manageInvitation.course.courseSiteBookingUrl) " class="btn btn-default mrgT10" href="http://{{manageInvitation.course.courseSiteBookingUrl}}"
+                               target="blank">Find a Tee Time </a>
+                  
+                    </div>
+                    <div ng-show="manageInvitation.isConfirmed">
+                        <div><a href="#/manageInvitations" class="btn btn-default">View Invitation </a></div>
+                        <div><a href="" class="btn btn-default">Cancel Event</a> </div>
+                        <div><a class="btn btn-default" value="manageInvitation.invitationId" header="manageInvitation.invitationName manageInvitation.course.courseName manageInvitation.dateTime">Send a Message</a></div>
                     </div>
                     <div ng-show="manageInvitation.openSlots == 0">
                         Foursome Filled! A {{manageInvitation.course.discount}} % Discount is YOURS!
@@ -73,42 +87,27 @@
                         Special Offer: {{manageInvitation.specialOffer}}
                     </div>
                 </div>
-                <div class="col-lg-4 pull-left">
-                    <div ng-show="!manageInvitation.isConfirmed">
-                        <div ng-show="manageInvitation.specialOffer!=null">
-                            <a class="btn btn-default" href="#/fillYourFoursome?invitationId={{manageInvitation.invitationId}}&mode=course-admin">
-                                Edit Details</a>
-                        </div>
-                        <div ng-show="manageInvitation.specialOffer==null">
-                            <a class="btn btn-default" href="#/fillYourFoursome?invitationId={{manageInvitation.invitationId}}">
-                                Edit Details</a>
-                        </div>
-                        <a class="btn btn-default" ng-click="ManageResponse(manageInvitation)">Manage Responses</a>
-                    </div>
-                    <div ng-show="manageInvitation.openSlots != 0 && !manageInvitation.isConfirmed">
-                        <div ng-show="manageInvitation.course.courseSiteBookingUrl!=null &&  isContainsHttp(manageInvitation.course.courseSiteBookingUrl) ">
-                            <a class="btn btn-default" href="{{manageInvitation.course.courseSiteBookingUrl}}" target="blank">
-                                Find a Tee Time </a>
-                        </div>
-                        <div ng-show="manageInvitation.course.courseSiteBookingUrl==null">
-                            <a class="btn btn-default" href="http://www.golfnow.com" target="blank">Find a Tee Time
-                            </a>
-                        </div>
-                        <div ng-show="manageInvitation.course.courseSiteBookingUrl!=null && !isContainsHttp(manageInvitation.course.courseSiteBookingUrl) ">
-                            <a class="btn btn-default" href="http://{{manageInvitation.course.courseSiteBookingUrl}}"
-                               target="blank">Find a Tee Time </a>
-                        </div>
-                    </div>
-                    <div ng-show="manageInvitation.isConfirmed">
-                        <div><a href="#/manageInvitations" class="btn btn-default">View Invitation </a></div>
-                        <div><a href="" class="btn btn-default">Cancel Event</a> </div>
-                        <div><a class="btn btn-default" value="manageInvitation.invitationId" header="manageInvitation.invitationName manageInvitation.course.courseName manageInvitation.dateTime">Send a Message</a></div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 pull-left">
+                    <div ng-show="manageInvitation.openSlots != 0">
+                        Open slots: {{manageInvitation.openSlots}} out of {{manageInvitation.numberOfGolfersNeededToFillFoursome}}
+                        <br />
+                        <img src="http://socialputts.com/Content/images/foursome-invitations/yes.png" height="15"
+                             width="15" />
+                        Yes({{manageInvitation.acceptedUsersCount}})
+                        <br />
+                        <img src="http://socialputts.com//Content/images/foursome-invitations/no.png" height="15"
+                             width="15" />
+                        No({{ manageInvitation.declinedUsersCount }})
+                        <br />
+                        <img src="http://socialputts.com//Content/images/foursome-invitations/not-yet-replied.png"
+                             height="15" width="15" />
+                        Not Yet Replied({{ manageInvitation.notRepliedUsersCount}})
                     </div>
                 </div> 
 
             </div>
             <div ng-show="!manageInvitation.isOwner">
-                <div class="col-lg-3 pull-left">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 pull-left">
                     <div class="text-center" ng-show="manageInvitation.isExactTime">
                         <strong>{{manageInvitation.dateTime | date:'MM/dd/yyyy h:mma'}} </strong>
                     </div>
@@ -155,7 +154,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-5 pull-left">
+                <div class="col-lg-4 col-md-5 col-sm-5 col-xs-5 pull-left">
                     <strong><a href="#/manageInvitations">{{manageInvitation.invitationName}} {{manageInvitation.course.courseName}}</a>
                     </strong>
                     <div class="invitation-from">
@@ -175,7 +174,7 @@
                         Special Offer: {{manageInvitation.specialOffer}}
                     </div>
                 </div>
-                <div id="{{manageInvitation.id}}" class="col-lg-4 pull-left invitation-buttons">
+                <div id="{{manageInvitation.id}}" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-left invitation-buttons">
                     <div ng-show="manageInvitation.status == 2 "> <!--'AcceptedApproved'-->
                          <a class="btn btn-default" ng-click="AcceptInvitation(manageInvitation)" style="display: none;" href="">Accept</a>
                         <a class="btn btn-default"  ng-click="DeclineInvitation(manageInvitation)" href="">Decline</a>
