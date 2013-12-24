@@ -331,7 +331,7 @@
                                 </h5>
                             </div>
                             <div ng-show="userConfirm.userId != getUserIdFromjStorage()" class="col-lg-2 pull-right">
-                                <a href="" class="btn btn-default" val="{{userConfirm.userId}}">Remove</a>
+                                <a href="" class="btn btn-default" ng-click="removeFromConfirmed(userConfirm, InvitationRespons.invitationId)">Remove</a>
                             </div>
                         </div>
                     </div>
@@ -366,8 +366,8 @@
                                     </h4>
                                 </div>
                                 <div class="col-lg-4">
-                                    <a href="" class="btn btn-default"  val="{{userAccepted.userId}}">Add to Foursome</a>
-                                    <a href="" class="btn btn-default" val="{{userAccepted.userId}}">Decline</a>
+                                    <a href="" class="btn btn-default"  ng-click="addToFrousome(userAccepted, InvitationRespons.invitationId)">Add to Foursome</a>
+                                    <a href="" class="btn btn-default">Decline</a>
                                 </div>
                             </div>
                         </div>

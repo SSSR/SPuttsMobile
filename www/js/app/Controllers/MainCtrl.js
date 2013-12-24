@@ -946,7 +946,7 @@
                
         return $.jStorage.get('user').userId;
     };
-    
+
     $scope.DeclineInvitation = function (manageInvitation) {
 
         $http.post(socialputtsLink + "/api/ManageInvitation/DeclineInvitation?userInvitationId=" + manageInvitation.id + "&userId=" + $.jStorage.get("user").userId)
@@ -954,7 +954,7 @@
                 
                     manageInvitation.status = 3;
             });
-            };
+    };
 
             
 
@@ -976,6 +976,34 @@
     };
 
     $scope.GetManageInvitations();
+
+    $scope.removeFromConfirmed = function(user, invitationId){
+        $http.post(socialputtsLink + "/api/ManageInvitation/RemoveFromConfirmed?userId=" + user.userId + "&invitationId=" + invitationId)
+            .success(function(){
+                $scope.InvitationRespons.usersConfirmed = _.without($scope.InvitationRespons.usersConfirmed, _.findWhere($scope.InvitationRespons.usersConfirmed, {userId : user.userId}));
+                $scope.InvitationRespons.usersAccepted.push(user);
+                $scope.InvitationRespons.golfersLeft++;
+                var invitation = _.findWhere($scope.ManageInvitationModel, {invitationId:invitationId});
+                invitation.openSlots++;
+            });
+    };
+
+    $scope.addToFrousome = function(user, invitationId){
+        if ($scope.InvitationRespons.usersConfirmed.length <= 3) {
+            
+            $http.post(socialputtsLink + "/api/ManageInvitation/AddToFoursome?userId=" + user.userId + "&invitationId=" + invitationId)
+            .success(function(){
+                $scope.InvitationRespons.usersAccepted = _.without($scope.InvitationRespons.usersAccepted, _.findWhere($scope.InvitationRespons.usersAccepted, {userId : user.userId}));
+                $scope.InvitationRespons.usersConfirmed.push(user);
+                $scope.InvitationRespons.golfersLeft--;
+                var invitation = _.findWhere($scope.ManageInvitationModel, {invitationId:invitationId});
+                invitation.openSlots--;
+            });
+            
+        }else{
+            alert("You have already confirmed the maximum four people for your tee time");
+        }
+    };
 })
 .controller('FavoriteCoursesCtrl', function ($scope, $http, $location) {
     checkUserLogedOff($location, $scope);
