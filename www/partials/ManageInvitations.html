@@ -32,14 +32,14 @@
                     </div>
                     <div ng-show="manageInvitation.isConfirmed">
                         <div class="text-center">
-                            <img src="http://socialputts.com/Content/images/foursome-invitations/confirmed.png" />
+                            <img src="{{SP}}/Content/images/foursome-invitations/confirmed.png" />
                         </div>
                         <p class="text-center">
                             Approved! Grab your Clubs!</p>
                     </div>
                     <div ng-show="!manageInvitation.isConfirmed">
                         <div class="text-center">
-                            <img src="http://socialputts.com/Content/images/foursome-invitations/accepted-approved.png">
+                            <img src="{{SP}}/Content/images/foursome-invitations/accepted-approved.png">
                         </div>
                         <p class="text-center">
                             Approved, Foursome not Set</p>
@@ -65,15 +65,15 @@
                     <div ng-show="manageInvitation.openSlots != 0">
                         Open slots: {{manageInvitation.openSlots}} out of {{manageInvitation.numberOfGolfersNeededToFillFoursome}}
                         <br />
-                        <img src="http://socialputts.com/Content/images/foursome-invitations/yes.png" height="15"
+                        <img src="{{SP}}/Content/images/foursome-invitations/yes.png" height="15"
                              width="15" />
                         Yes({{manageInvitation.acceptedUsersCount}})
                         <br />
-                        <img src="http://socialputts.com//Content/images/foursome-invitations/no.png" height="15"
+                        <img src="{{SP}}/Content/images/foursome-invitations/no.png" height="15"
                              width="15" />
                         No({{ manageInvitation.declinedUsersCount }})
                         <br />
-                        <img src="http://socialputts.com//Content/images/foursome-invitations/not-yet-replied.png"
+                        <img src="{{SP}}/Content/images/foursome-invitations/not-yet-replied.png"
                              height="15" width="15" />
                         Not Yet Replied({{ manageInvitation.notRepliedUsersCount}})
                     </div>
@@ -127,7 +127,7 @@
                     <div class="text-center">
                           <div ng-show="manageInvitation.status == 1"> <!--AcceptedPending-->
                   
-                            <img src="http://socialputts.com/Content/images/foursome-invitations/accepted-pending.png"
+                            <img src="{{SP}}/Content/images/foursome-invitations/accepted-pending.png"
                                 title="Pending Organizer" />
                             <strong>
                                 <p>
@@ -136,7 +136,7 @@
                         </div>
                         <div ng-show="manageInvitation.status == 2"> <!--AcceptedApproved-->
                      
-                            <img src="http://socialputts.com/Content/images/foursome-invitations/accepted-approved.png"
+                            <img src="{{SP}}/Content/images/foursome-invitations/accepted-approved.png"
                                  title="Approved! Grab your clubs!" />
                             <strong>
                                 <p>
@@ -146,7 +146,7 @@
                       
                         <div ng-show="manageInvitation.status == 3">
                             <!--Declined-->
-                            <img src="http://socialputts.com/Content/images/foursome-invitations/declined.png"
+                            <img src="{{SP}}/Content/images/foursome-invitations/declined.png"
                                  title="Declined" />
                             <strong>
                                 <p>
@@ -154,7 +154,7 @@
                             </strong>
                         </div>
                         <div ng-show="manageInvitation.status == 0 ">
-                            <img src="http://socialputts.com/Content/images/foursome-invitations/not-replied.png"
+                            <img src="{{SP}}/Content/images/foursome-invitations/not-replied.png"
                                  title="Not Yet Replied" />
                             <strong>
                                 <p>
@@ -323,7 +323,7 @@
                     <div ng-repeat="userConfirm in InvitationRespons.usersConfirmed" class="col-lg-12">
                         <div class="confirm-user-item row col-lg-12">
                             <div class="col-lg-2 pull-left">
-                                <img src="http://socialputts.com/Profile/GetAvatar/{{userConfirm.email}}" alt="{{userConfirm.email}}" class="img-avatar-invintation" />
+                                <img src="{{SP}}/Profile/GetAvatar/{{userConfirm.email}}" alt="{{userConfirm.email}}" class="img-avatar-invintation" />
                             </div>
                             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 pd-left-0 ">
                                 <h5>
@@ -349,7 +349,7 @@
                         <div class="clearfix">
                         </div>
                         <div class="block-header">
-                            <img src="http://socialputts.com/Content/images/foursome-invitations/yes.png" height="15"
+                            <img src="{{SP}}/Content/images/foursome-invitations/yes.png" height="15"
                                  width="15" />
                             Yes({{InvitationRespons.usersAccepted.length}}) <span class=" pull-right " ng-class="[IsShowAcceptedUser.cssClass]"
                                                                                   ng-click="ChangeFlag(IsShowAcceptedUser)"></span>
@@ -357,7 +357,7 @@
                         <div class="row" ng-show="IsShowAcceptedUser.value">
                             <div ng-repeat="userAccepted in InvitationRespons.usersAccepted" class="col-lg-12 clearfix mrgT10">
                                 <div class="col-lg-4">
-                                    <img src="http://socialputts.com/Profile/GetAvatar/{{userAccepted.email}}" alt="{{userAccepted.email}}"
+                                    <img src="{{SP}}/Profile/GetAvatar/{{userAccepted.email}}" alt="{{userAccepted.email}}"
                                          class="img-avatar-invintation">
                                 </div>
                                 <div class="col-lg-4">
@@ -376,7 +376,7 @@
                     </div>
                     <div id="declined" class="col-lg-12 ">
                         <div class="block-header">
-                            <img src="http://socialputts.com/Content/images/foursome-invitations/no.png" height="15"
+                            <img src="{{SP}}/Content/images/foursome-invitations/no.png" height="15"
                                  width="15" />
                             No({{InvitationRespons.usersDeclined.length}}) <span class=" pull-right " ng-class="[IsShowDeclinedUser.cssClass]"
                                                                                  ng-click="ChangeFlag(IsShowDeclinedUser)"></span>
@@ -384,7 +384,7 @@
                         <div class="row" ng-show="IsShowDeclinedUser.value">
                             <div ng-repeat="declinedUser in InvitationRespons.usersDeclined" class="row col-lg-12 clearfix mrgT10">
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
-                                    <img src="http://socialputts.com/Profile/GetAvatar/{{declinedUser.email}}" alt="{{declinedUser.email}}"
+                                    <img src="{{SP}}/Profile/GetAvatar/{{declinedUser.email}}" alt="{{declinedUser.email}}"
                                          class="img-avatar-invintation">
                                 </div>
                                 <div class="col-lg-5">
@@ -399,7 +399,7 @@
                     </div>
                     <div id="not-replied" class="col-lg-12">
                         <div class="block-header">
-                            <img src="http://socialputts.com/Content/images/foursome-invitations/not-yet-replied.png" />
+                            <img src="{{SP}}/Content/images/foursome-invitations/not-yet-replied.png" />
                             Not Yet Replied ({{InvitationRespons.usersNotReplied.length}}) <span class=" pull-right"
                                                                                                  ng-class="[IsShowNotRepliedUser.cssClass]" ng-click="ChangeFlag(IsShowNotRepliedUser)">
                                                                                            </span>
@@ -407,7 +407,7 @@
                         <div class="row" ng-show="IsShowNotRepliedUser.value">
                             <div ng-repeat="notRepliedUser in InvitationRespons.usersNotReplied" class="row col-lg-12 clearfix mrgT10">
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
-                                    <img src="http://socialputts.com/Profile/GetAvatar/{{notRepliedUser.email}}" alt="{{notRepliedUser.email}}"
+                                    <img src="{{SP}}/Profile/GetAvatar/{{notRepliedUser.email}}" alt="{{notRepliedUser.email}}"
                                          class="img-avatar-invintation">
                                 </div>
                                 <div class="col-lg-5">

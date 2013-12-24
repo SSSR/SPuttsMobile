@@ -1117,6 +1117,7 @@ function checkUserLogedOff($location, $scope) {
     }
 	$scope.Hello = $.jStorage.get("user").name;
 	startConnection();
+    $scope.SP = socialputtsLink;
 }
 
 function startConnection(){

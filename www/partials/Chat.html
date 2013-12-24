@@ -6,7 +6,7 @@
 	<div class="pre-scrollable row message-history">
 		<div class="message" ng-repeat="message in history">
 			<div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
-				<img src="http://socialputts.com/Profile/GetAvatar/{{message.fromUserEmail}}" alt="Alternate Text" class="small-avatar">
+				<img src="{{SP}}/Profile/GetAvatar/{{message.fromUserEmail}}" alt="Alternate Text" class="small-avatar">
 			</div>
 			<div>{{message.fromUserName}}</div>
 			<div>{{message.message}}</div>
