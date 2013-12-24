@@ -956,12 +956,10 @@
             });
     };
 
-            
+    $scope.ConfirmGolfers = function () {
+        console.log("ConfirmGolfers");
 
-            $scope.ConfirmGolfers = function () {
-                console.log("ConfirmGolfers");
-
-            };
+    };
 
     $scope.GetManageInvitations = function () {
 
@@ -1004,6 +1002,13 @@
             alert("You have already confirmed the maximum four people for your tee time");
         }
     };
+
+    $scope.declineUserByOwner = function(user,invitationId){
+        $http.post(socialputtsLink + "/api/ManageInvitation/DeclineUserByOwner?userId=" + user.userId + "&invitationId=" + invitationId)
+            .success(function(){
+                $scope.InvitationRespons.usersAccepted = _.without($scope.InvitationRespons.usersAccepted, _.findWhere($scope.InvitationRespons.usersAccepted, {userId : user.userId}));
+            });
+    }
 })
 .controller('FavoriteCoursesCtrl', function ($scope, $http, $location) {
     checkUserLogedOff($location, $scope);
