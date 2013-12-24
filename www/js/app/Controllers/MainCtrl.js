@@ -1067,6 +1067,27 @@
                 }
             }
         });
+    };
+
+    $scope.cancelEvent = function(invitationId){
+        $(".cancel-event-popup").dialog({
+            modal: true,
+            resizable: false,
+            buttons: {
+                "[ Yes, Cancel It ]": function () {
+                    $(".cancel-event-popup").dialog("close");
+                    $scope.ManageInvitationModel = _.without($scope.ManageInvitationModel, _.findWhere($scope.ManageInvitationModel, {invitationId : invitationId}));
+                    $scope.CloseManageResponsesForm();
+                    
+                    $http.post(socialputtsLink + "/api/ManageInvitation/CancelInvitation?invitationId=" + invitationId)
+                    .success(function(){                        
+                    });
+                },
+                "[ No, Keep It ]": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
     }
 })
 .controller('FavoriteCoursesCtrl', function ($scope, $http, $location) {

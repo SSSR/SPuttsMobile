@@ -218,7 +218,7 @@
                     </div>
                     <div class="clearfix">
                     </div>
-                    <div class="row col-lg-4" ng-show="InvitationRespons.costOfGreensFee !=null">
+                    <div class="row col-lg-6" ng-show="InvitationRespons.costOfGreensFee !=null">
                         <span class="col-lg-4">Cost of Greens Fee: </span>
                         <span class="col-lg-3" ng-show="InvitationRespons.costOfGreensFee ==0">
                             &lt;$20
@@ -419,7 +419,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <a class="btn btn-default mrgT10">Cancel Event</a>
+                        <a class="btn btn-default mrgT10" ng-click="cancelEvent(InvitationRespons.invitationId)">Cancel Event</a>
                     </div>
     </div>
     
