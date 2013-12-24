@@ -84,7 +84,7 @@
                     <div ng-show="manageInvitation.isConfirmed">
                         <a href="#/manageInvitations" class="btn btn-default mrgT10">View Invitation </a> 
                         <a href="" class="btn btn-default mrgT10">Cancel Event</a>  
-                        <a class="btn btn-default mrgT10" value="manageInvitation.invitationId" header="manageInvitation.invitationName manageInvitation.course.courseName manageInvitation.dateTime">Send a Message</a> 
+                        <a class="btn btn-default mrgT10" ng-click="sendAMessage(manageInvitation)">Send a Message</a> 
                     </div>
 
                     <div ng-show="!manageInvitation.isConfirmed" class="pull-left mrgR4">
@@ -253,7 +253,7 @@
 
                         <div class="pull-left col-lg-6 pd-left-0">
                             <a class="btn mrgT10" ng-class="[IsUpdateTeeTime.cssClass]" ng-click="UpdateTeeTime()">Update Tee Time </a>
-                            <a class="btn btn-default   mrgL5 mrgT10">Send a Message  </a>
+                            <a class="btn btn-default   mrgL5 mrgT10" ng-click="sendAMessage(InvitationRespons)">Send a Message  </a>
                         </div>
                         <div class="clearfix"></div>
                         <div class="col-lg-12 pd-left-0 mrgT10" ng-show="IsUpdateTeeTime.value"> 
@@ -422,25 +422,29 @@
                         <a class="btn btn-default mrgT10">Cancel Event</a>
                     </div>
     </div>
-    <!--<div class="pop-up" style="display: none;">
-    <div>
-        <select class="users-types">
-            <option value="4">All (Everyone Invited to Event)</option>
-            <option value="2">Confirmed</option>
-            <option value="1">Yes's</option>
-            <option value="3">No's</option>
-            <option value="0">Not Yet Replied's</option>
-        </select>
-        <textarea class="message-body" placeholder="Write Your Messge Here"></textarea>
+    
+
+    <div class="send-message-popup" style="display: none;">
+        <div>
+            <select class="users-types form-control">
+                <option value="4">All (Everyone Invited to Event)</option>
+                <option value="2">Confirmed</option>
+                <option value="1">Yes's</option>
+                <option value="3">No's</option>
+                <option value="0">Not Yet Replied's</option>
+            </select>
+            <textarea class="message-body form-control" placeholder="Write Your Messge Here"></textarea>
+        </div>
     </div>
-</div>
+    
     <div class="cancel-event-popup" title="Cancel Event" style="display: none;">
         <div>
             Cancelling this invitation will delete the invitation and notify all invited golfers
             that it has been cancelled. Are you sure you want to Cancel this Invitation?
         </div>
-    </div>-->
-   <div class="confirm-event-popup" title="Confirmation" style="display: none;">
+    </div>
+
+    <div class="confirm-event-popup" title="Confirmation" style="display: none;">
         You do not have a Full Foursome, would you still like to finalize this invitation?
     </div>
 </div>

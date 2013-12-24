@@ -1034,6 +1034,40 @@
                 $scope.InvitationRespons.usersAccepted = _.without($scope.InvitationRespons.usersAccepted, _.findWhere($scope.InvitationRespons.usersAccepted, {userId : user.userId}));
             });
     };
+
+    $scope.sendAMessage = function(invitation){
+        var invitation = _.findWhere($scope.ManageInvitationModel, {invitationId:invitation.invitationId});
+        $(".send-message-popup").dialog({
+            title: "" + invitation.invitationName + invitation.course.courseName + invitation.dateTime,
+            modal: true,
+            resizable: false,
+            buttons: {
+                "Send Message": function () {
+                    var body = $(".message-body").val();
+                    var usersType = $(".users-types").val();
+                    var invitationId = invitation.invitationId;
+                    var model = {Body:body};
+
+                    $http.post(socialputtsLink + "/api/News/AddPost?userId=" + $.jStorage.get('user').userId + "&isFromManageResponsesPage=true", model)
+                    .success(function(){
+                        $(".message-body").val("");
+                        $(".users-types option:first").attr("selected", "selected");
+                    });
+
+                    $http.post(socialputtsLink + "/api/ManageInvitation/SendMessages?usersType=" + usersType + "&invitationId=" + invitationId + "&body=" + body)
+                    .success(function(){
+                    });
+
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(".message-body").val("");
+                    $(".users-types option:first").attr("selected", "selected");
+                    $(this).dialog("close");
+                }
+            }
+        });
+    }
 })
 .controller('FavoriteCoursesCtrl', function ($scope, $http, $location) {
     checkUserLogedOff($location, $scope);
