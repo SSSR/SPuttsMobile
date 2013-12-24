@@ -891,10 +891,7 @@
 
     $scope.CloseManageResponsesForm = function () {
 
-        if ($scope.IsUpcoming == "upcoming") {
-
-            $scope.IsShowManageResponsesForm = false;
-        }
+        $scope.IsShowManageResponsesForm = false;
     };
 
     $scope.isContainsHttp = function (url) {
@@ -956,9 +953,37 @@
             });
     };
 
-    $scope.ConfirmGolfers = function () {
-        console.log("ConfirmGolfers");
-
+    $scope.ConfirmGolfers = function (invitationId) {
+        if ($scope.InvitationRespons.usersConfirmed.length < 4) {
+                $(".confirm-event-popup").dialog({
+                    modal: true,
+                    buttons: {
+                        "Yes, Lock It In": function () {
+                            
+                            $http.post(socialputtsLink + "/api/ManageInvitation/ConfirmFoursomeUserForInvitation?invitationId=" + invitationId)
+                            .success(function(){
+                                var invitation = _.findWhere($scope.ManageInvitationModel, {invitationId:invitationId});
+                                invitation.isConfirmed = true;
+                                $scope.CloseManageResponsesForm();
+                                $(".confirm-event-popup").dialog("close");
+                            });
+                            
+                        },
+                        "Cancel": function () {
+                            $(".confirm-event-popup").dialog("close");
+                        }
+                    }
+                });
+            } else {
+                
+               $http.post(socialputtsLink + "/api/ManageInvitation/ConfirmFoursomeUserForInvitation?invitationId=" + invitationId)
+                .success(function(){
+                    var invitation = _.findWhere($scope.ManageInvitationModel, {invitationId:invitationId});
+                    invitation.isConfirmed = true;
+                    $scope.CloseManageResponsesForm();
+                    $(".confirm-event-popup").dialog("close");
+                });
+            }
     };
 
     $scope.GetManageInvitations = function () {
@@ -1008,7 +1033,7 @@
             .success(function(){
                 $scope.InvitationRespons.usersAccepted = _.without($scope.InvitationRespons.usersAccepted, _.findWhere($scope.InvitationRespons.usersAccepted, {userId : user.userId}));
             });
-    }
+    };
 })
 .controller('FavoriteCoursesCtrl', function ($scope, $http, $location) {
     checkUserLogedOff($location, $scope);

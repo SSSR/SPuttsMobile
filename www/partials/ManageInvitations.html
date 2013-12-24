@@ -336,7 +336,7 @@
                         </div>
                     </div>
                     <div class="confirm-control">
-                        <a href="" class="btn   btn-success" ng-click="ConfirmGolfers()" confirmed="{{userConfirm.usersConfirmed.length}}">Confirm Golfers</a>
+                        <a href="" class="btn   btn-success" ng-click="ConfirmGolfers(InvitationRespons.invitationId)">Confirm Golfers</a>
                     </div>
                     <div class="clearfix">
                     </div>
@@ -440,4 +440,7 @@
             that it has been cancelled. Are you sure you want to Cancel this Invitation?
         </div>
     </div>-->
+   <div class="confirm-event-popup" title="Confirmation" style="display: none;">
+        You do not have a Full Foursome, would you still like to finalize this invitation?
+    </div>
 </div>
