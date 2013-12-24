@@ -84,7 +84,7 @@
                     <div ng-show="manageInvitation.isConfirmed">
                         <a href="#/manageInvitations" class="btn btn-default mrgT10">View Invitation </a> 
                         <a href="" class="btn btn-default mrgT10">Cancel Event</a>  
-                        <a class="btn btn-default mrgT10" ng-click="sendAMessage(manageInvitation)">Send a Message</a> 
+                        <a class="btn btn-default mrgT10" ng-click="sendAMessage(manageInvitation.invitationId)">Send a Message</a> 
                     </div>
 
                     <div ng-show="!manageInvitation.isConfirmed" class="pull-left mrgR4">
@@ -253,7 +253,7 @@
 
                         <div class="pull-left col-lg-6 pd-left-0">
                             <a class="btn mrgT10" ng-class="[IsUpdateTeeTime.cssClass]" ng-click="UpdateTeeTime()">Update Tee Time </a>
-                            <a class="btn btn-default   mrgL5 mrgT10" ng-click="sendAMessage(InvitationRespons)">Send a Message  </a>
+                            <a class="btn btn-default   mrgL5 mrgT10" ng-click="sendAMessage(InvitationRespons.invitationId)">Send a Message  </a>
                         </div>
                         <div class="clearfix"></div>
                         <div class="col-lg-12 pd-left-0 mrgT10" ng-show="IsUpdateTeeTime.value"> 

@@ -1035,8 +1035,8 @@
             });
     };
 
-    $scope.sendAMessage = function(invitation){
-        var invitation = _.findWhere($scope.ManageInvitationModel, {invitationId:invitation.invitationId});
+    $scope.sendAMessage = function(invitationId){
+        var invitation = _.findWhere($scope.ManageInvitationModel, {invitationId:invitationId});
         $(".send-message-popup").dialog({
             title: "" + invitation.invitationName + invitation.course.courseName + invitation.dateTime,
             modal: true,
