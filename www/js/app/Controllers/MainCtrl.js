@@ -942,8 +942,12 @@
             });
     };
 
+    $scope.getUserIdFromjStorage = function () {
+               
+        return $.jStorage.get('user').userId;
+    };
+    
     $scope.DeclineInvitation = function (manageInvitation) {
- 
 
         $http.post(socialputtsLink + "/api/ManageInvitation/DeclineInvitation?userInvitationId=" + manageInvitation.id + "&userId=" + $.jStorage.get("user").userId)
             .success(function () { 
@@ -952,10 +956,7 @@
             });
             };
 
-            $scope.getUserIdFromjStorage = function () {
-               
-                return $.jStorage.get('user').userId;
-            };
+            
 
             $scope.ConfirmGolfers = function () {
                 console.log("ConfirmGolfers");
