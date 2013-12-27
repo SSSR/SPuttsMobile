@@ -478,6 +478,16 @@
         map.setCenter(latlng);
     };
 })
+.controller('OneClickDiscountCtrl', function ($scope, $http, $location, courseFinderService) {
+    checkUserLogedOff($location, $scope);
+
+    var courseFormModel = {City: "", CountryId: "1", CourseName: "", Mileage: "30", NumberOfHoles: "0", Zip: "78664"};
+
+    courseFinderService.setObject(courseFormModel);
+    courseFinderService.setCountry("United States");
+
+    $location.path("/courseResult");
+})
 .controller('FillYourFoursomeCtrl', function ($scope, $http, $location, $route) {
     checkUserLogedOff($location, $scope);
 
@@ -1113,9 +1123,6 @@
     };
 })
 .controller('SettingsCtrl', function ($scope, $http, $location) {
-    checkUserLogedOff($location, $scope);
-})
-.controller('OneClickDiscountCtrl', function ($scope, $http, $location) {
     checkUserLogedOff($location, $scope);
 });
 
