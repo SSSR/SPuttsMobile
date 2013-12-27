@@ -1,0 +1,86 @@
+﻿<div ng-include src="'partials/Navigation.html'">
+</div>
+
+<div>
+	<div  class="invitation-details-container">
+		<div class="mrgB20 invitation-detail">
+	        <label class="control-label col-lg-4 col-md-4 col-sm-3 col-xs-4">
+	            Invitation name:
+	        </label>
+	        <div class="col-lg-7 col-md-7 col-sm-8 col-xs-7">
+	            <input type="text" class="form-control" readonly value="{{invitation.name}}"/>
+	        </div>
+	    </div>
+	    <div class="mrgB20 invitation-detail">
+	        <label class="control-label col-lg-4 col-md-4 col-sm-3 col-xs-4">
+	            Course:
+	        </label>
+	        <div class="col-lg-7 col-md-7 col-sm-8 col-xs-7">
+	            <input type="text" class="form-control" readonly  value="{{invitation.courseName}}"/>
+	        </div>
+	    </div>
+	     <div class="mrgB20 invitation-detail">
+	        <label class="control-label col-lg-4 col-md-4 col-sm-3 col-xs-4">
+	            Date:
+	        </label>
+	        <div class="col-lg-7 col-md-7 col-sm-8 col-xs-7">
+	            <input type="text" class="form-control" readonly value="{{invitation.dateTime | date:'MM/dd/yyyy'}}"/>
+	        </div>
+	    </div>
+	    <div class="mrgB20 invitation-detail">
+	        <label class="control-label col-lg-4 col-md-4 col-sm-3 col-xs-4">
+	            Time:
+	        </label>
+	        <div class="col-lg-7 col-md-7 col-sm-8 col-xs-7">
+	            <input type="text" class="form-control" readonly ng-show="invitation.isExactTime" value="{{invitation.dateTime | date:'hh:mm a'}}"/>
+	            <input type="text" class="form-control" readonly ng-show="!invitation.isExactTime" value="{{invitation.dateTime | date:'ha'}} - {{invitation.dateTimeEnd | date:'ha'}}"/>
+	        </div>
+	    </div>
+	    <div class="mrgB20 invitation-detail">
+	        <label class="control-label col-lg-4 col-md-4 col-sm-3 col-xs-4">
+	            # of Golfers Need to Fill Foursome:
+	        </label>
+	        <div class="col-lg-7 col-md-7 col-sm-8 col-xs-7">
+	            <input type="text" class="form-control" readonly value="{{invitation.numberOfGolfersNeededToFillFoursome}}"/>
+	        </div>
+	    </div>
+	    <div class="mrgB20 invitation-detail" ng-show="invitation.costOfGreensFee != null">
+	        <label class="control-label col-lg-4 col-md-4 col-sm-3 col-xs-4">
+	            Cost of Greens Fee:
+	        </label>
+	        <div class="col-lg-7 col-md-7 col-sm-8 col-xs-7">
+	            <input type="text" class="form-control" readonly ng-show="invitation.costOfGreensFee == 0" value="<20$"/>
+	            <input type="text" class="form-control" readonly ng-show="invitation.costOfGreensFee == 1" value="$20 - $39.99"/>
+	            <input type="text" class="form-control" readonly ng-show="invitation.costOfGreensFee == 2" value="$40 - $59.99"/>
+	            <input type="text" class="form-control" readonly ng-show="invitation.costOfGreensFee == 3" value="$60 - $79.99"/>
+	            <input type="text" class="form-control" readonly ng-show="invitation.costOfGreensFee == 4" value="$80+"/>
+	        </div>
+	    </div>
+	    <div class="mrgB20 invitation-detail" ng-show="invitation.specialOffer != null && invitation.specialOffer.length > 0">
+	        <label class="control-label col-lg-4 col-md-4 col-sm-3 col-xs-4">
+	           Special Offer:
+	        </label>
+	        <div class="col-lg-7 col-md-7 col-sm-8 col-xs-7">
+	            <input type="text" class="form-control" readonlyvalue="{{invitatino.specialOffer}}"/>
+	        </div>
+	    </div>
+	</div>
+	
+	<div class="row">
+		<h2 class="green mrgL45per">Selected Buddies</h2>
+		<div class="pre-scrollable">
+			<div ng-repeat="user in invitation.users" class="mrgB20 participants">
+				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
+					<img src="{{SP}}/Profile/GetAvatar/{{user.email}}" class="small-avatar">
+				</div>
+				<div class="col-lg-4  col-md-4 col-sm-4 col-xs-8">
+					{{user.firstName}} {{user.lastName}}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="mrgT20" ng-show="!invitation.isConfirmed">
+	<a href="#/fillYourFoursome?invitationId={{invitation.invitatinoId}}" class="btn btn-default" ng-show="invitation.isOwner">Edit Details</a>
+</div>

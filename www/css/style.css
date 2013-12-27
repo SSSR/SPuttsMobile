@@ -409,3 +409,13 @@ img.small-avatar
 	text-align: center;
 }
 /* Manage Invitations end ---------------------------------------------------------------------------------------------------------*/
+
+
+/* Invitation Details */
+.invitation-details-container{
+	margin-left: 5%;
+}
+.invitation-detail, .participants{
+	overflow: hidden;
+}
+/* Invitation Details end --------------------------------------------------------------------------------------------------------- */

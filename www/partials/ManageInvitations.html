@@ -52,7 +52,7 @@
                 </div>
                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 pull-left ">
                     <div>
-                        <a href="#/buddies">{{manageInvitation.invitationName}} {{ manageInvitation.course.courseName}}</a>
+                        <a href="#/invitationDetails?invitationId={{manageInvitation.invitationId}}&isOwner={{manageInvitation.isOwner}}">{{manageInvitation.invitationName}} {{ manageInvitation.course.courseName}}</a>
                         <br>
                         You own this invitaion
                     </div> 
@@ -169,7 +169,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-5 col-sm-5 col-xs-5 pull-left">
-                    <strong><a href="#/manageInvitations">{{manageInvitation.invitationName}} {{manageInvitation.course.courseName}}</a>
+                    <strong><a href="#/invitationDetails?invitationId={{manageInvitation.invitationId}}&isOwner={{manageInvitation.isOwner}}">{{manageInvitation.invitationName}} {{manageInvitation.course.courseName}}</a>
                     </strong>
                     <div class="invitation-from">
                         <div ng-show="manageInvitation.specialOffer==null">
