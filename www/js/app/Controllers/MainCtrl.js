@@ -992,7 +992,7 @@
 
         $http.jsonp(socialputtsLink + "/api/ManageInvitation/ManageInvitations?userId=" + $.jStorage.get('user').userId + "&invitation=" + $scope.IsUpcoming + "&alt=json-in-script&callback=JSON_CALLBACK")
             .success(function (result) {
-
+               
                 $scope.ManageInvitationModel = result.invitationViewModels;
             });
         

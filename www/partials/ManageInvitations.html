@@ -27,9 +27,14 @@
         <div ng-repeat="manageInvitation in ManageInvitationModel" class="row invitation-item " id="{{manageInvitation.id}}">
             <div ng-show="manageInvitation.isOwner">
                 <div class="col-lg-3 col-md-3 col-sm-3  pull-left">
-                    <div class="invintatio-time text-center">
+                    <div class="text-center" ng-show="manageInvitation.isExactTime">
                         <strong>{{manageInvitation.dateTime | date:'MM/dd/yyyy h:mma'}} </strong>
                     </div>
+                    <div class="text-center" ng-show="!manageInvitation.isExactTime">
+                        <strong>{{manageInvitation.dateTime | date:'MM/dd/yyyy' }} {{manageInvitation.dateTime | date:'ha'}}-{{manageInvitation.dateTimeEnd | date:'ha'}}
+                        </strong>
+                    </div>
+
                     <div ng-show="manageInvitation.isConfirmed">
                         <div class="text-center">
                             <img src="{{SP}}/Content/images/foursome-invitations/confirmed.png" />
@@ -121,7 +126,7 @@
                         <strong>{{manageInvitation.dateTime | date:'MM/dd/yyyy h:mma'}} </strong>
                     </div>
                     <div class="text-center" ng-show="!manageInvitation.isExactTime">
-                        <strong>{{manageInvitation.dateTime | date:'MM/dd/yyyy' }} {{manageInvitation.dateTimeEnd}}
+                        <strong>{{manageInvitation.dateTime | date:'MM/dd/yyyy' }} {{manageInvitation.dateTime | date:'ha'}}-{{manageInvitation.dateTimeEnd | date:'ha'}}
                         </strong>
                     </div>
                     <div class="text-center">
