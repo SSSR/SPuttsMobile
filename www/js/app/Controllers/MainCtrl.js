@@ -5,6 +5,12 @@
     } else {
         $scope.Hello = "";
     }
+
+    $scope.logout = function(event){
+        event.preventDefault();
+       $.connection.messageHub.server.logout();
+       $location.path("#");
+    }
 })
 .controller('HomeCtrl', function ($scope, $http, $location) {
     checkUserLogedOff($location, $scope);
@@ -44,19 +50,8 @@
         return false;
     };
 })
-.controller('AccountCtrl', function ($scope, $http, $location) {
-    if ($.jStorage.get("user") != null) {
-        jQuery.support.cors = true;
-        $.connection.hub.url = socialputtsLink + "/signalr/hubs";
-        $.connection.hub.qs = { "userId": $.jStorage.get("user").userId };
-        $.jStorage.deleteKey('user');
-        $.connection.hub.start().done(function () {
-            console.log("connected");
-        });
-        $.connection.messageHub.server.logout();
-    }
-
-
+.controller('AccountCtrl', function ($scope, $http, $location, $route) {
+   $.jStorage.deleteKey('user');
 
     $scope.logIn = function () {
         $scope.invalidForm = false;
