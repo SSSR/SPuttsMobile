@@ -1,7 +1,7 @@
 <div ng-include src="'partials/Navigation.html'"></div>
 <div class="buddies-container">
 	<div class="item row" ng-repeat="buddy in buddies" user-id="{{buddy.id}}">
-		<div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
+		<div class="col-lg-1 col-md-2 col-sm-3 col-xs-4">
 			<img src="{{SP}}/Profile/GetAvatar/{{buddy.email}}" alt="Alternate Text" class="img-avatar">
 		</div>
 		<div class="is-online col-lg-1 col-md-1 col-sm-1 col-xs-1" ng-switch on="buddy.isOnline">

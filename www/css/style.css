@@ -254,6 +254,8 @@ img.small-avatar
 
 .buddies-container .img-avatar{
 	width: 100%;
+	min-width: 60px;
+	max-width: 80px;
 }
 
 /*Buddies end* --------------------------------------------------------------------------------------------------------/
