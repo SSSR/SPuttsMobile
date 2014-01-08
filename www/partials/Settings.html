@@ -1,78 +1,110 @@
 <div ng-include src="'partials/Navigation.html'"></div>
-<div>Account Settings</div>
-<div>
+<h2 class="green">Account Settings</h2>
+<div class="tabs">
 	<ul>
-		<li>Basic Information</li>
-		<li>Playing Preferences</li>
-		<li>Favorite Golf Destinations</li>
+		<li class="active-menu-link" ng-click="changeMenu('basic-info')">Basic Information</li>
+		<li class="menu-link" ng-click="changeMenu('playing-pref')">Playing Preferences</li>
+		<li class="menu-link" ng-click="changeMenu('fav-destinations')">Favorite Golf Destinations</li>
 	</ul>
 </div>
-<div class="basic-info">
-	<div class="row">
-		<div>First name:</div>
-		<div>
-			<input type="text" class="form-control" ng-model="settings.basicInfo.firstName" />
+<div ng-switch on="menu">
+	<div ng-switch-when="basic-info">
+		<div class="basic-info">
+			<div class="row mrgB20">
+				<div class="col-lg-3">First name:</div>
+				<div class="col-lg-5">
+					<input type="text" class="form-control" ng-model="settings.basicInfo.firstName" />
+				</div>
+				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+					<span class="asterisk">*</span>
+				</div>
+			</div>
+			<div class="row mrgB20">
+				<div class="col-lg-3">Last name:</div>
+				<div class="col-lg-5">
+					<input type="text" class="form-control" ng-model="settings.basicInfo.lastName" />
+				</div>
+				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+					<span class="asterisk">*</span>
+				</div>
+			</div>
+			<div class="row mrgB20">
+				<div class="col-lg-3">Email:</div>
+				<div class="col-lg-5">
+					<input type="text" class="form-control" ng-model="settings.basicInfo.email" />
+				</div>
+				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+					<span class="asterisk">*</span>
+				</div>
+			</div>
+			<div class="row mrgB20">
+				<div class="col-lg-3">Address:</div>
+				<div class="col-lg-5">
+					<input type="text" class="form-control" ng-model="settings.basicInfo.address" />
+				</div>
+			</div>
+			<div class="row mrgB20">
+				<div class="col-lg-3">City:</div>
+				<div class="col-lg-5">
+					<input type="text" class="form-control" ng-model="settings.basicInfo.city" />
+				</div>
+				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+					<span class="asterisk">*</span>
+				</div>
+			</div>
+			<div class="row mrgB20">
+				<div class="col-lg-3">State:</div>
+				<div class="col-lg-5">
+					<select id="states" class="form-control" ng-model="settings.basicInfo.stateId" ng-options="s.id as s.name for s in settings.basicInfo.states"></select>
+				</div>
+				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+					<span class="asterisk">*</span>
+				</div>
+			</div>
+			<div class="row mrgB20">
+				<div class="col-lg-3">Zip code:</div>
+				<div class="col-lg-5">
+					<input type="text" class="form-control" ng-model="settings.basicInfo.zipCode" />
+				</div>
+				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+					<span class="asterisk">*</span>
+				</div>
+			</div>
+			<div class="row mrgB20">
+				<div class="col-lg-3">Country:</div>
+				<div class="col-lg-5">
+					<select id="country" class="form-control" name="CountryId" disabled="disabled" ng-model="settings.basicInfo.countryId" ng-options="c.id as c.name for c in settings.basicInfo.countries"></select>
+				</div>
+			</div>
+			<div class="row mrgB20">
+				<div class="col-lg-3">Private account:</div>
+				<div class="col-lg-5">
+					<input type="checkbox" ng-model="settings.basicInfo.isPrivate" /> Only allow buddies to view your account
+				</div>
+			</div>
+			<div class="row mrgB20">
+				<div class="col-lg-3">Email notification:</div>
+				<div class="col-lg-5">
+					<input type="checkbox" ng-model="settings.basicInfo.sendNewEventsNotification" /> Send me an e-mail if new events appear on my favorite courses
+				</div>
+			</div>
+			<div class="row mrgB20">
+				<input type="button" class="btn btn-success" value="Change password" ng-click="changePassword()"/>
+			</div>
+			<input type="button" class="btn  btn-warning" value="Save" ng-click="saveBasicInfo()"/>
 		</div>
 	</div>
-	<div class="row">
-		<div>Last name:</div>
-		<div>
-			<input type="text" class="form-control" ng-model="settings.basicInfo.lastName" />
+	<div ng-switch-when="playing-pref">
+		<div class="playing-pref">
+			Playing pref
 		</div>
 	</div>
-	<div class="row">
-		<div>Email:</div>
-		<div>
-			<input type="text" class="form-control" ng-model="settings.basicInfo.email" />
+	<div ng-switch-when="fav-destinations">
+		<div class="fav-destinations">
+			Fav destinations
 		</div>
 	</div>
-	<div class="row">
-		<div>Address:</div>
-		<div>
-			<input type="text" class="form-control" ng-model="settings.basicInfo.address" />
-		</div>
-	</div>
-	<div class="row">
-		<div>City:</div>
-		<div>
-			<input type="text" class="form-control" ng-model="settings.basicInfo.city" />
-		</div>
-	</div>
-	<div class="row">
-		<div>State:</div>
-		<div>
-			<select id="states" class="form-control" ng-model="settings.basicInfo.stateId" ng-options="s.id as s.name for s in settings.basicInfo.states"></select>
-		</div>
-	</div>
-	<div class="row">
-		<div>Zip code:</div>
-		<div>
-			<input type="text" class="form-control" ng-model="settings.basicInfo.zipCode" />
-		</div>
-	</div>
-	<div class="row">
-		<div>Country:</div>
-		<div>
-			<select id="country" class="form-control" name="CountryId" disabled="disabled" ng-model="settings.basicInfo.countryId" ng-options="c.id as c.name for c in settings.basicInfo.countries"></select>
-		</div>
-	</div>
-	<div class="row">
-		<div>Private account:</div>
-		<div>
-			<input type="checkbox" ng-model="settings.basicInfo.isPrivate" /> Only allow buddies to view your account
-		</div>
-	</div>
-	<div class="row">
-		<div>Email notification:</div>
-		<div>
-			<input type="checkbox" ng-model="settings.basicInfo.sendNewEventsNotification" /> Send me an e-mail if new events appear on my favorite courses
-		</div>
-	</div>
-	<div class="row">
-		<input type="button" class="btn btn-success" value="Change password" ng-click="changePassword()"/>
-	</div>
-	<input type="button" class="btn  btn-warning" value="Save" ng-click="saveBasicInfo()"/>
 </div>
-<div class="playing-pref"></div>
-<div class="fav-destinations"></div>
+
+
 

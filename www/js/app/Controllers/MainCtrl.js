@@ -1120,6 +1120,7 @@
 .controller('SettingsCtrl', function ($scope, $http, $location) {
     checkUserLogedOff($location, $scope);
 
+    $scope.menu = "basic-info";
     $http.get(socialputtsLink + "/api/settings/getsettings?userId=" + $.jStorage.get('user').userId)
     .success(function(data){
         $scope.settings = data;
@@ -1130,7 +1131,35 @@
     };
 
     $scope.saveBasicInfo = function(){
-        alert();
+        var model = $scope.settings.basicInfo;
+        var regZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/;
+        var reEmail = new RegExp("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+
+        if (model.firstName != null && model.firstName.length > 0 &&
+            model.lastName != null && model.lastName.length > 0 && 
+            model.email != null && model.email.length > 0 &&
+            model.city != null && model.city.length > 0 &&
+            model.zipCode != null && model.zipCode.length > 0) {
+            if (!reEmail.test(model.email)) {
+                alert("Wrong email format!");
+                return;
+            };
+            if (!regZip.test(model.zipCode)) {
+                alert("Wrong zip format!");
+                return;
+            };
+            $http.post(socialputtsLink + "/api/settings/SaveBasicInfo?userId=" + $.jStorage.get('user').userId, model)
+            .success(function(){
+                alert("Basic info is saved");
+            });
+        }else{
+            alert("Please, fill out reaquired fields");
+        }
+        
+    };
+
+    $scope.changeMenu = function(value){
+        $scope.menu = value;
     }
 });
 

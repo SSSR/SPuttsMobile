@@ -421,3 +421,34 @@ img.small-avatar
 	overflow: hidden;
 }
 /* Invitation Details end --------------------------------------------------------------------------------------------------------- */
+
+/* Settings page -------------------------------------------------------------------------------------------------------------- */
+.tabs{
+	margin-top: 20px;
+}
+.tabs ul{
+	list-style: none;
+	color: gray;
+	border-bottom: 1px green solid;
+}
+.tabs ul li{
+	display: inline-block;
+	line-height: 25px;
+	margin-right: 5%;
+	font-weight: bold;
+	padding:5px;
+	border-radius: 5px 5px 0 0;
+	cursor: pointer;
+}
+.tabs ul li.active-menu-link{
+	background-color: green;
+	color: white;
+}
+.tabs ul li.menu-link:hover{
+	background-color: lightgray;
+}
+.basic-info{
+	margin:0 auto;
+	width:80%;
+}
+/* Settings page end --------------------------------------------------------------------------------------------------------- */
