@@ -1119,6 +1119,19 @@
 })
 .controller('SettingsCtrl', function ($scope, $http, $location) {
     checkUserLogedOff($location, $scope);
+
+    $http.get(socialputtsLink + "/api/settings/getsettings?userId=" + $.jStorage.get('user').userId)
+    .success(function(data){
+        $scope.settings = data;
+    });
+
+    $scope.changePassword = function(){
+        alert();
+    };
+
+    $scope.saveBasicInfo = function(){
+        alert();
+    }
 });
 
 function checkUserLogedOff($location, $scope) {

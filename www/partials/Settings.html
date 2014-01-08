@@ -1,2 +1,78 @@
 <div ng-include src="'partials/Navigation.html'"></div>
-<div>Settings</div>
+<div>Account Settings</div>
+<div>
+	<ul>
+		<li>Basic Information</li>
+		<li>Playing Preferences</li>
+		<li>Favorite Golf Destinations</li>
+	</ul>
+</div>
+<div class="basic-info">
+	<div class="row">
+		<div>First name:</div>
+		<div>
+			<input type="text" class="form-control" ng-model="settings.basicInfo.firstName" />
+		</div>
+	</div>
+	<div class="row">
+		<div>Last name:</div>
+		<div>
+			<input type="text" class="form-control" ng-model="settings.basicInfo.lastName" />
+		</div>
+	</div>
+	<div class="row">
+		<div>Email:</div>
+		<div>
+			<input type="text" class="form-control" ng-model="settings.basicInfo.email" />
+		</div>
+	</div>
+	<div class="row">
+		<div>Address:</div>
+		<div>
+			<input type="text" class="form-control" ng-model="settings.basicInfo.address" />
+		</div>
+	</div>
+	<div class="row">
+		<div>City:</div>
+		<div>
+			<input type="text" class="form-control" ng-model="settings.basicInfo.city" />
+		</div>
+	</div>
+	<div class="row">
+		<div>State:</div>
+		<div>
+			<select id="states" class="form-control" ng-model="settings.basicInfo.stateId" ng-options="s.id as s.name for s in settings.basicInfo.states"></select>
+		</div>
+	</div>
+	<div class="row">
+		<div>Zip code:</div>
+		<div>
+			<input type="text" class="form-control" ng-model="settings.basicInfo.zipCode" />
+		</div>
+	</div>
+	<div class="row">
+		<div>Country:</div>
+		<div>
+			<select id="country" class="form-control" name="CountryId" disabled="disabled" ng-model="settings.basicInfo.countryId" ng-options="c.id as c.name for c in settings.basicInfo.countries"></select>
+		</div>
+	</div>
+	<div class="row">
+		<div>Private account:</div>
+		<div>
+			<input type="checkbox" ng-model="settings.basicInfo.isPrivate" /> Only allow buddies to view your account
+		</div>
+	</div>
+	<div class="row">
+		<div>Email notification:</div>
+		<div>
+			<input type="checkbox" ng-model="settings.basicInfo.sendNewEventsNotification" /> Send me an e-mail if new events appear on my favorite courses
+		</div>
+	</div>
+	<div class="row">
+		<input type="button" class="btn btn-success" value="Change password" ng-click="changePassword()"/>
+	</div>
+	<input type="button" class="btn  btn-warning" value="Save" ng-click="saveBasicInfo()"/>
+</div>
+<div class="playing-pref"></div>
+<div class="fav-destinations"></div>
+
