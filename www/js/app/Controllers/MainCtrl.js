@@ -1144,7 +1144,38 @@
     });
 
     $scope.changePassword = function(){
-        alert();
+        $(".change-password-popup").dialog({
+            modal:true,
+            title: "Change Password",
+            buttons:{
+                "Change password": function(){
+                    
+                    var currentPassword = $("#current-pass").val();
+                    var newPassword = $("#new-pass").val();
+                    var confirmPassword = $("#confirm-new-pass").val();
+                    if (newPassword.length < 6) {
+                        alert("Password should be at least 6 characters!");
+                        return;
+                    }else if(newPassword != confirmPassword){
+                        alert("Password and Confirm Password not matched!");
+                        return;
+                    }else{
+                        $http.get(socialputtsLink + "/api/account/ChangePassword?userId=" + $.jStorage.get('user').userId + "&oldPassword=" + currentPassword + "&newPassword=" + newPassword)
+                        .success(function(result){
+                            if (result === "true") {
+                                alert("Password changed successfully!");
+                                $(".change-password-popup").dialog("close");
+                            }else{
+                                alert("Current Password is invalid!");
+                            }
+                        });
+                    }
+                },
+                Cancel: function(){
+                    $(this).dialog("close");
+                }
+            }
+        })
     };
 
     $scope.saveBasicInfo = function(){
@@ -1172,7 +1203,6 @@
         }else{
             alert("Please, fill out reaquired fields");
         }
-        
     };
 
     $scope.changeMenu = function(value, $event){
