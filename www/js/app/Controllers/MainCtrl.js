@@ -1121,9 +1121,26 @@
     checkUserLogedOff($location, $scope);
 
     $scope.menu = "basic-info";
+
     $http.get(socialputtsLink + "/api/settings/getsettings?userId=" + $.jStorage.get('user').userId)
     .success(function(data){
         $scope.settings = data;
+        if (data.playingPreferences.genderMale) {
+            $scope.gender = 'male';
+        }else{
+            $scope.gender = 'female';
+        }
+
+        if (data.playingPreferences.smokeYes) {
+            $scope.smoke = 'yes';
+        }else{
+            $scope.smoke = 'no';
+        }
+        if (data.playingPreferences.drinkYes) {
+            $scope.drink = 'yes';
+        }else{
+            $scope.drink = 'no';
+        }
     });
 
     $scope.changePassword = function(){
@@ -1160,6 +1177,44 @@
 
     $scope.changeMenu = function(value){
         $scope.menu = value;
+    };
+
+    $scope.genderChange = function(value){
+        if (value == 'female') {
+            $scope.settings.playingPreferences.genderMale = false;
+            $scope.settings.playingPreferences.genderFemale = true;
+        }else{
+            $scope.settings.playingPreferences.genderFemale = false;
+            $scope.settings.playingPreferences.genderMale = true;
+        }
+    };
+
+    $scope.updateSmoke = function(value){
+        if (value == 'yes') {
+             $scope.settings.playingPreferences.smokeYes = true;
+             $scope.settings.playingPreferences.smokeNo = false;
+        }else{
+            $scope.settings.playingPreferences.smokeYes = false;
+             $scope.settings.playingPreferences.smokeNo = true;
+        }
+    };
+
+    $scope.updateDrink = function(value){
+        if (value == 'yes') {
+             $scope.settings.playingPreferences.drinkYes = true;
+             $scope.settings.playingPreferences.drinkNo = false;
+        }else{
+            $scope.settings.playingPreferences.drinkYes = false;
+             $scope.settings.playingPreferences.drinkNo = true;
+        }
+    };
+
+    $scope.savePlayingPreferences = function(){
+        var model = $scope.settings.playingPreferences;
+        $http.post(socialputtsLink + "/api/settings/SavePlayingPreferences?userId=" + $.jStorage.get('user').userId, model)
+        .success(function(){
+            alert("Playing Preferences successfully saved!");
+        });
     }
 });
 

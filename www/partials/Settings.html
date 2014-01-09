@@ -96,7 +96,131 @@
 	</div>
 	<div ng-switch-when="playing-pref">
 		<div class="playing-pref">
-			Playing pref
+			<div>
+				Please complete the following fields regarding your playing preferences. This information will assist you with Filling Your Foursome with golfers like you! Please provide as much information as possible.
+			</div>
+			<div>
+				Select all taht apply:
+			</div>
+			<div class="row mrgB20">
+				<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+					GolferProfile:
+				</div>
+				<div class="col-lg-5 col-md-6 col-sm-7 col-xs-12">
+					<div class="col-lg-4 col-md-4 col-sm-4"><input type="checkbox"  ng-model="settings.playingPreferences.profileBeginner"/> Beginner</div>
+					<div class="col-lg-4 col-md-4 col-sm-4"><input type="checkbox"  ng-model="settings.playingPreferences.profileSerious"/> Serious golfer</div>
+					<div class="col-lg-4 col-md-4 col-sm-4"><input type="checkbox"  ng-model="settings.playingPreferences.justForFun"/> Just for fun</div>
+				</div>
+			</div>
+			<div class="row mrgB20">
+				<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+					Gender:
+				</div>
+				<div  class="col-lg-5 col-md-6 col-sm-7 col-xs-12">
+					<div  class="col-lg-4 col-md-4 col-sm-4">
+						<input type="radio" ng-model="gender" value="male" 
+						ng-change="genderChange('male')"/> Male
+					</div>
+					<div  class="col-lg-4 col-md-4 col-sm-4">
+						<input type="radio" class="mrgL10"  ng-model="gender" value="female" 
+						ng-change="genderChange('female')"/> Female
+					</div>
+				</div>
+			</div>
+			<div class="row mrgB20">
+				<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+					Age:
+				</div>
+				<div  class="col-lg-5 col-md-6 col-sm-7 col-xs-12">
+					<select class="form-control" ng-model="settings.playingPreferences.age" ng-options="a.id as a.displayValue for a in settings.playingPreferences.ages"></select>		
+				</div>
+			</div>
+			<div class="row mrgB20">
+				<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+					Handicap:
+				</div>
+				<div class="col-lg-5 col-md-6 col-sm-7 col-xs-12">
+					<select class="form-control" ng-model="settings.playingPreferences.handicap" ng-options="h.id as h.displayValue for h in settings.playingPreferences.handicaps"></select>		
+				</div>
+			</div>
+			<div class="row mrgB20">
+				<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+					Tees:
+				</div>
+				<div class="col-lg-5 col-md-6 col-sm-7 col-xs-12">
+					<div  class="col-lg-3 col-md-4 col-sm-4">
+						<input type="checkbox"  ng-model="settings.playingPreferences.teesRed"/> Red
+					</div>
+					<div  class="col-lg-3 col-md-4 col-sm-4">
+						<input type="checkbox" class="mrgL10"  ng-model="settings.playingPreferences.teesWhite"/> White
+					</div>
+					<div  class="col-lg-3 col-md-4 col-sm-4">
+						<input type="checkbox" class="mrgL10"  ng-model="settings.playingPreferences.teesBlue"/> Blue
+					</div>
+					<div  class="col-lg-3 col-md-4 col-sm-4">
+						<input type="checkbox" class="mrgL10"  ng-model="settings.playingPreferences.teesBlack"/> Black
+					</div>
+				</div>
+			</div>
+			<div class="row mrgB20">
+				<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+					Formats:
+				</div>
+				<div class="col-lg-5 col-md-6 col-sm-7 col-xs-12">
+					<div  class="col-lg-4 col-md-4 col-sm-4">
+						<input type="checkbox"  ng-model="settings.playingPreferences.formatsPlayYourOwnBall"/> Play your own ball
+					</div>
+					<div  class="col-lg-4 col-md-4 col-sm-4">
+						<input type="checkbox" class="mrgL10"  ng-model="settings.playingPreferences.formatsScramble"/> Scramble
+					</div>
+					<div  class="col-lg-4 col-md-4 col-sm-4">
+						<input type="checkbox" class="mrgL10"  ng-model="settings.playingPreferences.formatsBestBall"/> Best ball
+					</div>
+					<div  class="col-lg-4 col-md-4 col-sm-4">
+						<input type="checkbox" class="mrgL10"  ng-model="settings.playingPreferences.formatsSkins"/> Skins
+					</div>
+				</div>
+			</div>
+			<div class="row mrgB20">
+				<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+					Getting around:
+				</div>
+				<div class="col-lg-5 col-md-6 col-sm-7 col-xs-12">
+					<div  class="col-lg-4 col-md-4 col-sm-4">
+						<input type="checkbox"  ng-model="settings.playingPreferences.aroundWalk"/> Walk
+					</div>
+					<div  class="col-lg-4 col-md-4 col-sm-4">
+						<input type="checkbox" class="mrgL10"  ng-model="settings.playingPreferences.aroundRide"/> Ride
+					</div>
+				</div>
+			</div>
+			<div class="row mrgB20">
+				<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+					Smoke?
+				</div>
+				<div class="col-lg-5 col-md-6 col-sm-7 col-xs-12">
+					<div  class="col-lg-4 col-md-4 col-sm-4">
+						<input type="radio" ng-model="smoke" value="yes" ng-change="updateSmoke(value)"/> Yes
+					</div>
+					<div  class="col-lg-4 col-md-4 col-sm-4">
+						<input type="radio" class="mrgL10"  ng-model="smoke" value="no" ng-change="updateSmoke(value)"/> No
+					</div>
+				</div>
+			</div>
+			<div class="row mrgB20">
+				<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+					Drink?
+				</div>
+				<div class="col-lg-5 col-md-6 col-sm-7 col-xs-12">
+					<div  class="col-lg-4 col-md-4 col-sm-4">
+						<input type="radio" ng-model="drink" value="yes" ng-change="updateDrink('yes')"/> Yes
+					</div>
+					<div  class="col-lg-4 col-md-4 col-sm-4">
+						<input type="radio" class="mrgL10"  ng-model="drink" value="no" ng-change="updateDrink('no')"/> No
+					</div>
+				</div>
+			</div>
+			<input type="button" class="btn  btn-warning" value="Save" ng-click="savePlayingPreferences()"/>
 		</div>
 	</div>
 	<div ng-switch-when="fav-destinations">
