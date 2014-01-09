@@ -80,12 +80,13 @@
 				<div class="col-lg-3">Private account:</div>
 				<div class="col-lg-5">
 					<input type="checkbox" ng-model="settings.basicInfo.isPrivate" /> Only allow buddies to view your account
+					<div class="green">For private accounts, only your buddies are able to view your posts, stats and scores. Private account posts, scores and statistics are excluded from course groups as well as all rankings</div>
 				</div>
 			</div>
 			<div class="row mrgB20">
 				<div class="col-lg-3">Email notification:</div>
 				<div class="col-lg-5">
-					<input type="checkbox" ng-model="settings.basicInfo.sendNewEventsNotification" /> Send me an e-mail if new events appear on my favorite courses
+					<input type="checkbox" ng-model="settings.basicInfo.sendNewEventsNotification" /> <span class="green">Send me an e-mail if new events appear on my favorite courses</span>
 				</div>
 			</div>
 			<div class="row mrgB20">
@@ -96,11 +97,11 @@
 	</div>
 	<div ng-switch-when="playing-pref">
 		<div class="playing-pref">
-			<div>
+			<div class="mrgB20">
 				Please complete the following fields regarding your playing preferences. This information will assist you with Filling Your Foursome with golfers like you! Please provide as much information as possible.
 			</div>
-			<div>
-				Select all taht apply:
+			<div class="mrgB20">
+				Select all that apply:
 			</div>
 			<div class="row mrgB20">
 				<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">

@@ -430,6 +430,7 @@ img.small-avatar
 	list-style: none;
 	color: gray;
 	border-bottom: 1px green solid;
+	padding:0;
 }
 .tabs ul li{
 	display: inline-block;
@@ -450,5 +451,8 @@ img.small-avatar
 .basic-info{
 	margin:0 auto;
 	width:80%;
+}
+.green{
+	color:green;
 }
 /* Settings page end --------------------------------------------------------------------------------------------------------- */
