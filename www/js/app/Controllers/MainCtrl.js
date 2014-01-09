@@ -1175,8 +1175,10 @@
         
     };
 
-    $scope.changeMenu = function(value){
+    $scope.changeMenu = function(value, $event){
         $scope.menu = value;
+        $(".active-menu-link").removeClass('active-menu-link');
+        $($event.target).addClass('active-menu-link');
     };
 
     $scope.genderChange = function(value){
