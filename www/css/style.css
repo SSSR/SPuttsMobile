@@ -455,4 +455,12 @@ img.small-avatar
 .green{
 	color:green;
 }
+
+.favorite-list{
+	overflow: hidden;
+}
+
+.favorite-list .item{
+	margin-bottom: 30px;
+}
 /* Settings page end --------------------------------------------------------------------------------------------------------- */

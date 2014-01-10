@@ -1121,6 +1121,7 @@
     checkUserLogedOff($location, $scope);
 
     $scope.menu = "basic-info";
+    //$scope.favoriteGolfDestinationsArray = [];
 
     $http.get(socialputtsLink + "/api/settings/getsettings?userId=" + $.jStorage.get('user').userId)
     .success(function(data){
@@ -1141,6 +1142,11 @@
         }else{
             $scope.drink = 'no';
         }
+    });
+
+    $http.get(socialputtsLink + "/api/settings/GetFavoriteDestinationsForUser?userId=" + $.jStorage.get('user').userId)
+    .success(function(result){
+        $scope.favoriteGolfDestinationsArray = result;
     });
 
     $scope.changePassword = function(){
@@ -1248,6 +1254,80 @@
             alert("Playing Preferences successfully saved!");
         });
     }
+
+
+    $scope.addFavoriteDestination = function(){
+        
+        var zip = $(".fav-destinations #zip").val();
+        var city = $(".fav-destinations #city").val();
+
+        if (city.length <= 0 && zip.length <= 0) {
+            alert("Fill out City Or Zip");
+            return;
+        }
+
+        var geocoder = new google.maps.Geocoder();
+        if (city.length > 0) {
+            var stateId = $(".fav-destinations option:selected").val();
+            var shortStateName = $(".fav-destinations option:selected").attr("short-name");
+
+            geocoder.geocode({ 'address': city + ' ' + shortStateName + ' US', 'region': 'US' }, function (results, status) {
+
+                if (status != 'OK' || results[0].partial_match == true || results[0].address_components.length < 3) {
+                    alert("City not found!");
+                    return;
+                }
+
+                city = results[0].address_components[0].long_name;
+
+                $scope.saveDestination(stateId, city, '');
+            });
+        }else if(zip.length > 0){
+            geocoder.geocode({ 'address': zip }, function (results, status) {
+
+                if (status != 'OK' || results[0].address_components.length < 3) {
+                    alert("Zip not found!");
+                    return;
+                }
+
+
+                var stateName = results[0].address_components[results[0].address_components.length - 2].short_name;
+                var cityName = results[0].address_components[results[0].address_components.length - 3].long_name;
+
+                $http.get(socialputtsLink + "/api/settings/GetStateIdByShortName?name=" + stateName)
+                .success(function(stateId){
+                    if (stateId == -1) {
+                         alert("Zip not found!");
+                        return;
+                    }
+
+                    $scope.saveDestination(stateId, cityName, zip);
+                });
+            });
+        }
+    };
+
+    $scope.saveDestination = function(stateId, cityName, zip){
+       var model = { StateId:stateId, City:cityName, ZipCode:zip };
+       $http.post(socialputtsLink + "/api/settings/SaveDestination?userId=" + $.jStorage.get('user').userId, model)
+       .success(function(model){
+            if (model) {
+                 $scope.favoriteGolfDestinationsArray.push(model);
+                 $(".fav-destinations #city, .fav-destinations #zip").val("");
+                 $(".fav-destinations #city, .fav-destinations #zip").removeAttr("disabled");
+            }else{
+                alert("Favorite Golf Destination already exists!");
+            }
+            
+       });
+    };
+
+    $scope.removeFavoriteDestination = function(destination, index){
+        $http.post(socialputtsLink + "/api/settings/RemoveDestination?id=" + destination.id)
+        .success(function(){
+           $scope.favoriteGolfDestinationsArray.splice(index, 1);
+        });
+    };
 });
 
 function checkUserLogedOff($location, $scope) {

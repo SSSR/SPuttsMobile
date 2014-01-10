@@ -95,3 +95,29 @@ socialputts.directive('onlyNumberInput', function () {
         }
     };
 });
+
+socialputts.directive('onKeyup', function(){
+    return{
+        restrict:'A',
+        link:function(scope, element, attrs){
+            $(element).bind("keyup", function(event){
+                if ($(this).attr('id') === 'city') {
+                    if ($(this).val().length > 0) {
+                        $(".fav-destinations #zip").attr("disabled", "disabled");
+                    }else{
+                        $(".fav-destinations #zip").removeAttr("disabled", "disabled");
+                    }
+                    
+                }
+                if ($(this).attr('id') === 'zip') {
+                    if ($(this).val().length > 0) {
+                        $(".fav-destinations #city").attr("disabled", "disabled");
+                    }else{
+                        $(".fav-destinations #city").removeAttr("disabled", "disabled");
+                    }
+                    
+                };
+            });
+        }
+    };
+});
