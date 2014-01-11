@@ -433,11 +433,12 @@ img.small-avatar
 .tabs ul li{
 	display: inline-block;
 	line-height: 25px;
-	margin-right: 5%;
 	font-weight: bold;
-	padding:5px;
 	border-radius: 5px 5px 0 0;
 	cursor: pointer;
+	width:32%;
+	padding: 5px 0;
+	padding:1% 0.5%;
 }
 .tabs ul li.active-menu-link{
 	background-color: green;

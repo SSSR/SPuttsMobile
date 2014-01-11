@@ -2,9 +2,9 @@
 <h2 class="green">Account Settings</h2>
 <div class="tabs">
 	<ul>
-		<li class="col-xs-3 active-menu-link" ng-click="changeMenu('basic-info', $event)">Basic Information</li>
-		<li class="col-xs-3 menu-link" ng-click="changeMenu('playing-pref', $event)">Playing Preferences</li>
-		<li class="col-xs-4 menu-link" ng-click="changeMenu('fav-destinations', $event)">Favorite Golf Destinations</li>
+		<li class="active-menu-link" ng-click="changeMenu('basic-info', $event)">Basic Information</li>
+		<li ng-click="changeMenu('playing-pref', $event)">Playing Preferences</li>
+		<li ng-click="changeMenu('fav-destinations', $event)">Favorite Golf Destinations</li>
 	</ul>
 </div>
 <div ng-switch on="menu">
