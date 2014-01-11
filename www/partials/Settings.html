@@ -2,17 +2,17 @@
 <h2 class="green">Account Settings</h2>
 <div class="tabs">
 	<ul>
-		<li class="active-menu-link" ng-click="changeMenu('basic-info', $event)">Basic Information</li>
-		<li class="menu-link" ng-click="changeMenu('playing-pref', $event)">Playing Preferences</li>
-		<li class="menu-link" ng-click="changeMenu('fav-destinations', $event)">Favorite Golf Destinations</li>
+		<li class="col-xs-3 active-menu-link" ng-click="changeMenu('basic-info', $event)">Basic Information</li>
+		<li class="col-xs-3 menu-link" ng-click="changeMenu('playing-pref', $event)">Playing Preferences</li>
+		<li class="col-xs-4 menu-link" ng-click="changeMenu('fav-destinations', $event)">Favorite Golf Destinations</li>
 	</ul>
 </div>
 <div ng-switch on="menu">
 	<div ng-switch-when="basic-info">
 		<div class="basic-info">
 			<div class="row mrgB20">
-				<div class="col-lg-3">First name:</div>
-				<div class="col-lg-5">
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-4">First name:</div>
+				<div class="col-lg-5 col-md-7 col-sm-7 col-xs-6">
 					<input type="text" class="form-control" ng-model="settings.basicInfo.firstName" />
 				</div>
 				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
@@ -20,8 +20,8 @@
 				</div>
 			</div>
 			<div class="row mrgB20">
-				<div class="col-lg-3">Last name:</div>
-				<div class="col-lg-5">
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-4">Last name:</div>
+				<div class="col-lg-5 col-md-7 col-sm-7 col-xs-6">
 					<input type="text" class="form-control" ng-model="settings.basicInfo.lastName" />
 				</div>
 				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
@@ -29,8 +29,8 @@
 				</div>
 			</div>
 			<div class="row mrgB20">
-				<div class="col-lg-3">Email:</div>
-				<div class="col-lg-5">
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-4">Email:</div>
+				<div class="col-lg-5 col-md-7 col-sm-7 col-xs-6">
 					<input type="text" class="form-control" ng-model="settings.basicInfo.email" />
 				</div>
 				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
@@ -38,14 +38,14 @@
 				</div>
 			</div>
 			<div class="row mrgB20">
-				<div class="col-lg-3">Address:</div>
-				<div class="col-lg-5">
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-4">Address:</div>
+				<div class="col-lg-5 col-md-7 col-sm-7 col-xs-6">
 					<input type="text" class="form-control" ng-model="settings.basicInfo.address" />
 				</div>
 			</div>
 			<div class="row mrgB20">
-				<div class="col-lg-3">City:</div>
-				<div class="col-lg-5">
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-4">City:</div>
+				<div class="col-lg-5 col-md-7 col-sm-7 col-xs-6">
 					<input type="text" class="form-control" ng-model="settings.basicInfo.city" />
 				</div>
 				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
@@ -53,8 +53,8 @@
 				</div>
 			</div>
 			<div class="row mrgB20">
-				<div class="col-lg-3">State:</div>
-				<div class="col-lg-5">
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-4">State:</div>
+				<div class="col-lg-5 col-md-7 col-sm-7 col-xs-6">
 					<select id="states" class="form-control" ng-model="settings.basicInfo.stateId" ng-options="s.id as s.name for s in settings.basicInfo.states"></select>
 				</div>
 				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
@@ -62,8 +62,8 @@
 				</div>
 			</div>
 			<div class="row mrgB20">
-				<div class="col-lg-3">Zip code:</div>
-				<div class="col-lg-5">
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-4">Zip code:</div>
+				<div class="col-lg-5 col-md-7 col-sm-7 col-xs-6">
 					<input type="text" class="form-control" ng-model="settings.basicInfo.zipCode" only-number-input />
 				</div>
 				<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
@@ -71,21 +71,21 @@
 				</div>
 			</div>
 			<div class="row mrgB20">
-				<div class="col-lg-3">Country:</div>
-				<div class="col-lg-5">
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-4">Country:</div>
+				<div class="col-lg-5 col-md-7 col-sm-7 col-xs-6">
 					<select id="country" class="form-control" name="CountryId" disabled="disabled" ng-model="settings.basicInfo.countryId" ng-options="c.id as c.name for c in settings.basicInfo.countries"></select>
 				</div>
 			</div>
 			<div class="row mrgB20">
-				<div class="col-lg-3">Private account:</div>
-				<div class="col-lg-5">
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-4">Private account:</div>
+				<div class="col-lg-5 col-md-7 col-sm-7 col-xs-6">
 					<input type="checkbox" ng-model="settings.basicInfo.isPrivate" /> Only allow buddies to view your account
 					<div class="green">For private accounts, only your buddies are able to view your posts, stats and scores. Private account posts, scores and statistics are excluded from course groups as well as all rankings</div>
 				</div>
 			</div>
 			<div class="row mrgB20">
-				<div class="col-lg-3">Email notification:</div>
-				<div class="col-lg-5">
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-4">Email notification:</div>
+				<div class="col-lg-5 col-md-7 col-sm-7 col-xs-6">
 					<input type="checkbox" ng-model="settings.basicInfo.sendNewEventsNotification" /> <span class="green">Send me an e-mail if new events appear on my favorite courses</span>
 				</div>
 			</div>
@@ -107,23 +107,23 @@
 				<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
 					GolferProfile:
 				</div>
-				<div class="col-lg-5 col-md-6 col-sm-7 col-xs-12">
-					<div class="col-lg-4 col-md-4 col-sm-4"><input type="checkbox"  ng-model="settings.playingPreferences.profileBeginner"/> Beginner</div>
-					<div class="col-lg-4 col-md-4 col-sm-4"><input type="checkbox"  ng-model="settings.playingPreferences.profileSerious"/> Serious golfer</div>
-					<div class="col-lg-4 col-md-4 col-sm-4"><input type="checkbox"  ng-model="settings.playingPreferences.justForFun"/> Just for fun</div>
+				<div class="col-lg-7 col-md-9 col-sm-12 col-xs-12">
+					<div class="col-lg-3 col-md-3 col-sm-3"><input type="checkbox"  ng-model="settings.playingPreferences.profileBeginner"/> Beginner</div>
+					<div class="col-lg-3 col-md-3 col-sm-3"><input type="checkbox"  ng-model="settings.playingPreferences.profileSerious"/> Serious golfer</div>
+					<div class="col-lg-3 col-md-3 col-sm-3"><input type="checkbox"  ng-model="settings.playingPreferences.justForFun"/> Just for fun</div>
 				</div>
 			</div>
 			<div class="row mrgB20">
 				<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
 					Gender:
 				</div>
-				<div  class="col-lg-5 col-md-6 col-sm-7 col-xs-12">
-					<div  class="col-lg-4 col-md-4 col-sm-4">
+				<div  class="col-lg-7 col-md-9 col-sm-12 col-xs-12">
+					<div  class="col-lg-3 col-md-3 col-sm-3">
 						<input type="radio" ng-model="gender" value="male" 
 						ng-change="genderChange('male')"/> Male
 					</div>
-					<div  class="col-lg-4 col-md-4 col-sm-4">
-						<input type="radio" class="mrgL10"  ng-model="gender" value="female" 
+					<div  class="col-lg-3 col-md-3 col-sm-3">
+						<input type="radio" ng-model="gender" value="female" 
 						ng-change="genderChange('female')"/> Female
 					</div>
 				</div>
@@ -132,7 +132,7 @@
 				<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
 					Age:
 				</div>
-				<div  class="col-lg-5 col-md-6 col-sm-7 col-xs-12">
+				<div  class="col-lg-5 col-md-6 col-sm-8 col-xs-12">
 					<select class="form-control" ng-model="settings.playingPreferences.age" ng-options="a.id as a.displayValue for a in settings.playingPreferences.ages"></select>		
 				</div>
 			</div>
@@ -140,7 +140,7 @@
 				<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
 					Handicap:
 				</div>
-				<div class="col-lg-5 col-md-6 col-sm-7 col-xs-12">
+				<div class="col-lg-5 col-md-6 col-sm-8 col-xs-12">
 					<select class="form-control" ng-model="settings.playingPreferences.handicap" ng-options="h.id as h.displayValue for h in settings.playingPreferences.handicaps"></select>		
 				</div>
 			</div>
@@ -148,18 +148,18 @@
 				<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
 					Tees:
 				</div>
-				<div class="col-lg-5 col-md-6 col-sm-7 col-xs-12">
-					<div  class="col-lg-3 col-md-4 col-sm-4">
+				<div class="col-lg-7 col-md-9 col-sm-12 col-xs-12">
+					<div  class="col-lg-2 col-md-2 col-sm-2">
 						<input type="checkbox"  ng-model="settings.playingPreferences.teesRed"/> Red
 					</div>
-					<div  class="col-lg-3 col-md-4 col-sm-4">
-						<input type="checkbox" class="mrgL10"  ng-model="settings.playingPreferences.teesWhite"/> White
+					<div  class="col-lg-2 col-md-2 col-sm-2">
+						<input type="checkbox" ng-model="settings.playingPreferences.teesWhite"/> White
 					</div>
-					<div  class="col-lg-3 col-md-4 col-sm-4">
-						<input type="checkbox" class="mrgL10"  ng-model="settings.playingPreferences.teesBlue"/> Blue
+					<div  class="col-lg-2 col-md-2 col-sm-2">
+						<input type="checkbox" ng-model="settings.playingPreferences.teesBlue"/> Blue
 					</div>
-					<div  class="col-lg-3 col-md-4 col-sm-4">
-						<input type="checkbox" class="mrgL10"  ng-model="settings.playingPreferences.teesBlack"/> Black
+					<div  class="col-lg-2 col-md-2 col-sm-2">
+						<input type="checkbox" ng-model="settings.playingPreferences.teesBlack"/> Black
 					</div>
 				</div>
 			</div>
@@ -167,18 +167,18 @@
 				<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
 					Formats:
 				</div>
-				<div class="col-lg-5 col-md-6 col-sm-7 col-xs-12">
-					<div  class="col-lg-4 col-md-4 col-sm-4">
+				<div class="col-lg-7 col-md-9 col-sm-12 col-xs-12">
+					<div  class="col-lg-3 col-md-3 col-sm-3">
 						<input type="checkbox"  ng-model="settings.playingPreferences.formatsPlayYourOwnBall"/> Play your own ball
 					</div>
-					<div  class="col-lg-4 col-md-4 col-sm-4">
-						<input type="checkbox" class="mrgL10"  ng-model="settings.playingPreferences.formatsScramble"/> Scramble
+					<div  class="col-lg-2 col-md-2 col-sm-2">
+						<input type="checkbox" ng-model="settings.playingPreferences.formatsScramble"/> Scramble
 					</div>
-					<div  class="col-lg-4 col-md-4 col-sm-4">
-						<input type="checkbox" class="mrgL10"  ng-model="settings.playingPreferences.formatsBestBall"/> Best ball
+					<div  class="col-lg-2 col-md-2 col-sm-2">
+						<input type="checkbox"  ng-model="settings.playingPreferences.formatsBestBall"/> Best ball
 					</div>
-					<div  class="col-lg-4 col-md-4 col-sm-4">
-						<input type="checkbox" class="mrgL10"  ng-model="settings.playingPreferences.formatsSkins"/> Skins
+					<div  class="col-lg-2 col-md-2 col-sm-2">
+						<input type="checkbox"  ng-model="settings.playingPreferences.formatsSkins"/> Skins
 					</div>
 				</div>
 			</div>
@@ -186,12 +186,12 @@
 				<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
 					Getting around:
 				</div>
-				<div class="col-lg-5 col-md-6 col-sm-7 col-xs-12">
-					<div  class="col-lg-4 col-md-4 col-sm-4">
+				<div class="col-lg-7 col-md-9 col-sm-12 col-xs-12">
+					<div  class="col-lg-2 col-md-2 col-sm-2">
 						<input type="checkbox"  ng-model="settings.playingPreferences.aroundWalk"/> Walk
 					</div>
-					<div  class="col-lg-4 col-md-4 col-sm-4">
-						<input type="checkbox" class="mrgL10"  ng-model="settings.playingPreferences.aroundRide"/> Ride
+					<div  class="col-lg-2 col-md-2 col-sm-2">
+						<input type="checkbox"  ng-model="settings.playingPreferences.aroundRide"/> Ride
 					</div>
 				</div>
 			</div>
@@ -199,12 +199,12 @@
 				<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
 					Smoke?
 				</div>
-				<div class="col-lg-5 col-md-6 col-sm-7 col-xs-12">
-					<div  class="col-lg-4 col-md-4 col-sm-4">
+				<div class="col-lg-7 col-md-9 col-sm-12 col-xs-12">
+					<div  class="col-lg-2 col-md-2 col-sm-2">
 						<input type="radio" ng-model="smoke" value="yes" ng-change="updateSmoke(value)"/> Yes
 					</div>
-					<div  class="col-lg-4 col-md-4 col-sm-4">
-						<input type="radio" class="mrgL10"  ng-model="smoke" value="no" ng-change="updateSmoke(value)"/> No
+					<div  class="col-lg-2 col-md-2 col-sm-2">
+						<input type="radio" ng-model="smoke" value="no" ng-change="updateSmoke(value)"/> No
 					</div>
 				</div>
 			</div>
@@ -212,12 +212,12 @@
 				<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
 					Drink?
 				</div>
-				<div class="col-lg-5 col-md-6 col-sm-7 col-xs-12">
-					<div  class="col-lg-4 col-md-4 col-sm-4">
+				<div class="col-lg-7 col-md-9 col-sm-12 col-xs-12">
+					<div  class="col-lg-2 col-md-2 col-sm-2">
 						<input type="radio" ng-model="drink" value="yes" ng-change="updateDrink('yes')"/> Yes
 					</div>
-					<div  class="col-lg-4 col-md-4 col-sm-4">
-						<input type="radio" class="mrgL10"  ng-model="drink" value="no" ng-change="updateDrink('no')"/> No
+					<div  class="col-lg-2 col-md-2 col-sm-2">
+						<input type="radio" ng-model="drink" value="no" ng-change="updateDrink('no')"/> No
 					</div>
 				</div>
 			</div>
@@ -233,17 +233,49 @@
 				<span class="asterisk">*</span> Required fields
 			</div>
 			<div class="mrgB20 col-lg-9">
-				City: <input type="text" class="form-control" id="city" on-keyup />
-				State: <select class="form-control">
-					<option ng-repeat="state in settings.favoriteDestionations.states" value="{{state.id}}" short-name="{{state.shortName}}">{{state.name}}</option>
-				</select>
-				<h2>OR</h2>
-
-				Zip: <input type="text" class="form-control" id="zip" on-keyup only-number-input />
-				<div class="mrgT20">
-					<input type="button" class="btn btn-success" value="Add a Favorite Golf Destination" ng-click="addFavoriteDestination()"/>
+				<div class="mrgB20 row">
+					<div>
+						<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">City:</div>
+						<div>
+							<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+								<input type="text" class="form-control" id="city" on-keyup="">
+							</div>
+							<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="asterisk">*</span></div>
+						</div>
+					</div>
 				</div>
+				
+				<div class="mrgB20 row">
+					<div>
+						<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">State:</div>
+					</div>
+					<div>
+						<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+							<select class="form-control">
+								<option ng-repeat="state in settings.favoriteDestionations.states" value="{{state.id}}" short-name="{{state.shortName}}">{{state.name}}</option>
+							</select>
+						</div>
+						<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="asterisk">*</span></div>
+					</div>
+				</div>
+
+			<h2>OR</h2>
+			<div class="mrgB20 row">
+				<div>
+						<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">Zip:</div>
+						<div>
+							<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+								<input type="text" class="form-control" id="zip" on-keyup only-number-input />
+							</div>
+							<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><span class="asterisk">*</span></div>
+						</div>
+					</div>
 			</div>
+
+			<div class="mrgT20">
+				<input type="button" class="btn btn-success" value="Add a Favorite Golf Destination" ng-click="addFavoriteDestination()"/>
+			</div>
+		</div>
 			
 			<div ng-show="favoriteGolfDestinationsArray.length > 0" class="col-lg-6 favorite-list">
 				<div ng-repeat="destination in favoriteGolfDestinationsArray" class="item">
