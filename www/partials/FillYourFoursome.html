@@ -1,5 +1,6 @@
 ﻿<div ng-include src="'partials/Navigation.html'">
 </div>
+
 <div>
     <div class="row">
         <div id="indent-create-invitation" class="col-lg-2"></div>
@@ -10,21 +11,24 @@
     <div class="create-invitation-form">
         <form action="/" method="post" class="form-horizontal" name="create-invitation" id="create-invitation-form"
         novalidate>
-        <div class="form-group">
-            <label class="control-label col-lg-4 pt0">
-                <span class="asterisk">*</span> Required fields</label>
-            <div class="col-lg-5 col-md-11 col-sm-10 col-xs-10">
-                <div class="mode-container" ng-show="isUserInRole">
-                    <input type="radio" name="mode" value="course-admin" ng-model="mode" />Course Admin Mode
-                    <input type="radio" name="mode" value="golfer" checked="checked" ng-model="mode" />Golfer Mode
-                </div>
-            </div>
+        <div class="form-group row">
+        	<div class="col-lg-5 col-md-9 col-sm-9 col-xs-12 pull-right" style="margin-top: 5px;">
+        	<div class="mode-container" ng-show="isUserInRole">
+        		<input type="radio" name="mode" value="course-admin" ng-model="mode" class="ng-pristine ng-valid">Course Admin Mode
+        		<input type="radio" name="mode" value="golfer" checked="checked" ng-model="mode" class="ng-pristine ng-valid">Golfer Mode
+        	</div>
         </div>
+        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12 pull-left">
+        	<label class="">
+        		<span class="asterisk">*</span> Required fields
+        	</label></div>
+        </div>
+        
         <div class="form-group">
-            <label class="control-label col-lg-4 col-md-2 col-sm-3 col-xs-12">
+            <label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-12">
                 Invitation name:
             </label>
-            <div class="col-lg-4 col-md-9 col-sm-8 col-xs-10">
+            <div class="col-lg-6 col-md-9 col-sm-8 col-xs-10">
                 <input type="text" class="form-control" id="invitation-name" name="invitation name" ng-model="invitation.name" />
             </div>
 			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
@@ -38,10 +42,10 @@
 			
 			<div ng-switch-when="golfer">
 				<div class="form-group">
-					<label class="control-label col-lg-4 col-md-2 col-sm-3 col-xs-12">
+					<label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-12">
 						Favorite Courses:
 					</label>
-					<div class="col-lg-4 col-md-9 col-sm-8 col-xs-10">
+					<div class="col-lg-6 col-md-9 col-sm-8 col-xs-10">
 						<select class="fav-courses form-control" name="FavoriteCourse" id="FavoriteCourse"
 							ng-model="invitation.favoriteCourse"
 							ng-options="c.id as c.courseName for c in invitation.favoriteCourses"
@@ -59,26 +63,25 @@
 					  <h3 class="center-block" > OR</h3>  
 				</div>
 				<div class="form-group">
-					<label class="control-label col-lg-4 col-md-2 col-sm-3 col-xs-12">
+					<label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-12">
 						Course:
 					</label>
-					<div class="col-lg-4 col-md-7 col-sm-6 col-xs-7">
-						<input type="text" class="form-control" id="сourse" name="сourse" ng-model="invitation.course.courseName" ng-disabled="!(invitation.favoriteCourse == null || invitation.favoriteCourse == '')"/>
+					<div class="col-lg-6 col-md-7 col-sm-6 col-xs-5">
+						<input type="text" class="form-control ng-pristine ng-valid" id="сourse" name="сourse" ng-model="invitation.course.courseName" ng-disabled="!(invitation.favoriteCourse == null || invitation.favoriteCourse == '')">
 					</div>
-					<div class="col-lg-2 col-md-2 col-sm-3 col-xs-5">
+					<div class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
 						<span class="asterisk">*</span>
 						<a class="btn btn-success course-finder" href="#/courseFinder">Course Finder</a>
 					</div>
 				</div>
-			
 			</div>
 			
 			<div ng-switch-when="course-admin">
 				<div class="form-group">
-					<label class="control-label col-lg-4 col-md-2 col-sm-3 col-xs-12">
+					<label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-12">
 						Special Offer:
 					</label>
-					<div class="col-lg-4 col-md-9 col-sm-8 col-xs-10">
+					<div class="col-lg-6 col-md-9 col-sm-8 col-xs-10">
 						<textarea ng-model="invitation.specialOffer" id="specialOffer" class="form-control"></textarea>
 					</div>
 					<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
@@ -87,10 +90,10 @@
 				</div>
 				
 				<div class="form-group">
-					<label class="control-label col-lg-4 col-md-2 col-sm-3 col-xs-12">
+					<label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-12">
 						Course:
 					</label>
-					<div class="col-lg-4 col-md-9 col-sm-8 col-xs-10">
+					<div class="col-lg-6 col-md-9 col-sm-8 col-xs-10">
 						<select class="fav-courses form-control" name="courseToAdmin" id="courseToAdmin"
 							ng-model="invitation.course.id"
 							ng-options="c.id as c.courseName for c in invitation.coursesToAdmin"
@@ -109,10 +112,10 @@
 		
 		
 		<div class="form-group">
-            <label class="control-label col-lg-4 col-md-2 col-sm-3 col-xs-12">
+            <label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-12">
                 Date:
             </label>
-            <div class="col-lg-4 col-md-9 col-sm-8 col-xs-10">
+            <div class="col-lg-6 col-md-9 col-sm-8 col-xs-10">
                 <input type="text" class="form-control" id="date" name="date" coursedatepicker ng-model="invitation.date"/>
             </div>
 			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
@@ -127,10 +130,10 @@
 			
 			<div ng-switch-when="golfer">
 				<div class="form-group">
-					<label class="control-label col-lg-4 col-md-2 col-sm-3 col-xs-12">
+					<label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-12">
 						Exact Time:
 					</label>
-					<div class="col-lg-4 col-md-9 col-sm-8 col-xs-10">
+					<div class="col-lg-6 col-md-7 col-sm-6 col-xs-6">
 						<input type="text" class="form-control" id="exact-time" name="exact-time" ng-model="invitation.exactTime"
 						ng-disabled="!((invitation.timeframe == null || invitation.timeframe == '') && invitation.timeframe != 0)"
 						exacttimeonblur exacttimepicker />
@@ -139,19 +142,19 @@
 							</small>
 						</p>
 					</div>
-					<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+					<div class="col-lg-2 col-md-3 col-sm-3 col-xs-6">
 						<span class="asterisk">*</span>
-						<!--<a href="#" class="btn btn-success course-finder" ng-click="BookaTeeTime($event)">Book a Tee Time</a> -->
+						<a href="#" class="btn btn-success course-finder" ng-click="BookaTeeTime($event)">Book a Tee Time</a>
 					</div>
 				</div>
 				<div class="row">
 					<h3 class="center-block" > OR</h3>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-lg-4 col-md-2 col-sm-3 col-xs-12">
+					<label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-12">
 						Timeframe:
 					</label>
-					<div class="col-lg-4 col-md-9 col-sm-8 col-xs-10">
+					<div class="col-lg-6 col-md-9 col-sm-8 col-xs-10">
 						<select name="Timeframe" id="timeframe" class="form-control"
 							ng-model="invitation.timeframe"
 							ng-options="t.value as t.text for t in invitation.timeFrames"
@@ -164,10 +167,10 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-lg-4 col-md-2 col-sm-3 col-xs-12">
+					<label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-12">
 						Cost of Greens Fee:
 					</label>
-					<div class="col-lg-4 col-md-9 col-sm-8 col-xs-10">
+					<div class="col-lg-6 col-md-9 col-sm-8 col-xs-10">
 						<select name="CostOfGreensFee" id="cost-greens-fee" class="form-control"
 							ng-model="invitation.costOfGreensFeeValue"
 							ng-options="t.value as t.text for t in invitation.costOfGreensFee">
@@ -181,10 +184,10 @@
 			
 			<div ng-switch-when="course-admin">
 				<div class="form-group">
-					<label class="control-label col-lg-4 col-md-2 col-sm-3 col-xs-12">
+					<label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-12">
 						Tee Time:
 					</label>
-					<div class="col-lg-4 col-md-9 col-sm-8 col-xs-10">
+					<div class="col-lg-6 col-md-9 col-sm-8 col-xs-10">
 						<input type="text" id="exacttime" name="ExactTime" class="exactTime form-control"
 							ng-model="invitation.exactTime"
 							exacttimepicker />
@@ -195,10 +198,10 @@
 				</div>
 				
 				<div class="form-group">
-					<label class="control-label col-lg-4 col-md-4 col-sm-5 col-xs-12">
+					<label class="control-label col-lg-2 col-md-4 col-sm-5 col-xs-12">
 						# of Golfers Needed to Fill Foursome:
 					</label>
-					<div class="col-lg-4 col-md-7 col-sm-6 col-xs-10">
+					<div class="col-lg-6 col-md-7 col-sm-6 col-xs-10">
 						<select class="form-control" name="GolfersNeeded"
 								ng-model="invitation.golfersNeeded"
 								ng-options="g.value as g.text for g in invitation.golfersNeededList">
@@ -219,7 +222,6 @@
 		
         
             <div class="row">
-                <div id="indent-select-buddies-topic" class="col-lg-2" ></div>
                 <div class="col-lg-4">
                     <h2 class="green">
                         Select Buddies
@@ -227,12 +229,11 @@
                 </div>
             </div>
             <div class="form-group">
-            <div id="indent-select-buddies" class="col-lg-2"> </div>
                 <div  class="w13pers col-lg-2">
                     <button type="button" class="btn btn-success control-label  " ng-click="ShowSelectBuddiesPopup()">
                         Select Buddies</button> 
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-8">
                     <p>
                         <strong>Select the Buddies you would like to invite to play golf. Invite as many as
                             you'd like, if too many accept your invitation you can select who you want to play
@@ -241,8 +242,8 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-lg-4"></div>
-                <div class="col-lg-4" id="buddies-list" ng-show="displayBuddiesContaner">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-6" id="buddies-list" ng-show="displayBuddiesContaner">
                     <div ng-repeat="buddy in invitation.userBuddies | filter: { IsSelected: true}">
                         <div class="buddy" >            
                             <input type="hidden" name="Buddies" value="<%= item.get('Id') %>" />
@@ -261,9 +262,6 @@
             </div>
 
             <div class="row"> 
-                <div    class="col-lg-2 w21pers"> 
-                </div>
-
                 <div class="col-lg-2">
                     <h2 class="green  ">
                         Golfer Match
@@ -272,14 +270,9 @@
             </div>
 
             <div class="row">
-                <div  class="col-lg-2 w21pers"> 
-                </div>
-                
                 <div class="col-lg-3">
                     <input type="checkbox" class="mrgT10  checkbox pull-left" ng-model="invitation.golferMatch.activateGolferMatch"/> 
                 <h4 class="pull-left">
-                    
-
                     Activate Golfer Match
                 </h4> 
                 </div> 
@@ -291,7 +284,7 @@
                 <div class="row">
                     <div class="col-lg-3 w24pers pull-left">
                     </div>
-                    <div class="col-lg-6   pull-left">
+                    <div class="col-lg-12 pull-left">
                         <p>
                             <strong>Use the following fields to find golfers like you to Fill Your Foursome! Please
                                 provide as much information as possible to best Fill Your Foursome with golfer like
@@ -301,10 +294,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-lg-4 col-md-2 col-sm-3 col-xs-12">
+                    <label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-12">
                         City:
                     </label>
-                    <div class="col-lg-4 col-md-9 col-sm-8 col-xs-10">
+                    <div class="col-lg-6 col-md-9 col-sm-8 col-xs-10">
                         <input type="text" class="form-control" id="city" name="city" 
 						ng-model="invitation.golferMatch.city"
 						ng-disabled="invitation.golferMatch.zipCode.length > 0 || !invitation.golferMatch.activateGolferMatch"
@@ -315,10 +308,10 @@
 					</div>
                 </div>
 				<div class="form-group">
-                    <label class="control-label col-lg-4 col-md-2 col-sm-3 col-xs-12">
+                    <label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-12">
                         State:
                     </label>
-                    <div class="col-lg-4 col-md-9 col-sm-8 col-xs-10">
+                    <div class="col-lg-6 col-md-9 col-sm-8 col-xs-10">
 						<select id="state" name="state" class="form-control"
 							ng-model="invitation.golferMatch.state"
 							ng-options="s.id as s.name for s in invitation.golferMatch.states"
@@ -338,10 +331,10 @@
                 </div>
                 
 				<div class="form-group">
-                    <label class="control-label col-lg-4 col-md-2 col-sm-3 col-xs-12">
+                    <label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-12">
                         Zip:
                     </label>
-                    <div class="col-lg-4 col-md-9 col-sm-8 col-xs-10">
+                    <div class="col-lg-6 col-md-9 col-sm-8 col-xs-10">
                         <input type="text" class="form-control" id="zip" name="zip" 
 						ng-model="invitation.golferMatch.zipCode"
 						ng-disabled="invitation.golferMatch.city.length > 0 || !invitation.golferMatch.activateGolferMatch"
@@ -365,10 +358,10 @@
 				
                 
                 <div class="form-group">
-                    <label class="control-label col-lg-4 col-md-2 col-sm-3 col-xs-12">
+                    <label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-12">
                         Within:
                     </label>
-                    <div class="col-lg-4 col-md-9 col-sm-8 col-xs-10">
+                    <div class="col-lg-6 col-md-9 col-sm-8 col-xs-10">
 						<select class="form-control" id="within" name="within"
 						ng-model="invitation.golferMatch.within"
 						ng-options="w.value as w.text for w in invitation.golferMatch.withins"
@@ -378,10 +371,10 @@
                 </div>
                 
 				<div class="form-group">
-                    <label class="control-label col-lg-4 col-md-2 col-sm-3 col-xs-12">
+                    <label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-12">
                         Golfer profile:
                     </label>
-                    <div class="controls col-lg-4  col-md-11 col-sm-10 col-xs-10">
+                    <div class="controls col-lg-6  col-md-11 col-sm-10 col-xs-10">
                         <div class="checkbox-group">
                             <label class="checkbox">
                                 <input type="checkbox"
@@ -405,10 +398,10 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-lg-4 col-md-2 col-sm-3 col-xs-12">
+                    <label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-12">
                         Gender:
                     </label>
-                    <div class="controls col-lg-4  col-md-11 col-sm-10 col-xs-10">
+                    <div class="controls col-lg-6  col-md-11 col-sm-10 col-xs-10">
                         <div class="checkbox-group">
                             <label class="checkbox first">
                                 <input type="radio"
@@ -432,11 +425,11 @@
                     </div>
                 </div>
                 <div class="form-group">  
-                    <label class="control-label col-lg-4 col-md-2 col-sm-3 col-xs-12">
+                    <label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-12">
                         Age:
                     </label>
                     
-                     <div class="col-lg-4 col-md-9 col-sm-8 col-xs-10">    
+                     <div class="col-lg-6 col-md-9 col-sm-8 col-xs-10">    
 						 <select multiple="multiple" class="col-lg-4 group-select"
 							ng-multiple="true"
 							ng-model="invitation.golferMatch.ages"
@@ -447,10 +440,10 @@
                     </div> 
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-lg-4 col-md-2 col-sm-3 col-xs-12">
+                    <label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-12">
                         Handicap:
                     </label>
-                    <div class="col-lg-4 col-md-9 col-sm-8 col-xs-10"> 
+                    <div class="col-lg-6 col-md-9 col-sm-8 col-xs-10"> 
 						<select multiple="multiple" class="col-lg-4 group-select"
 							ng-multiple="true"
 							ng-model="invitation.golferMatch.handicaps"
@@ -461,10 +454,10 @@
                      </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-lg-4 col-md-2 col-sm-3 col-xs-12">
+                    <label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-12">
                         Tees:
                     </label>
-                    <div class="controls col-lg-4  col-md-11 col-sm-10 col-xs-10">
+                    <div class="controls col-lg-6  col-md-11 col-sm-10 col-xs-10">
                         <div class="checkbox-group">
                             <label class="checkbox">
                                 <input type="checkbox"
@@ -495,10 +488,10 @@
                 </div>
 				
 				<div class="form-group">
-                    <label class="control-label col-lg-4 col-md-2 col-sm-3 col-xs-12">
+                    <label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-12">
                         Formats:
                     </label>
-                    <div class="controls col-lg-4  col-md-11 col-sm-10 col-xs-10">
+                    <div class="controls col-lg-6  col-md-11 col-sm-10 col-xs-10">
                         <div class="checkbox-group">
                             <label class="checkbox">
                                 <input type="checkbox"
@@ -529,10 +522,10 @@
                 </div>
 				
 				<div class="form-group">
-                    <label class="control-label col-lg-4 col-md-2 col-sm-3 col-xs-12">
+                    <label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-12">
                         Getting around:
                     </label>
-                    <div class="controls col-lg-4  col-md-11 col-sm-10 col-xs-10">
+                    <div class="controls col-lg-6  col-md-11 col-sm-10 col-xs-10">
                         <div class="checkbox-group">
                             <label class="checkbox first">
                                 <input type="radio"
@@ -557,10 +550,10 @@
                 </div>
 				
                 <div class="form-group">
-                    <label class="control-label col-lg-4 col-md-2 col-sm-3 col-xs-12">
+                    <label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-12">
                         Smoke?
                     </label>
-                    <div class="controls col-lg-4  col-md-11 col-sm-10 col-xs-10">
+                    <div class="controls col-lg-6  col-md-11 col-sm-10 col-xs-10">
                         <div class="checkbox-group">
                             <label class="checkbox first">
                                 <input type="radio"
@@ -584,10 +577,10 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-lg-4 col-md-2 col-sm-3 col-xs-12">
+                    <label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-12">
                         Drink?
                     </label>
-                    <div class="controls col-lg-4  col-md-11 col-sm-10 col-xs-10">
+                    <div class="controls col-lg-6  col-md-11 col-sm-10 col-xs-10">
                         <div class="checkbox-group">
                             <label class="checkbox first">
                                 <input type="radio"
@@ -611,17 +604,17 @@
                     </div>
                 </div>
                 <div class="row"> 
-                    <div id="indent-save-pref-btn" class="col-lg-3" > </div>   
+                    <div id="indent-save-pref-btn" class="col-lg-1" > </div>   
                     <button type="button" class="btn btn-warning mrgL10" 
 					ng-click="SaveGolferMatchAsDefault()" 
 					ng-disabled="!invitation.golferMatch.activateGolferMatch"> Save preferences as Default</button> 
                 </div>
 
             </div>
-           <!-- end id="golfer-match-form-->
+          <!-- end id="golfer-match-form-->
 
             <div class="row mrgT20">
-                <div class="pull-left mrgR30 col-lg-offset-3 ">
+                <div class="pull-left mrgR30 col-lg-offset-1">
                     <button type="button" class="btn btn-success" id="send-invitations-button" ng-show="!isEdit" ng-click="SendInvitations()">
                     Send Invitations</button>
 					<button type="button" class="btn btn-success" id="send-invitations-button" ng-show="isEdit" ng-click="EditInvitation()">

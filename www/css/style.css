@@ -167,11 +167,6 @@ h2.green
     width: 19.5%;
 }
 
-#indent-save-pref-btn
-{
-    width: 24.3%;
-}
-
 .disabled-section{
 	background-color: #ccc;
     padding: 10px;
@@ -215,6 +210,7 @@ img.small-avatar
 #buddies-list{
 	border: 2px solid #ccc;
 	padding: 2%;
+	margin-left: 10px;
 }
 .include-golfers{
 	color:green;
