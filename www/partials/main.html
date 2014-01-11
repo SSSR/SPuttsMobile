@@ -47,8 +47,8 @@
 				<a type="button" class="btn btn-lg btn-info" href="#" ng-click="inviteTwitterFriends($event)">Twitter</a>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 news-feed">
-				<textarea class="form-control" placeholder="Write Your Message Here..."></textarea>
-				<input type="button" value="Post" class="btn btn-lg btn-success pull-left" />
+				<textarea class="form-control" placeholder="Write Your Message Here..." id="news-feed-message"></textarea>
+				<input type="button" value="Post" class="btn btn-lg btn-success pull-left" ng-click="postMessageToNewsFeed()"/>
 			</div>
 		</div>
 	</div>

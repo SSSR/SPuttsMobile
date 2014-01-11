@@ -49,6 +49,17 @@
 
         return false;
     };
+
+    $scope.postMessageToNewsFeed = function(){
+        var body = $("#news-feed-message").val();
+
+        var model = {Body:body};
+
+        $http.post(socialputtsLink + "/api/News/AddPost?userId=" + $.jStorage.get('user').userId + "&isFromManageResponsesPage=true", model)
+        .success(function(){
+            $("#news-feed-message").val("");
+        });
+    }
 })
 .controller('AccountCtrl', function ($scope, $http, $location, $route) {
    $.jStorage.deleteKey('user');
