@@ -443,9 +443,6 @@ img.small-avatar
 	background-color: green;
 	color: white;
 }
-.tabs ul li.menu-link:hover{
-	background-color: lightgray;
-}
 .basic-info{
 	margin:0 auto;
 	width:80%;
