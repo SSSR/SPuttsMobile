@@ -1,39 +1,39 @@
 ﻿<div ng-include src="'partials/Navigation.html'"></div>
 <div>
 	<div class="row">
-		<h3 class="col-lg-offset-3">Find a Course</h3>
+		<h3 class="col-lg-offset-3 col-md-offset-2 col-sm-offset-1">Find a Course</h3>
 	</div>
 	<div class="course-finder-form">
         <form action="/" method="post" class="form-horizontal" name="curse-finder" id="course-finder-form" novalidate>
             <div class="form-group">
-				<label class="control-label col-lg-4">Course:</label>
-				<div class="col-lg-4">
+				<label class="control-label col-lg-4 col-md-3 col-sm-3">Course:</label>
+				<div class="col-lg-4 col-md-6 col-sm-8">
 					<input type="text" class="form-control" id="course" name="CourseName" />
 				</div>
             </div>
             <div class="form-group">
-				<label class="control-label col-lg-4">City:</label>
-				<div class="col-lg-4">
+				<label class="control-label col-lg-4 col-md-3 col-sm-3">City:</label>
+				<div class="col-lg-4 col-md-6 col-sm-8">
 					<input type="text" class="form-control" id="city" name="City" />
 				</div>
             </div>
 			<div class="form-group">
-				<label class="control-label col-lg-4">State:</label>
-				<div class="col-lg-4"> 
+				<label class="control-label col-lg-4 col-md-3 col-sm-3">State:</label>
+				<div class="col-lg-4 col-md-6 col-sm-8"> 
 					<div>
 						<input type="text" class="form-control" ng-model="selected" typeahead="state.name for state in searchCourseModel.states | filter:$viewValue:startsWith">
 					</div>
 				</div>
             </div>
 			<div class="form-group">
-				<label class="control-label col-lg-4">Zip:</label>
-				<div class="col-lg-4">
+				<label class="control-label col-lg-4 col-md-3 col-sm-3">Zip:</label>
+				<div class="col-lg-4 col-md-6 col-sm-8">
 					<input type="text" class="form-control" id="zip" name="Zip" />
 				</div>
             </div>
 			<div class="form-group">
-				<label class="control-label col-lg-4">Country:</label>
-				<div class="col-lg-4">
+				<label class="control-label col-lg-4 col-md-3 col-sm-3">Country:</label>
+				<div class="col-lg-4 col-md-6 col-sm-8">
 					<select id="country" class="form-control" name="CountryId" disabled="disabled">
                         <option  ng-repeat="country in searchCourseModel.countries" value="{{country.id}}">{{country.name}} </option>
 					</select>
@@ -41,8 +41,8 @@
             </div>
 			
 			<div class="form-group">
-				<label class="control-label col-lg-4">Within:</label>
-				<div class="col-lg-4">
+				<label class="control-label col-lg-4 col-md-3 col-sm-3">Within:</label>
+				<div class="col-lg-4 col-md-6 col-sm-8">
 					<select class="form-control" id="within" name="Mileage">
 						<option value="0">None</option>
 						<option value="15">15 miles</option>
@@ -53,8 +53,8 @@
 				</div>
             </div>
 			<div class="form-group">
-				<label class="col-lg-4 control-label"># of Holes:</label>
-				<div class="col-lg-4">
+				<label class="control-label col-lg-4 col-md-3 col-sm-3"># of Holes:</label>
+				<div class="col-lg-4 col-md-6 col-sm-8">
 					<label>
 						<input type="radio" name="NumberOfHoles" checked="checked" value="0"/> All
 					</label>
@@ -67,7 +67,7 @@
 				</div>
             </div>
 		</form>
-		<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 col-lg-offset-3 pre-scrollable favorite-container">
+		<div class="col-lg-6 col-md-8 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-2  pre-scrollable favorite-container">
 			<div ng-repeat="favCourse in favCourses" class="row mrgB20">
 				<div class="pull-left col-lg-8 col-md-7 col-sm-7 col-xs-5">
 					{{favCourse.courseName}}
