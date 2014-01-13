@@ -152,17 +152,8 @@ function markMap(options, $scope, $http) {
 					
 					setTimeout(function(){
 						infoWindow.setContent($(".popup").html());
-                        $(".image img").load(function(){
-                            alert("loaded");
-                             infoWindow.open(map, marker);
-                        }).each(function(){
-                            if (this.complete) {
-                                $(this).load();
-                            };
-                        });
-
-                       
-
+                        infoWindow.open(map, marker);
+                        $(".image img").load();
 					}, 100);
 
 					setTimeout(function(){
