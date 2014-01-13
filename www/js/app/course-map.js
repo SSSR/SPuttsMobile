@@ -152,15 +152,10 @@ function markMap(options, $scope, $http) {
 					
 					setTimeout(function(){
 						infoWindow.setContent($(".popup").html());
+                        $(".image").load();
+                        infoWindow.open(map, marker);
 					}, 100);
 
-                    setTimeout(function(){
-                        infoWindow.open(map, marker);
-                    }, 100);
-                     setTimeout(function(){
-                        infoWindow.open(map, marker);
-                    }, 100);
-					
 					setTimeout(function(){
 						$(".list-as-fav").click(function(event){
 							$scope.addToFavorite(event);
