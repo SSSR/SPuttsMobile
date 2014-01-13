@@ -58,6 +58,7 @@
         $http.post(socialputtsLink + "/api/News/AddPost?userId=" + $.jStorage.get('user').userId + "&isFromManageResponsesPage=true", model)
         .success(function(){
             $("#news-feed-message").val("");
+            alert("Message has been posted to News Feed!");
         });
     }
 })
