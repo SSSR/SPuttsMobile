@@ -1323,7 +1323,7 @@
        var model = { StateId:stateId, City:cityName, ZipCode:zip };
        $http.post(socialputtsLink + "/api/settings/SaveDestination?userId=" + $.jStorage.get('user').userId, model)
        .success(function(model){
-            if (model) {
+            if (model != 'null') {
                  $scope.favoriteGolfDestinationsArray.push(model);
                  $(".fav-destinations #city, .fav-destinations #zip").val("");
                  $(".fav-destinations #city, .fav-destinations #zip").removeAttr("disabled");
