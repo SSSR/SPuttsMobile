@@ -152,12 +152,18 @@ function markMap(options, $scope, $http) {
 					
 					setTimeout(function(){
 						infoWindow.setContent($(".popup").html());
+                        $(".image img").load(function(){
+                            alert("loaded");
+                             infoWindow.open(map, marker);
+                        }).each(function(){
+                            if (this.complete) {
+                                $(this).load();
+                            };
+                        });
 
-                        setTimeout(function(){
-                            infoWindow.open(map, marker);
-                        }, 100);
-                        
-					}, 200);
+                       
+
+					}, 100);
 
 					setTimeout(function(){
 						$(".list-as-fav").click(function(event){
