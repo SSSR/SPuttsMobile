@@ -145,7 +145,7 @@ function markMap(options, $scope, $http) {
 				.success(function(result){
 					
 					$scope.popupInfo = result;
-                    $scope.popupInfo.url = socialputtsLink + "/Course/GetCourseImage?courseId=" + result.id;
+                    $scope.popupInfo.url = socialputtsLink + "/Course/GetCourseImageMobile?courseId=" + result.id;
 					
 					_.each($scope.infoWindows, function(iwindow){
 						iwindow.close();
