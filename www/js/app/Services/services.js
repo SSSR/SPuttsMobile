@@ -31,7 +31,7 @@ angular.module('socialputts.services', [])
 				object.form = value;
 			},
 			setCountry:function(country){
-				object.form.Country = country;
+				object.form.Country = country.trim();
 			},
 			getAddress:function(){
 				return object.form.Zip + ' ' + object.form.City + '+' + object.form.Country + '+' + object.form.State;
