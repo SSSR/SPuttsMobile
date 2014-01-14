@@ -84,7 +84,7 @@
                     </div>
                 </div> 
                 
-                <div class="col-lg-6 col-md-8 col-sm-8 col-xs-8 pull-left">
+                <div class="col-lg-6 col-md-8 col-sm-8 col-xs-12 pull-left">
                     
                     <div ng-show="manageInvitation.isConfirmed">
                         <a href="#/manageInvitations" class="btn btn-default mrgT10">View Invitation </a> 
@@ -121,7 +121,7 @@
 
             </div>
             <div ng-show="!manageInvitation.isOwner">
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 pull-left">
+                <div class="col-lg-3 col-md-3 col-sm-3 pull-left">
                     <div class="text-center" ng-show="manageInvitation.isExactTime">
                         <strong>{{manageInvitation.dateTime | date:'MM/dd/yyyy h:mma'}} </strong>
                     </div>
@@ -168,7 +168,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-5 col-sm-5 col-xs-5 pull-left">
+                <div class="col-lg-4 col-md-5 col-sm-5 col-xs-12 pull-left">
                     <strong><a href="#/invitationDetails?invitationId={{manageInvitation.invitationId}}&isOwner={{manageInvitation.isOwner}}">{{manageInvitation.invitationName}} {{manageInvitation.course.courseName}}</a>
                     </strong>
                     <div class="invitation-from">
@@ -188,7 +188,7 @@
                         Special Offer: {{manageInvitation.specialOffer}}
                     </div>
                 </div>
-                <div id="{{manageInvitation.id}}" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-left invitation-buttons">
+                <div id="{{manageInvitation.id}}" class="col-lg-4 col-md-4 col-sm-4 col-xs-12 pull-left invitation-buttons">
                     <div ng-show="manageInvitation.status == 2 "> <!--'AcceptedApproved'-->
                          <a class="btn btn-default" ng-click="AcceptInvitation(manageInvitation)" style="display: none;" href="">Accept</a>
                         <a class="btn btn-default"  ng-click="DeclineInvitation(manageInvitation)" href="">Decline</a>
