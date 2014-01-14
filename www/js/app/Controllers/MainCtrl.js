@@ -342,6 +342,7 @@
     $scope.markers = [];
     $scope.infoWindows = [];
     $scope.popupInfo = {};
+    $scope.popupInfo.url = "";
 
     var formObject = courseFinderService.getObject();
 
