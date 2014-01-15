@@ -200,6 +200,14 @@ img.small-avatar
 	margin-right: auto;
 	margin-left: auto;
 }
+img.small-chat-avatar{
+	max-width: 60px;
+	max-height: 60px;
+	border-style: solid;
+	border-color: #D1E7D1;
+	border-color: #53a753;
+	border-width: 1px;
+}
 
 .buddy .name
 {
@@ -264,6 +272,7 @@ img.small-avatar
 .message{
 	margin-bottom:5%;
 	padding-right: 5%;
+	overflow: hidden;
 }
 .text-message-field{
 	margin-top:5%;

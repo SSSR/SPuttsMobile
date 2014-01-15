@@ -5,12 +5,12 @@
 	</div>
 	<div class="pre-scrollable row message-history">
 		<div class="message" ng-repeat="message in history">
-			<div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
-				<img src="{{SP}}/Profile/GetAvatar/{{message.fromUserEmail}}" alt="Alternate Text" class="small-avatar">
+			<div class="col-lg-1 col-md-1 col-sm-2 col-xs-3">
+				<img src="{{SP}}/Profile/GetAvatar/{{message.fromUserEmail}}" alt="Alternate Text" class="small-chat-avatar img-responsive">
 			</div>
-			<div>{{message.fromUserName}}</div>
-			<div>{{message.message}}</div>
-			<div class="pull-right">{{message.dateTime}}</div>
+			<div class="col-sm-9 col-xs-9"><strong>{{message.fromUserName}}</strong></div>
+			<div class="col-sm-9 col-xs-9">{{message.message}}</div>
+			<div class="pull-right"><em>{{message.dateTime}}</em></div>
 		</div>
 	</div>
 	<div class="row text-message-field">
