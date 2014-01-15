@@ -21,7 +21,16 @@
 
 
 var channel = require('cordova/channel');
-var platform = require('cordova/platform');
+
+/**
+ * Listen for DOMContentLoaded and notify our channel subscribers.
+ */
+document.addEventListener('DOMContentLoaded', function() {
+    channel.onDOMContentLoaded.fire();
+}, false);
+if (document.readyState == 'complete' || document.readyState == 'interactive') {
+    channel.onDOMContentLoaded.fire();
+}
 
 /**
  * Intercept calls to addEventListener + removeEventListener and handle deviceready,
@@ -89,12 +98,15 @@ function createEvent(type, data) {
     return event;
 }
 
+if(typeof window.console === "undefined") {
+    window.console = {
+        log:function(){}
+    };
+}
 
 var cordova = {
     define:define,
     require:require,
-    version:CORDOVA_JS_BUILD_LABEL,
-    platformId:platform.id,
     /**
      * Methods to add/remove your own addEventListener hijacking on document + window.
      */
@@ -130,16 +142,16 @@ var cordova = {
         var evt = createEvent(type, data);
         if (typeof documentEventHandlers[type] != 'undefined') {
             if( bNoDetach ) {
-                documentEventHandlers[type].fire(evt);
+              documentEventHandlers[type].fire(evt);
             }
             else {
-                setTimeout(function() {
-                    // Fire deviceready on listeners that were registered before cordova.js was loaded.
-                    if (type == 'deviceready') {
-                        document.dispatchEvent(evt);
-                    }
-                    documentEventHandlers[type].fire(evt);
-                }, 0);
+              setTimeout(function() {
+                  // Fire deviceready on listeners that were registered before cordova.js was loaded.
+                  if (type == 'deviceready') {
+                      document.dispatchEvent(evt);
+                  }
+                  documentEventHandlers[type].fire(evt);
+              }, 0);
             }
         } else {
             document.dispatchEvent(evt);
@@ -229,5 +241,9 @@ var cordova = {
     }
 };
 
+// Register pause, resume and deviceready channels as events on document.
+channel.onPause = cordova.addDocumentEventHandler('pause');
+channel.onResume = cordova.addDocumentEventHandler('resume');
+channel.onDeviceReady = cordova.addStickyDocumentEventHandler('deviceready');
 
 module.exports = cordova;
