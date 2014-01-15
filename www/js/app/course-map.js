@@ -152,7 +152,8 @@ function markMap(options, $scope, $http) {
 					});
 					
 					setTimeout(function(){
-						infoWindow.setContent($(".popup").html());
+                        var content = $(".popup").html();
+						infoWindow.setContent('<div class="popup-info"><div class="course-name"><h4>test</h4></div><div class="course-info"><div class="image pull-left"><img src="http://socialputts-test.azurewebsites.net/Course/GetCourseImageMobile?courseId=13702" /></div><div class="info pull-right"><div>Type: <span>test<span></div><div>Phone: <span>test</span></div><div>Address: <span>test</span></div></div> </div>            <div>                <button ng-click="addToFavorite($event)"  courseId="{{popupInfo.id}}" ng-show="!popupInfo.isFavourite" class="btn btn-warning list-as-fav">List as Favorite</button>                <button ng-click="removeFromFavorite($event)"  courseId="{{popupInfo.id}}" ng-show="popupInfo.isFavourite" class="btn btn-warning not-fav">Not a Favorite</button>            </div>        </div>');
                         infoWindow.open(map, marker);
 					}, 100);
 
