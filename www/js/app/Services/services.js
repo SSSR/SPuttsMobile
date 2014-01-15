@@ -34,7 +34,7 @@ angular.module('socialputts.services', [])
 				object.form.Country = country.trim();
 			},
 			getAddress:function(){
-				return object.form.Zip + ' ' + object.form.City + '+' + object.form.Country + '+' + object.form.State;
+				return object.form.Zip + ' ' + object.form.City + '+' + object.form.Country + '+' + object.form.StateName;
 			},
 			setFavoriteCourses: function(favCourse){
 				object.favCourses.push(favCourse);
