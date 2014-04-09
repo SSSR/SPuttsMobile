@@ -15,7 +15,7 @@ $.fn.serializeObject = function()
     return o;
 };
 
-var socialputtsLink = "http://socialputtstest.azurewebsites.net/";
+var socialputtsLink = "http://socialputtstest.azurewebsites.net";
 //var socialputtsLink = "http://localhost:53351";
  
 
