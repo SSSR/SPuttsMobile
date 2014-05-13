@@ -53,9 +53,56 @@
 			</div>
 			
 	        </div>
-			
+        </div>
 
-    <div class="newsfeed">
+
+        <div class="row" ng-controller="BuddiesCtrl">  
+        <div class="messageHome">
+
+            <div class="messageHomeForDirect">
+                <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+           <div class="green" style="font-weight: normal;font-size: 20px;color: #66AE64;" > Direct messages</div>
+                </div>
+                <div class="col-xs-6 col-sm-8 col-md-9 col-lg-10">
+       <div class="unread-messages-count" ng-show=" countIncomingMessage > 0">
+			<h6 class="textsize"><b>{{countIncomingMessage}}</b></h6>
+		</div>	
+                     </div>
+                </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="buddies-container SkrolForBuddies" >
+	        <div class="item row" ng-repeat="NewBuddy in countmessageAndBuddies" user-id="{{NewBuddy.buddyId}}">
+		<div class="col-lg-1 col-md-1 col-sm-2 col-xs-3">
+			<img src="{{SP}}/Profile/GetAvatar/{{NewBuddy.buddy.email}}" alt="Alternate Text" class="img-avatar">
+		</div>
+		<div class="is-online col-lg-1 col-md-1 col-sm-1 col-xs-1" ng-switch on="NewBuddy.buddy.isOnline">
+			<div ng-switch-when="true">
+				<img src="imgs/online.png">
+			</div>
+			<div ng-switch-when="false">
+				<img src="imgs/offline.png">
+			</div>
+			
+		</div>
+		
+		<div class="col-lg-2 col-md-4 col-sm-6 col-xs-6">
+			<a href="#/chat?userId={{NewBuddy.buddyId}}&firstName={{NewBuddy.buddy.firstName}}&lastName={{NewBuddy.buddy.lastName}}" class="buddy-name">{{NewBuddy.buddy.firstName}} {{NewBuddy.buddy.lastName}}</a>
+		</div>
+		<div class="unread-messages-count" ng-show="NewBuddy.count > 0">
+			<h6 class="textsize"><b>{{NewBuddy.count}}</b></h6>
+		</div>	
+
+	</div>
+</div>
+                </div>
+            </div>
+        </div>
+         </div>
+
+
+		<div class="row">    
+           <div class="newsfeed">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 news-feed">
                 <h2 class ="green block-header">News feed</h2>
 			    		<textarea class="form-control" placeholder="Write Your Message Here..." id="news-feed-message"></textarea>
@@ -65,7 +112,7 @@
                 </div>	
 			</div>
 			
-    <div class="row">
+             <div class="row">
                    <div class="conteiner-block">
                       
                            <div ng-repeat="getPost in model.postAndNewsCollection" >
@@ -139,35 +186,9 @@
                    
 			<div class="buttonPosition">
         <input type="button" class="btn  btn-success pull-left " id="previousButton" value="Previous" ng-click="previous()">	
-           <div class="pageCount"> <h4>	 Page:{{numberPage}}/{{countPages}}</h4>	</div>
-		<input type="button" class="btn  btn-success" id="nextButton" value="Next"  ng-click="next()">
+           <div class="pageCount"><div class="textPageCount"> <h4>	 Page:{{numberPage}}/{{countPages}}</h4>	</div></div>
+		<input type="button" class="btn  btn-success btn-left" id="nextButton" value="Next"  ng-click="next()">
 		</div>
                            </div>
     </div>
-			
-			
-			<!--
-			<div class="col-xs-9 col-sm-3 col-md-2 col-lg-2 news-feed-title">
-			<h3>News feed</h3>
-			</div>
-			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 news-feed">
-				<textarea class="form-control" placeholder="Write Your Message Here..." id="news-feed-message"></textarea>
-				<input type="button" value="Post" class="btn btn-lg btn-success pull-left" ng-click="postMessageToNewsFeed()"/>
-			</div>
-			<br>
-			<div class="postAndcomments-bloc">
-			
-			
-			<div ng-repeat="post in model.postAndNewsCollection"> 
-			<div class = "user-avatar">gvs</div>
-                			<div class="post"><h5><b>{{post.body}}</b></h5></div>
-                <div ng-repeat ="comment in post.comments">
-                    Comment:{{comment.body}}
-                </div>
-			</div>
-			</div>-->
-<!--
-	<ul>
-	  <li ng-repeat="invitation in invitations">{{invitation.name}}</li>
-	</ul> -->
 

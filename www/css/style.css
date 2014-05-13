@@ -553,10 +553,9 @@ width:100%;
 
 .buttonPosition
 {
-text-align:center;
 margin-left:auto;
 margin-right:auto;
-width:230px;
+width:350px;
 }
 
 .positionNext
@@ -567,10 +566,15 @@ float:right;
 .pageCount
 {
 margin-top:-3px;
-width:90px;
+width:40%;
 float:left;
 text-align:center;
 height:35px;
+}
+
+.textPageCount
+{
+text-align:center;
 }
 
 .add-comment
@@ -683,5 +687,38 @@ margin-top: 3px;
 margin-bottom: auto;
 }
 
+
+.messageHome
+{
+width: 100%;
+height:auto;
+
+}
+
+.formessagename
+{
+width:30%;
+height:auto;
+}
+
+.messege-direct
+{
+float:left;
+}
+
+.messageHomeForDirect
+{
+width: 100%;
+height:auto;
+overflow:hidden;
+margin-top:40px;
+margin-bottom:40px;
+
+}
+.SkrolForBuddies
+{
+overflow:auto;
+height:200px;
+}
 
 /* Settings page end --------------------------------------------------------------------------------------------------------- */

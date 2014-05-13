@@ -246,12 +246,33 @@
 
 })
 .controller('BuddiesCtrl', function ($scope, $http, $location) {
-    checkUserLogedOff($location, $scope);
-
+   // checkUserLogedOff($location, $scope);
+    $scope.SP = socialputtsLink;
+    //$scope.buddiesArray = [];
     $http.get(socialputtsLink + "/api/Buddies/Get?userId=" + $.jStorage.get("user").userId)
 	.success(function (buddies) {
 	    $scope.buddies = buddies;
+
+	    //buddies.forEach(function (buddy) {
+
+	    //    $scope.countIncomingMessage = $scope.countIncomingMessage + buddy.incomingMessages;
+	    //    if (buddy.incomingMessages > 0) {
+	    //        $scope.buddiesArray.push(buddy);
+	    //    }
+	    //})
 	});
+
+
+    $scope.countIncomingMessage = 0;
+    $http.get(socialputtsLink + "/api/Buddies/GetIncomingMessage?id=" + $.jStorage.get("user").userId)
+	.success(function (countmessageAndBuddies) {
+	    $scope.countmessageAndBuddies = countmessageAndBuddies;
+	    countmessageAndBuddies.forEach(function (countmessage)
+	    {
+	        $scope.countIncomingMessage = $scope.countIncomingMessage + countmessage.count;
+	    })
+	});
+
 
     $.connection.messageHub.client.userLoggedIn = function (userId) {
         var buddy = _.find($scope.buddies, function (buddyItem) {
@@ -1097,6 +1118,12 @@
                 $scope.InvitationRespons.hours = $scope._parseStringToInt($scope.InvitationRespons.hours);
                 $scope.InvitationRespons.minutes = $scope._parseStringToInt($scope.InvitationRespons.minutes);
                 $scope.CheckTimeRange();
+                if ($scope.InvitationRespons.discountType === "Dollars")
+                {
+                    $scope.discountForGolfers = "$";
+                }
+                else if ($scope.InvitationRespons.discountType === "Persent") { $scope.discountForGolfers = "%" }
+                else { $scope.discountForGolfers = "" }
             });
     };
 
