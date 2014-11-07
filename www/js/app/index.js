@@ -16,8 +16,7 @@ $.fn.serializeObject = function()
 };
 
 var socialputtsLink = "http://socialputtstest.azurewebsites.net";
-//var socialputtsLink = "http://localhost:53351";
- 
+/*var socialputtsLink = "http://localhost:51425";*/
 
 var app = {
     initialize: function() {

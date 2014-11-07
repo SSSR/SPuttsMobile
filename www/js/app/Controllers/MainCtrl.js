@@ -6,12 +6,12 @@
         $scope.Hello = "";
     }
 
-    $scope.logout = function(event){
+    $scope.logout = function (event) {
         event.preventDefault();
-       $.connection.messageHub.server.logout();
-       $location.path("#");
-    }
-	
+        $.connection.messageHub.server.logout();
+        $location.path("#");
+    };
+
 })
 .controller('HomeCtrl', function ($scope, $http, $location) {
     checkUserLogedOff($location, $scope);
@@ -52,18 +52,18 @@
         return false;
     };
 
-    $scope.postMessageToNewsFeed = function(){
+    $scope.postMessageToNewsFeed = function() {
         var body = $("#news-feed-message").val();
 
-        var model = {Body:body};
-        
+        var model = { Body: body };
+
         $http.post(socialputtsLink + "/api/News/AddPost?userId=" + $.jStorage.get('user').userId + "&isFromManageResponsesPage=true", model)
-        .success(function(){
-            $("#news-feed-message").val("");
-            getAllPostAndComment(1);
-            alert("Message has been posted to News Feed!");
-        });
-    }
+            .success(function() {
+                $("#news-feed-message").val("");
+                getAllPostAndComment(1);
+                /* alert("Message has been posted to News Feed!");*/
+            });
+    };
     //$http.jsonp(socialputtsLink + "/api/Course/GetCourseUrl?courseId=" + invitation.favoriteCourse + "&courseName=&alt=json-in-script&callback=JSON_CALLBACK")
     $scope.numberPage = 1;
     $scope.countPages = 0;
@@ -74,8 +74,7 @@
         document.getElementById('previousButton').disabled = true;
         $http.get(socialputtsLink + "/api/News/GetNewsForUser?targetUserId=" + $.jStorage.get('user').userId + "&page=" + numberPage)
            .success(function (model) {
-               _.each(model.postAndNewsCollection, function (post)
-               {
+               _.each(model.postAndNewsCollection, function (post) {
                    post.createdAt = moment.utc(post.createdAt).local().format('MM/DD/YYYY hh:mm A');
                    _.each(post.comments, function (comment) {
                        comment.createdAt = moment.utc(comment.createdAt).local().format('MM/DD/YYYY hh:mm A');
@@ -89,133 +88,134 @@
 
     $scope.next = function () {
 
-        if ($scope.numberPage < $scope.countPages)
-        {
+        if ($scope.numberPage < $scope.countPages) {
             $scope.numberPage = $scope.numberPage + 1;
             getAllPostAndComment($scope.numberPage)
         }
-    }
+    };
 
     $scope.previous = function () {
         if ($scope.numberPage > 1) {
             $scope.numberPage = $scope.numberPage - 1;
             getAllPostAndComment($scope.numberPage)
         }
-       
-    }
 
-    function checkElement()
-    {
+    };
+
+    function checkElement() {
         if ($scope.numberPage < $scope.countPages && $scope.numberPage > 1) {
             document.getElementById('nextButton').disabled = false;
             document.getElementById('previousButton').disabled = false;
-            }
+        }
         if ($scope.numberPage == $scope.countPages) {
             document.getElementById('nextButton').disabled = true;
             document.getElementById('previousButton').disabled = false;
-         }
-        if ($scope.numberPage == 1 && $scope.numberPage < $scope.countPages)
-         {
+        }
+        if ($scope.numberPage == 1 && $scope.numberPage < $scope.countPages) {
             document.getElementById('nextButton').disabled = false;
             document.getElementById('previousButton').disabled = true;
-         }
+        }
     }
 
-    $scope.commentBody="";
+    $scope.commentBody = "";
     $scope.addComment = function AddComment(commentBody, postIdForComment) {
-       
-            $http.get(socialputtsLink + "/api/News/AddComment/?authorId=" + $.jStorage.get('user').userId + "&body=" + commentBody + "&postId=" + postIdForComment)
-        .success(function (commentsForPost) {
-            angular.forEach($scope.model.postAndNewsCollection, function (post) {
-                if (post.id === postIdForComment) {
-                    var today = new Date()
-                    var author = { 'email': commentsForPost.author.email };
-                    post.comments.push({
-                        'id': commentsForPost.id,
-                        'authorId': commentsForPost.authorId,
-                        'lastName': $.jStorage.get('user').name,
-                        'postId': commentsForPost.postId,
-                        'body': commentsForPost.body,
-                        'createdAt': moment.utc(commentsForPost.createdAt).local().format('MM/DD/YYYY hh:mm A'),
-                        'author': author
-                    });
-                    
-                    return;
-                }
-            })
-        });
-        
-    }
 
+        $http.get(socialputtsLink + "/api/News/AddComment/?authorId=" + $.jStorage.get('user').userId + "&body=" + commentBody + "&postId=" + postIdForComment)
+            .success(function (commentsForPost) {
+                angular.forEach($scope.model.postAndNewsCollection, function (post) {
+                    if (post.id === postIdForComment) {
+                        var today = new Date()
+                        var author = { 'email': commentsForPost.author.email };
+                        post.comments.push({
+                            'id': commentsForPost.id,
+                            'authorId': commentsForPost.authorId,
+                            'lastName': $.jStorage.get('user').name,
+                            'postId': commentsForPost.postId,
+                            'body': commentsForPost.body,
+                            'createdAt': moment.utc(commentsForPost.createdAt).local().format('MM/DD/YYYY hh:mm A'),
+                            'author': author
+                        });
 
-    $scope.checkingCurent = function (authorUser)
-    {
-        if ($.jStorage.get('user').userId == authorUser) {
+                        return;
+                    }
+                });
+            });
+
+    };
+
+    $scope.isShowRemoveButton = function (post) {
+        if (post.targetUserId == $.jStorage.get('user').userId ||
+            post.authorId == $.jStorage.get('user').userId) {
             return true;
         }
-        
+        return false;
+    };
+    /*  $scope.checkingCurent = function (authorUser) {
+    if ($.jStorage.get('user').userId == authorUser) {
+    return true;
     }
+
+    };*/
 
     $scope.editCommentforPost = function (editCommentBody, commentId) {
-        
+
         $http.get(socialputtsLink + "/api/News/EditComment/?authorId=" + $.jStorage.get('user').userId + "&text=" + editCommentBody + "&commentId=" + commentId)
-           .success(function () {
-               angular.forEach($scope.model.postAndNewsCollection, function (post) {
-                   angular.forEach(post.comments, function (comment) {
-                       if (comment.id === commentId) {
+            .success(function () {
+                angular.forEach($scope.model.postAndNewsCollection, function (post) {
+                    angular.forEach(post.comments, function (comment) {
+                        if (comment.id === commentId) {
 
-                           comment.body = editCommentBody;
-                       }
-                   });
-               })
-           });
-    }
+                            comment.body = editCommentBody;
+                        }
+                    });
+                });
+            });
+    };
 
-    $scope.editpost= function (editPostBody, postId) {
+    $scope.editpost = function (editPostBody, postId) {
 
         $http.get(socialputtsLink + "/api/News/EditPost/?authorId=" + $.jStorage.get('user').userId + "&text=" + editPostBody + "&postId=" + postId)
-           .success(function () {
-               angular.forEach($scope.model.postAndNewsCollection, function (post) {
+            .success(function () {
+                angular.forEach($scope.model.postAndNewsCollection, function (post) {
 
-                   if (post.id === postId) {
-                       post.body = editPostBody;
-                       return;
-                   }
-               })
+                    if (post.id === postId) {
+                        post.body = editPostBody;
+                        return;
+                    }
+                });
 
-              
 
-           });
-    }
+            });
+    };
 
     $scope.removePost = function (postIdForRemove) {
         $http.get(socialputtsLink + "/api/News/RemovePost/?postId=" + postIdForRemove)
-           .success(function () {
-               angular.forEach($scope.model.postAndNewsCollection, function (post) {
-                   
-                   if (post.id === postIdForRemove) {
-                       var indexPost =$scope.model.postAndNewsCollection.indexOf(post);
-                       $scope.model.postAndNewsCollection.splice(indexPost, 1);
-                           return;
-                       }
-               })
-           });
-    }
+            .success(function () {
+                angular.forEach($scope.model.postAndNewsCollection, function (post) {
+
+                    if (post.id === postIdForRemove) {
+                        var indexPost = $scope.model.postAndNewsCollection.indexOf(post);
+                        $scope.model.postAndNewsCollection.splice(indexPost, 1);
+                        return;
+                    }
+                });
+            });
+    };
 
     $scope.removeComment = function (commentId) {
         $http.get(socialputtsLink + "/api/News/RemoveComment/?commentId=" + commentId)
-           .success(function () {
-               angular.forEach($scope.model.postAndNewsCollection, function (post) {
-                   angular.forEach(post.comments, function (comment) {
-                       if (comment.id === commentId) {
-                           var index = post.comments.indexOf(comment);
-                           post.comments.splice(index, 1);
-                           return;
-                       }
-                   });
-               })
-           });
-        }
+            .success(function () {
+                angular.forEach($scope.model.postAndNewsCollection, function (post) {
+                    angular.forEach(post.comments, function (comment) {
+                        if (comment.id === commentId) {
+                            var index = post.comments.indexOf(comment);
+                            post.comments.splice(index, 1);
+                            return;
+                        }
+                    });
+                });
+            });
+    };
 
     $http.get(socialputtsLink + "/api/News/InvitaitionCount/?UserId=" + $.jStorage.get('user').userId)
     .success(function (countInvitation) {
@@ -223,10 +223,27 @@
         $scope.countTotalInvitation = countInvitation.countTotalInvitation;
     });
 
+    $scope.daterminateLogo = function (body) {
+        if (body !== undefined) {
+            if (body.indexOf("Socialputts-logo") !== -1) {
+                return "SocialputtsLogo";
+            }
+            if (body.indexOf("Course-logo") !== -1) {
+                return "courseAvatar";
+            }
+        }
 
+        return "default";
+    };
+
+    $scope.daterminateCourseId = function (body) {
+        var tempStr = body.split('[')[1];
+        var courseId = tempStr.split(']')[0];
+        return courseId;
+    };
 })
 .controller('AccountCtrl', function ($scope, $http, $location, $route) {
-   $.jStorage.deleteKey('user');
+    $.jStorage.deleteKey('user');
 
     $scope.logIn = function () {
         $scope.invalidForm = false;
@@ -246,7 +263,7 @@
 
 })
 .controller('BuddiesCtrl', function ($scope, $http, $location) {
-   // checkUserLogedOff($location, $scope);
+    // checkUserLogedOff($location, $scope);
     $scope.SP = socialputtsLink;
     //$scope.buddiesArray = [];
     $http.get(socialputtsLink + "/api/Buddies/Get?userId=" + $.jStorage.get("user").userId)
@@ -267,8 +284,7 @@
     $http.get(socialputtsLink + "/api/Buddies/GetIncomingMessage?id=" + $.jStorage.get("user").userId)
 	.success(function (countmessageAndBuddies) {
 	    $scope.countmessageAndBuddies = countmessageAndBuddies;
-	    countmessageAndBuddies.forEach(function (countmessage)
-	    {
+	    countmessageAndBuddies.forEach(function (countmessage) {
 	        $scope.countIncomingMessage = $scope.countIncomingMessage + countmessage.count;
 	    })
 	});
@@ -673,7 +689,7 @@
 .controller('OneClickDiscountCtrl', function ($scope, $http, $location, courseFinderService) {
     checkUserLogedOff($location, $scope);
 
-    var courseFormModel = {City: "", CountryId: "1", CourseName: "", Mileage: "30", NumberOfHoles: "0", Zip: $.jStorage.get('user').zip};
+    var courseFormModel = { City: "", CountryId: "1", CourseName: "", Mileage: "30", NumberOfHoles: "0", Zip: $.jStorage.get('user').zip };
 
     courseFinderService.setObject(courseFormModel);
     courseFinderService.setCountry("United States");
@@ -1118,8 +1134,7 @@
                 $scope.InvitationRespons.hours = $scope._parseStringToInt($scope.InvitationRespons.hours);
                 $scope.InvitationRespons.minutes = $scope._parseStringToInt($scope.InvitationRespons.minutes);
                 $scope.CheckTimeRange();
-                if ($scope.InvitationRespons.discountType === "Dollars")
-                {
+                if ($scope.InvitationRespons.discountType === "Dollars") {
                     $scope.discountForGolfers = "$";
                 }
                 else if ($scope.InvitationRespons.discountType === "Persent") { $scope.discountForGolfers = "%" }
@@ -1140,58 +1155,58 @@
 
     $scope.AcceptInvitation = function (manageInvitation) {
 
-            $http.post(socialputtsLink + "/api/ManageInvitation/AcceptInvitation?userInvitationId=" + manageInvitation.id + "&userId=" + $.jStorage.get("user").userId )
+        $http.post(socialputtsLink + "/api/ManageInvitation/AcceptInvitation?userInvitationId=" + manageInvitation.id + "&userId=" + $.jStorage.get("user").userId)
             .success(function () {
-               
-                    manageInvitation.status = 1;
+
+                manageInvitation.status = 1;
             });
     };
 
     $scope.getUserIdFromjStorage = function () {
-               
+
         return $.jStorage.get('user').userId;
     };
 
     $scope.DeclineInvitation = function (manageInvitation) {
 
         $http.post(socialputtsLink + "/api/ManageInvitation/DeclineInvitation?userInvitationId=" + manageInvitation.id + "&userId=" + $.jStorage.get("user").userId)
-            .success(function () { 
-                
-                    manageInvitation.status = 3;
+            .success(function () {
+
+                manageInvitation.status = 3;
             });
     };
 
     $scope.ConfirmGolfers = function (invitationId) {
         if ($scope.InvitationRespons.usersConfirmed.length < 4) {
-                $(".confirm-event-popup").dialog({
-                    modal: true,
-                    buttons: {
-                        "Yes, Lock It In": function () {
-                            
-                            $http.post(socialputtsLink + "/api/ManageInvitation/ConfirmFoursomeUserForInvitation?invitationId=" + invitationId)
-                            .success(function(){
-                                var invitation = _.findWhere($scope.ManageInvitationModel, {invitationId:invitationId});
+            $(".confirm-event-popup").dialog({
+                modal: true,
+                buttons: {
+                    "Yes, Lock It In": function () {
+
+                        $http.post(socialputtsLink + "/api/ManageInvitation/ConfirmFoursomeUserForInvitation?invitationId=" + invitationId)
+                            .success(function () {
+                                var invitation = _.findWhere($scope.ManageInvitationModel, { invitationId: invitationId });
                                 invitation.isConfirmed = true;
                                 $scope.CloseManageResponsesForm();
                                 $(".confirm-event-popup").dialog("close");
                             });
-                            
-                        },
-                        "Cancel": function () {
-                            $(".confirm-event-popup").dialog("close");
-                        }
+
+                    },
+                    "Cancel": function () {
+                        $(".confirm-event-popup").dialog("close");
                     }
-                });
-            } else {
-                
-               $http.post(socialputtsLink + "/api/ManageInvitation/ConfirmFoursomeUserForInvitation?invitationId=" + invitationId)
-                .success(function(){
-                    var invitation = _.findWhere($scope.ManageInvitationModel, {invitationId:invitationId});
+                }
+            });
+        } else {
+
+            $http.post(socialputtsLink + "/api/ManageInvitation/ConfirmFoursomeUserForInvitation?invitationId=" + invitationId)
+                .success(function () {
+                    var invitation = _.findWhere($scope.ManageInvitationModel, { invitationId: invitationId });
                     invitation.isConfirmed = true;
                     $scope.CloseManageResponsesForm();
                     $(".confirm-event-popup").dialog("close");
                 });
-            }
+        }
     };
 
     $scope.GetManageInvitations = function () {
@@ -1203,48 +1218,48 @@
 
                 $scope.ManageInvitationModel = result.invitationViewModels;
             });
-        
+
     };
 
     $scope.GetManageInvitations();
 
-    $scope.removeFromConfirmed = function(user, invitationId){
+    $scope.removeFromConfirmed = function (user, invitationId) {
         $http.post(socialputtsLink + "/api/ManageInvitation/RemoveFromConfirmed?userId=" + user.userId + "&invitationId=" + invitationId)
-            .success(function(){
-                $scope.InvitationRespons.usersConfirmed = _.without($scope.InvitationRespons.usersConfirmed, _.findWhere($scope.InvitationRespons.usersConfirmed, {userId : user.userId}));
+            .success(function () {
+                $scope.InvitationRespons.usersConfirmed = _.without($scope.InvitationRespons.usersConfirmed, _.findWhere($scope.InvitationRespons.usersConfirmed, { userId: user.userId }));
                 $scope.InvitationRespons.usersAccepted.push(user);
                 $scope.InvitationRespons.golfersLeft++;
-                var invitation = _.findWhere($scope.ManageInvitationModel, {invitationId:invitationId});
+                var invitation = _.findWhere($scope.ManageInvitationModel, { invitationId: invitationId });
                 invitation.openSlots++;
             });
     };
 
-    $scope.addToFrousome = function(user, invitationId){
+    $scope.addToFrousome = function (user, invitationId) {
         if ($scope.InvitationRespons.usersConfirmed.length <= 3) {
-            
+
             $http.post(socialputtsLink + "/api/ManageInvitation/AddToFoursome?userId=" + user.userId + "&invitationId=" + invitationId)
-            .success(function(){
-                $scope.InvitationRespons.usersAccepted = _.without($scope.InvitationRespons.usersAccepted, _.findWhere($scope.InvitationRespons.usersAccepted, {userId : user.userId}));
+            .success(function () {
+                $scope.InvitationRespons.usersAccepted = _.without($scope.InvitationRespons.usersAccepted, _.findWhere($scope.InvitationRespons.usersAccepted, { userId: user.userId }));
                 $scope.InvitationRespons.usersConfirmed.push(user);
                 $scope.InvitationRespons.golfersLeft--;
-                var invitation = _.findWhere($scope.ManageInvitationModel, {invitationId:invitationId});
+                var invitation = _.findWhere($scope.ManageInvitationModel, { invitationId: invitationId });
                 invitation.openSlots--;
             });
-            
-        }else{
+
+        } else {
             alert("You have already confirmed the maximum four people for your tee time");
         }
     };
 
-    $scope.declineUserByOwner = function(user,invitationId){
+    $scope.declineUserByOwner = function (user, invitationId) {
         $http.post(socialputtsLink + "/api/ManageInvitation/DeclineUserByOwner?userId=" + user.userId + "&invitationId=" + invitationId)
-            .success(function(){
-                $scope.InvitationRespons.usersAccepted = _.without($scope.InvitationRespons.usersAccepted, _.findWhere($scope.InvitationRespons.usersAccepted, {userId : user.userId}));
+            .success(function () {
+                $scope.InvitationRespons.usersAccepted = _.without($scope.InvitationRespons.usersAccepted, _.findWhere($scope.InvitationRespons.usersAccepted, { userId: user.userId }));
             });
     };
 
-    $scope.sendAMessage = function(invitationId){
-        var invitation = _.findWhere($scope.ManageInvitationModel, {invitationId:invitationId});
+    $scope.sendAMessage = function (invitationId) {
+        var invitation = _.findWhere($scope.ManageInvitationModel, { invitationId: invitationId });
         $(".send-message-popup").dialog({
             title: "" + invitation.invitationName + invitation.course.courseName + invitation.dateTime,
             modal: true,
@@ -1254,16 +1269,16 @@
                     var body = $(".message-body").val();
                     var usersType = $(".users-types").val();
                     var invitationId = invitation.invitationId;
-                    var model = {Body:body};
+                    var model = { Body: body };
 
                     $http.post(socialputtsLink + "/api/News/AddPost?userId=" + $.jStorage.get('user').userId + "&isFromManageResponsesPage=true", model)
-                    .success(function(){
+                    .success(function () {
                         $(".message-body").val("");
                         $(".users-types option:first").attr("selected", "selected");
                     });
 
                     $http.post(socialputtsLink + "/api/ManageInvitation/SendMessages?usersType=" + usersType + "&invitationId=" + invitationId + "&body=" + body)
-                    .success(function(){
+                    .success(function () {
                     });
 
                     $(this).dialog("close");
@@ -1277,18 +1292,18 @@
         });
     };
 
-    $scope.cancelEvent = function(invitationId){
+    $scope.cancelEvent = function (invitationId) {
         $(".cancel-event-popup").dialog({
             modal: true,
             resizable: false,
             buttons: {
                 "[ Yes, Cancel It ]": function () {
                     $(".cancel-event-popup").dialog("close");
-                    $scope.ManageInvitationModel = _.without($scope.ManageInvitationModel, _.findWhere($scope.ManageInvitationModel, {invitationId : invitationId}));
+                    $scope.ManageInvitationModel = _.without($scope.ManageInvitationModel, _.findWhere($scope.ManageInvitationModel, { invitationId: invitationId }));
                     $scope.CloseManageResponsesForm();
-                    
+
                     $http.post(socialputtsLink + "/api/ManageInvitation/CancelInvitation?invitationId=" + invitationId)
-                    .success(function(){                        
+                    .success(function () {
                     });
                 },
                 "[ No, Keep It ]": function () {
@@ -1298,11 +1313,11 @@
         });
     }
 })
-.controller('InvitationDetailsCtrl', function($scope, $http, $location, $route){
+.controller('InvitationDetailsCtrl', function ($scope, $http, $location, $route) {
     checkUserLogedOff($location, $scope);
 
     $http.jsonp(socialputtsLink + "/api/FoursomeInvitation/InvitationDetails?userId=" + $.jStorage.get('user').userId + "&invitationId=" + $route.current.params.invitationId + "&alt=json-in-script&callback=JSON_CALLBACK")
-    .success(function(data){
+    .success(function (data) {
         $scope.invitation = data;
     });
 })
@@ -1327,73 +1342,73 @@
     //$scope.favoriteGolfDestinationsArray = [];
 
     $http.get(socialputtsLink + "/api/settings/getsettings?userId=" + $.jStorage.get('user').userId)
-    .success(function(data){
+    .success(function (data) {
         $scope.settings = data;
         if (data.playingPreferences.genderMale) {
             $scope.gender = 'male';
-        }else{
+        } else {
             $scope.gender = 'female';
         }
 
         if (data.playingPreferences.smokeYes) {
             $scope.smoke = 'yes';
-        }else{
+        } else {
             $scope.smoke = 'no';
         }
         if (data.playingPreferences.drinkYes) {
             $scope.drink = 'yes';
-        }else{
+        } else {
             $scope.drink = 'no';
         }
     });
 
     $http.get(socialputtsLink + "/api/settings/GetFavoriteDestinationsForUser?userId=" + $.jStorage.get('user').userId)
-    .success(function(result){
+    .success(function (result) {
         $scope.favoriteGolfDestinationsArray = result;
     });
 
-    $scope.changePassword = function(){
+    $scope.changePassword = function () {
         $(".change-password-popup").dialog({
-            modal:true,
+            modal: true,
             title: "Change Password",
-            buttons:{
-                "Change password": function(){
-                    
+            buttons: {
+                "Change password": function () {
+
                     var currentPassword = $("#current-pass").val();
                     var newPassword = $("#new-pass").val();
                     var confirmPassword = $("#confirm-new-pass").val();
                     if (newPassword.length < 6) {
                         alert("Password should be at least 6 characters!");
                         return;
-                    }else if(newPassword != confirmPassword){
+                    } else if (newPassword != confirmPassword) {
                         alert("Password and Confirm Password not matched!");
                         return;
-                    }else{
+                    } else {
                         $http.get(socialputtsLink + "/api/account/ChangePassword?userId=" + $.jStorage.get('user').userId + "&oldPassword=" + currentPassword + "&newPassword=" + newPassword)
-                        .success(function(result){
+                        .success(function (result) {
                             if (result === "true") {
                                 alert("Password changed successfully!");
                                 $(".change-password-popup").dialog("close");
-                            }else{
+                            } else {
                                 alert("Current Password is invalid!");
                             }
                         });
                     }
                 },
-                Cancel: function(){
+                Cancel: function () {
                     $(this).dialog("close");
                 }
             }
         })
     };
 
-    $scope.saveBasicInfo = function(){
+    $scope.saveBasicInfo = function () {
         var model = $scope.settings.basicInfo;
         var regZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/;
         var reEmail = new RegExp("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
 
         if (model.firstName != null && model.firstName.length > 0 &&
-            model.lastName != null && model.lastName.length > 0 && 
+            model.lastName != null && model.lastName.length > 0 &&
             model.email != null && model.email.length > 0 &&
             model.city != null && model.city.length > 0 &&
             model.zipCode != null && model.zipCode.length > 0) {
@@ -1406,61 +1421,61 @@
                 return;
             };
             $http.post(socialputtsLink + "/api/settings/SaveBasicInfo?userId=" + $.jStorage.get('user').userId, model)
-            .success(function(){
+            .success(function () {
                 alert("Basic info is saved");
             });
-        }else{
+        } else {
             alert("Please, fill out reaquired fields");
         }
     };
 
-    $scope.changeMenu = function(value, $event){
+    $scope.changeMenu = function (value, $event) {
         $scope.menu = value;
         $(".active-menu-link").removeClass('active-menu-link');
         $($event.target).addClass('active-menu-link');
     };
 
-    $scope.genderChange = function(value){
+    $scope.genderChange = function (value) {
         if (value == 'female') {
             $scope.settings.playingPreferences.genderMale = false;
             $scope.settings.playingPreferences.genderFemale = true;
-        }else{
+        } else {
             $scope.settings.playingPreferences.genderFemale = false;
             $scope.settings.playingPreferences.genderMale = true;
         }
     };
 
-    $scope.updateSmoke = function(value){
+    $scope.updateSmoke = function (value) {
         if (value == 'yes') {
-             $scope.settings.playingPreferences.smokeYes = true;
-             $scope.settings.playingPreferences.smokeNo = false;
-        }else{
+            $scope.settings.playingPreferences.smokeYes = true;
+            $scope.settings.playingPreferences.smokeNo = false;
+        } else {
             $scope.settings.playingPreferences.smokeYes = false;
-             $scope.settings.playingPreferences.smokeNo = true;
+            $scope.settings.playingPreferences.smokeNo = true;
         }
     };
 
-    $scope.updateDrink = function(value){
+    $scope.updateDrink = function (value) {
         if (value == 'yes') {
-             $scope.settings.playingPreferences.drinkYes = true;
-             $scope.settings.playingPreferences.drinkNo = false;
-        }else{
+            $scope.settings.playingPreferences.drinkYes = true;
+            $scope.settings.playingPreferences.drinkNo = false;
+        } else {
             $scope.settings.playingPreferences.drinkYes = false;
-             $scope.settings.playingPreferences.drinkNo = true;
+            $scope.settings.playingPreferences.drinkNo = true;
         }
     };
 
-    $scope.savePlayingPreferences = function(){
+    $scope.savePlayingPreferences = function () {
         var model = $scope.settings.playingPreferences;
         $http.post(socialputtsLink + "/api/settings/SavePlayingPreferences?userId=" + $.jStorage.get('user').userId, model)
-        .success(function(){
+        .success(function () {
             alert("Playing Preferences successfully saved!");
         });
     }
 
 
-    $scope.addFavoriteDestination = function(){
-        
+    $scope.addFavoriteDestination = function () {
+
         var zip = $(".fav-destinations #zip").val();
         var city = $(".fav-destinations #city").val();
 
@@ -1485,7 +1500,7 @@
 
                 $scope.saveDestination(stateId, city, '');
             });
-        }else if(zip.length > 0){
+        } else if (zip.length > 0) {
             geocoder.geocode({ 'address': zip }, function (results, status) {
 
                 if (status != 'OK' || results[0].address_components.length < 3) {
@@ -1498,9 +1513,9 @@
                 var cityName = results[0].address_components[results[0].address_components.length - 3].long_name;
 
                 $http.get(socialputtsLink + "/api/settings/GetStateIdByShortName?name=" + stateName)
-                .success(function(stateId){
+                .success(function (stateId) {
                     if (stateId == -1) {
-                         alert("Zip not found!");
+                        alert("Zip not found!");
                         return;
                     }
 
@@ -1510,25 +1525,25 @@
         }
     };
 
-    $scope.saveDestination = function(stateId, cityName, zip){
-       var model = { StateId:stateId, City:cityName, ZipCode:zip };
-       $http.post(socialputtsLink + "/api/settings/SaveDestination?userId=" + $.jStorage.get('user').userId, model)
-       .success(function(model){
-            if (model != 'null') {
-                 $scope.favoriteGolfDestinationsArray.push(model);
-                 $(".fav-destinations #city, .fav-destinations #zip").val("");
-                 $(".fav-destinations #city, .fav-destinations #zip").removeAttr("disabled");
-            }else{
-                alert("Favorite Golf Destination already exists!");
-            }
-            
+    $scope.saveDestination = function (stateId, cityName, zip) {
+        var model = { StateId: stateId, City: cityName, ZipCode: zip };
+        $http.post(socialputtsLink + "/api/settings/SaveDestination?userId=" + $.jStorage.get('user').userId, model)
+       .success(function (model) {
+           if (model != 'null') {
+               $scope.favoriteGolfDestinationsArray.push(model);
+               $(".fav-destinations #city, .fav-destinations #zip").val("");
+               $(".fav-destinations #city, .fav-destinations #zip").removeAttr("disabled");
+           } else {
+               alert("Favorite Golf Destination already exists!");
+           }
+
        });
     };
 
-    $scope.removeFavoriteDestination = function(destination, index){
+    $scope.removeFavoriteDestination = function (destination, index) {
         $http.post(socialputtsLink + "/api/settings/RemoveDestination?id=" + destination.id)
-        .success(function(){
-           $scope.favoriteGolfDestinationsArray.splice(index, 1);
+        .success(function () {
+            $scope.favoriteGolfDestinationsArray.splice(index, 1);
         });
     };
 });
