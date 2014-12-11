@@ -52,13 +52,13 @@
         return false;
     };
 
-    $scope.postMessageToNewsFeed = function() {
+    $scope.postMessageToNewsFeed = function () {
         var body = $("#news-feed-message").val();
 
         var model = { Body: body };
 
         $http.post(socialputtsLink + "/api/News/AddPost?userId=" + $.jStorage.get('user').userId + "&isFromManageResponsesPage=true", model)
-            .success(function() {
+            .success(function () {
                 $("#news-feed-message").val("");
                 getAllPostAndComment(1);
                 /* alert("Message has been posted to News Feed!");*/
@@ -241,6 +241,12 @@
         var courseId = tempStr.split(']')[0];
         return courseId;
     };
+
+    $scope.getAvatar = function (email) {
+        var url = $scope.SP + "/Profile/GetAvatar/" + email;
+        return url;
+    };
+
 })
 .controller('AccountCtrl', function ($scope, $http, $location, $route) {
     $.jStorage.deleteKey('user');

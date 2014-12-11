@@ -74,7 +74,7 @@
             <div class="buddies-container SkrolForBuddies" >
 	        <div class="item row" ng-repeat="NewBuddy in countmessageAndBuddies" user-id="{{NewBuddy.buddyId}}">
 		<div class="col-lg-1 col-md-1 col-sm-2 col-xs-3">
-			<img src="{{SP}}/Profile/GetAvatar/{{NewBuddy.buddy.email}}" alt="Alternate Text" class="img-avatar">
+			<img ng-src="{{getAvatar(NewBuddy.buddy.email)}}" alt="Alternate Text" class="img-avatar">
 		</div>
 		<div class="is-online col-lg-1 col-md-1 col-sm-1 col-xs-1" ng-switch on="NewBuddy.buddy.isOnline">
 			<div ng-switch-when="true">
@@ -116,11 +116,11 @@
                    <div class="conteiner-block">
                               <div ng-repeat="getPost in model.postAndNewsCollection" >
                                   <div ng-switch="daterminateLogo(getPost.body)" class="col-xs-3 col-sm-2 col-md-1 col-lg-1">
-                                      <img ng-switch-when="SocialputtsLogo" src="{{SP}}/Content/images/logo-short.png" alt="Alternate Text" class="avatar-block img-responsive">
+                                      <img ng-switch-when="SocialputtsLogo" ng-src="{{SP}}/Content/images/logo-short.png" alt="Alternate Text" class="avatar-block img-responsive">
 
-                                      <img ng-switch-when="courseAvatar" src="{{SP}}/Course/GetCourseImageMobile?courseId={{daterminateCourseId(getPost.body)}}" alt="Alternate Text" class="avatar-block img-responsive">
-                                       
-                                      <img ng-switch-default src="{{SP}}/Profile/GetAvatar/{{getPost.author.email}}" alt="Alternate Text" class="avatar-block img-responsive">
+                                      <img ng-switch-when="courseAvatar" ng-src="{{SP}}/Course/GetCourseImageMobile?courseId={{daterminateCourseId(getPost.body)}}" alt="Alternate Text" class="avatar-block img-responsive">
+ 
+                                       <img ng-switch-default ng-src= "{{getAvatar(getPost.author.email)}}" alt="Alternate Text" class="avatar-block img-responsive">
                                   </div>
 
                                <div class ="col-xs-9  col-sm-10 col-md-11 col-lg-11 ">
@@ -152,7 +152,7 @@
                                  <div ng-repeat="comment in getPost.comments"  class="repeatComment">
                                              
                                          <div class="col-xs-3 col-sm-2 col-md-1 col-lg-1">
-                                         <img src="{{SP}}/Profile/GetAvatar/{{comment.author.email}}" alt="Alternate Text" class="avatar-block img-responsive">
+                                         <img ng-src="{{getAvatar(getPost)}}" alt="Alternate Text" class="avatar-block img-responsive">
                                          
                                         
                                          </div>
@@ -190,10 +190,10 @@
                             </div>
                     </div>
 			<div class="buttonPosition">
-        <input type="button" class="btn  btn-success pull-left " id="previousButton" value="Previous" ng-click="previous()">	
-           <div class="pageCount"><div class="textPageCount"> <h4>	 Page:{{numberPage}}/{{countPages}}</h4>	</div></div>
-		<input type="button" class="btn  btn-success btn-left" id="nextButton" value="Next"  ng-click="next()">
-		</div>
-                           </div>
+                <input type="button" class="btn  btn-success pull-left " id="previousButton" value="Previous" ng-click="previous()">	
+               <div class="pageCount"><div class="textPageCount"> <h4>	 Page:{{numberPage}}/{{countPages}}</h4>	</div></div>
+		        <input type="button" class="btn  btn-success btn-left" id="nextButton" value="Next"  ng-click="next()">
+		    </div>
+</div>
 <!--    </div>-->
 
