@@ -10,23 +10,57 @@
         event.preventDefault();
         $.connection.messageHub.server.logout();
         $location.path("#");
+
+        FB.logout(function (response) {
+
+        });
     };
 
 })
 .controller('HomeCtrl', function ($scope, $http, $location) {
-    checkUserLogedOff($location, $scope);
+    if (checkUserLogedOff($location, $scope)) {
+        $scope.useriduser = $.jStorage.get('user').userId;
+        $scope.$on('$locationChangeStart', function (event, next, current) {
+            if (next.search("#/signin") !== -1) {
+                event.preventDefault();
+            }
+        });
 
-    $scope.useriduser = $.jStorage.get('user').userId;
-    $scope.$on('$locationChangeStart', function (event, next, current) {
-        if (next.search("#/signin") !== -1) {
-            event.preventDefault();
-        }
-    });
-
-    $http.jsonp(socialputtsLink + "/api/email/getTinyUrl?email=" + $.jStorage.get('user').userName + "&alt=json-in-script&callback=JSON_CALLBACK")
+        $http.jsonp(socialputtsLink + "/api/email/getTinyUrl?email=" + $.jStorage.get('user').userName + "&alt=json-in-script&callback=JSON_CALLBACK")
 	.success(function (tinyUrl) {
 	    $scope.tinyUrl = tinyUrl;
 	});
+
+        $scope.numberPage = 1;
+        $scope.countPages = 0;
+        getAllPostAndComment(1);
+
+        $http.get(socialputtsLink + "/api/News/InvitaitionCount/?UserId=" + $.jStorage.get('user').userId)
+    .success(function (countInvitation) {
+        $scope.countRequiredResponses = countInvitation.countReqiuredResponses;
+        $scope.countTotalInvitation = countInvitation.countTotalInvitation;
+    });
+
+    }
+
+    function getAllPostAndComment(numberPage) {
+        $scope.numberPage = numberPage;
+        document.getElementById('nextButton').disabled = true;
+        document.getElementById('previousButton').disabled = true;
+        $http.get(socialputtsLink + "/api/News/GetNewsForUser?targetUserId=" + $.jStorage.get('user').userId + "&page=" + numberPage)
+           .success(function (model) {
+               _.each(model.postAndNewsCollection, function (post) {
+                   post.createdAt = moment.utc(post.createdAt).local().format('MM/DD/YYYY hh:mm A');
+                   _.each(post.comments, function (comment) {
+                       comment.createdAt = moment.utc(comment.createdAt).local().format('MM/DD/YYYY hh:mm A');
+                   });
+               });
+               $scope.model = model;
+               $scope.countPages = model.count;
+               checkElement();
+           });
+    }
+
 
     $scope.inviteFbFriends = function ($event) {
         $event.preventDefault();
@@ -65,26 +99,7 @@
             });
     };
     //$http.jsonp(socialputtsLink + "/api/Course/GetCourseUrl?courseId=" + invitation.favoriteCourse + "&courseName=&alt=json-in-script&callback=JSON_CALLBACK")
-    $scope.numberPage = 1;
-    $scope.countPages = 0;
-    getAllPostAndComment(1);
-    function getAllPostAndComment(numberPage) {
-        $scope.numberPage = numberPage;
-        document.getElementById('nextButton').disabled = true;
-        document.getElementById('previousButton').disabled = true;
-        $http.get(socialputtsLink + "/api/News/GetNewsForUser?targetUserId=" + $.jStorage.get('user').userId + "&page=" + numberPage)
-           .success(function (model) {
-               _.each(model.postAndNewsCollection, function (post) {
-                   post.createdAt = moment.utc(post.createdAt).local().format('MM/DD/YYYY hh:mm A');
-                   _.each(post.comments, function (comment) {
-                       comment.createdAt = moment.utc(comment.createdAt).local().format('MM/DD/YYYY hh:mm A');
-                   });
-               });
-               $scope.model = model;
-               $scope.countPages = model.count;
-               checkElement();
-           });
-    }
+
 
     $scope.next = function () {
 
@@ -217,11 +232,7 @@
             });
     };
 
-    $http.get(socialputtsLink + "/api/News/InvitaitionCount/?UserId=" + $.jStorage.get('user').userId)
-    .success(function (countInvitation) {
-        $scope.countRequiredResponses = countInvitation.countReqiuredResponses;
-        $scope.countTotalInvitation = countInvitation.countTotalInvitation;
-    });
+
 
     $scope.daterminateLogo = function (body) {
         if (body !== undefined) {
@@ -251,6 +262,25 @@
 .controller('AccountCtrl', function ($scope, $http, $location, $route) {
     $.jStorage.deleteKey('user');
 
+    $scope.TeeItUp = function () {
+        $scope.invalidJoinForm = false;
+        var data = $("#join-in-form").serializeObject();
+        var url = socialputtsLink + "/api/account/SignUp";
+
+        /*   if ($scope.joinInForm.LastName == null || $scope.LastName == "") {
+        $scope.joinInForm.isEmptyLastName == true;
+        }*/
+
+        $http.post(url, data).success(function (data) {
+            if (data.loginStatus) {
+                $.jStorage.set('user', data);
+                $location.path('/allowlocation');
+            } else {
+                $scope.invalidJoinForm = true;
+            }
+        });
+    };
+
     $scope.logIn = function () {
         $scope.invalidForm = false;
         var data = $("#sign-in-form").serializeObject();
@@ -264,67 +294,523 @@
                 $scope.invalidForm = true;
             }
         });
+    };
+
+    $scope.loginWithData = function () {
+        bindFbAccountToSp({
+            Id: "479546534446",
+            Email: "socialputts.mobile@gmail.com",
+            FirstName: "Art",
+            LastName: "falcone",
+            City: "",
+            State: "",
+            photo: "http://socialputts.com/Content/images/logo.png"
+        });
+    };
+
+    $scope.login = function () {
+         alert("login");
+        getLoginStatus();
+        FB.login(function (response) {
+            if (response.authResponse) {
+                 alert("login " + JSON.stringify(response));
+
+                FB.api('/me',
+               { fields: "name,first_name,last_name,picture,email" },
+                function (myInfo) {
+                    alert("myInfo " + JSON.stringify(myInfo));
+
+                    var city = "";
+                    var state = "";
+                    bindFbAccountToSp({ Id: myInfo.id,
+                        Email: myInfo.email,
+                        FirstName: myInfo.first_name,
+                        LastName: myInfo.last_name,
+                        City: city,
+                        State: state,
+                        photo: myInfo.picture.data.url
+                    });
+                });
+
+            } else {
+                   alert(JSON.stringify(response));
+            }
+        }, { scope: "email" });
+    };
+
+    var bindFbAccountToSp = function (accountInfo) {
+        var url = socialputtsLink + "/api/account/BindFbAccountToSp";
+           alert("bindFbAccountToSp " + JSON.stringify(accountInfo));
+        $http.post(url, accountInfo)
+            .success(function (data) {
+
+                data.photo = accountInfo.photo;
+                $.jStorage.set('user', data);
+                  alert("jStorage user" + JSON.stringify($.jStorage.get('user')));
+                $location.path('/aproveaccess');
+            });
+    };
+
+
+
+
+
+    /* ============= for future ======================*/
+    var getLoginStatus = function () {
+       // alert("getLoginStatus");
+        FB.getLoginStatus(function (response) {
+         //   alert(JSON.stringify(response));
+
+            if (response.status == 'connected') {
+          //      alert('logged in');
+            } else {
+          //      alert('not logged in');
+            }
+        });
+    };
+
+    var friendIDs = [];
+    var fdata;
+
+    $scope.me = function () {
+        FB.api('/me/friends', { fields: 'id, name, picture' }, function (response) {
+            //  alert('me' + JSON.stringify(response));
+            if (response.error) {
+                //   alert(JSON.stringify(response.error));
+            } else {
+                var data = document.getElementById('data');
+                fdata = response.data;
+                //   alert("fdata: " + fdata);
+                response.data.forEach(function (item) {
+                    var d = document.createElement('div');
+                    d.innerHTML = "<img src=" + item.picture + "/>" + item.name;
+                    data.appendChild(d);
+                });
+            }
+            var friends = response.data;
+            //   alert(JSON.stringify(friends));
+            // alert(friends.length);
+            for (var k = 0; k < friends.length && k < 200; k++) {
+                var friend = friends[k];
+                var index = 1;
+                friendIDs[k] = friend.id;
+                //friendsInfo[k] = friend;
+            }
+            console.log("friendId's: " + friendIDs);
+        });
+    };
+
+    $scope.publishStoryFriend = function () {
+        var randNum = Math.floor(Math.random() * friendIDs.length);
+        var friendID = friendIDs[randNum];
+        if (friendID == undefined) {
+            //     alert('please click the me button to get a list of friends first');
+        } else {
+            //  alert("friend id: " + friendID);
+            //   alert('Opening a dialog for friendID: ', friendID);
+            var params = {
+                method: 'feed',
+                to: friendID.toString(),
+                name: 'Facebook Dialogs',
+                link: 'https://developers.facebook.com/docs/reference/dialogs/',
+                picture: 'http://fbrell.com/f8.jpg',
+                caption: 'Reference Documentation',
+                description: 'Dialogs provide a simple, consistent interface for applications to interface with users.'
+            };
+            FB.ui(params, function(obj) {
+                // alert(JSON.stringify(obj));
+            });
+        }
+    };
+})
+.controller('ApproveCtrl', function ($scope, $http, $location) {
+    $scope.Cancel = function () {
+        $location.path('/postfacebook');
+    };
+
+    $scope.Approve = function () {
+        $location.path('/postfacebook');
+    };
+
+    $scope.getImageData = function () {
+        // alert("GetImageData");
+        //   alert("jStorage user" + JSON.stringify($.jStorage.get('user')));
+        var urlPhoto = $.jStorage.get("user").photo;
+        //   alert(urlPhoto);
+        return urlPhoto;
+    };
+})
+    .controller('FbPostCtrl', function ($scope, $http, $location) {
+        var facebookWallPost = function () {
+            // alert('facebookWallPost ');
+            var params = {
+                method: 'feed',
+                name: 'SocialPutts  Dialogs',
+                link: 'http://socialputts.com/', //'https://developers.facebook.com/docs/reference/dialogs/',
+                picture: 'http://socialputts.com/Content/images/logo.png',
+                caption: 'Reference Documentation SocialPutts',
+                description: 'SocialPutts post message.'
+            };
+            //  alert(JSON.stringify(params));
+            FB.ui(params, function (obj) { //alert(JSON.stringify(obj)); 
+            });
+        };
+
+        $scope.NotNow = function () {
+            $location.path('/allowlocation');
+        };
+
+        $scope.PostInFaceBook = function () {
+            facebookWallPost();
+            $location.path('/allowlocation');
+        };
+    })
+.controller('AllowLocationCtrl', function ($scope, $http, $location) {
+    $scope.Allow = function () {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var positionUser = {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                };
+                $.jStorage.set('positionUser', positionUser);
+                $location.path('/pushnotification');
+                $scope.$apply();
+            });
+        } else {
+            // geografic center Usa - state Kansas
+            var positionUser = {
+                latitude: '39.805733',
+                longitude: '-98.555510'
+            };
+            $.jStorage.set('UsaStateByDefault', "Kansas");
+            $.jStorage.set('positionUser', positionUser);
+            $location.path('/pushnotification');
+        }
 
     };
 
+    $scope.DontAllow = function () {
+        $location.path('/pushnotification');
+
+        // geografic center Usa - state Kansas
+        var positionUser = {
+            latitude: '39.805733',
+            longitude: '-98.555510'
+        };
+        $.jStorage.set('UsaStateByDefault', "Kansas");
+
+        $.jStorage.set('positionUser', positionUser);
+        $location.path('/pushnotification');
+    };
 })
-.controller('BuddiesCtrl', function ($scope, $http, $location) {
-    // checkUserLogedOff($location, $scope);
-    $scope.SP = socialputtsLink;
-    //$scope.buddiesArray = [];
-    $http.get(socialputtsLink + "/api/Buddies/Get?userId=" + $.jStorage.get("user").userId)
-	.success(function (buddies) {
-	    $scope.buddies = buddies;
+.controller('PushNotificationCtrl', function ($scope, $http, $location) {
+    $scope.Allow = function () {
 
-	    //buddies.forEach(function (buddy) {
+        $location.path('/recommendcourses');
+    };
 
-	    //    $scope.countIncomingMessage = $scope.countIncomingMessage + buddy.incomingMessages;
-	    //    if (buddy.incomingMessages > 0) {
-	    //        $scope.buddiesArray.push(buddy);
-	    //    }
-	    //})
-	});
+    $scope.DontAllow = function () {
+        $location.path('/recommendcourses');
+    };
+})
+    .controller('RecommendCoursesCtrl', function ($scope, $http, $location) {
+        var positionUser = $.jStorage.get('positionUser');
+        var user = $.jStorage.get('user');
+        if (user.state == null) {
+            getStateByGoogelSearch(positionUser, function (state) {
+                user.state = state;
+                $.jStorage.set('user', user);
+                getCoursesFromServer(user);
+            });
+        } else {
+            getCoursesFromServer(user);
+        }
+
+        function getStateByGoogelSearch(positionUser, response) {
+            var currentPositionUser = new google.maps.LatLng(positionUser.latitude, positionUser.longitude);
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ 'latLng': currentPositionUser }, function (results, status) {
+                if (status == "OK") {
+                    var stateByGoogeleSearch = null;
+                    $.each(results, function (i, addressObject) {
+                        var types = addressObject.types;
+                        $.each(types, function (j, typeAddressObject) {
+                            if (typeAddressObject == "administrative_area_level_1") {
+                                stateByGoogeleSearch = addressObject.address_components[0].long_name;
+                                return response(stateByGoogeleSearch);
+                            }
+                        });
+                    });
+                } else {
+                    return response($.jStorage.get("UsaStateByDefault"));
+                }
+            });
+        }
+
+        function getCoursesFromServer(userInfo) {
+            var packet = {
+                LatLng: positionUser,
+                CourseModel: {
+                    CourseName: "",
+                    Address: userInfo.address,
+                    CountryId: 1,
+                    StateName: userInfo.state,
+                    City: userInfo.city,
+                    Zip: userInfo.zip,
+                    Mileage: 100,
+                    NumberOfHoles: 9
+                }
+            };
+
+            var url = socialputtsLink + "/api/Course/GetSearchedCourses?email=" + $.jStorage.get('user').userName;
+            $http.post(url, packet)
+			.success(function (courses) {
+			    $scope.Courses = courses;
+			    getDistanceBeetweenCourseAndUserPosition($scope.Courses);
+			});
+        };
+
+        function getDistanceBeetweenCourseAndUserPosition(courses) {
+            var positionUser = $.jStorage.get('positionUser');
+            var currentPositionUser = new google.maps.LatLng(positionUser.latitude, positionUser.longitude);
+            $.each(courses, function (i, course) {
+                var coursePosition = new google.maps.LatLng(course.latitude, course.longitude);
+                var metersInMile = 1609.344;
+                var distanceInMeters = google.maps.geometry.spherical.computeDistanceBetween(currentPositionUser, coursePosition);
+                course.distance = Math.round(distanceInMeters / metersInMile);
+            });
+        }
+
+        function getIdFavoriteCourses(favoriteCourse) {
+            var ids = [];
+            $.each(favoriteCourse, function (i, course) {
+                if (course.isFavourite) {
+                    ids.push(course.id);
+                }
+            });
+
+            return ids;
+        }
+
+        $scope.SelectCourseIsFavorite = function (course) {
+            course.isFavourite = true;
+           // alert("Course " + course.id + " selected like favorite ");
+        };
+
+        $scope.GetMiles = function (miles) {
+            if (miles == 0) {
+                return "mile";
+            }
+            var mileStr = miles.toString();
+            var valueStr = mileStr[mileStr.length - 1];
+            if (valueStr == "4" ||
+              valueStr == "7" ||
+              valueStr == "8") {
+                return "mile";
+            } else {
+                return "miles";
+            }
+        };
+
+        $scope.QuickSetUp = function () {
+          //  alert("Quick Set Up");
+        };
+
+        $scope.GoToStep2 = function () {
+            var ids = getIdFavoriteCourses($scope.Courses);
+            if (ids.length > 0) {
+                $http.post(socialputtsLink + "/api/Course/AddManyCoursesToFavorite?userId=" + $.jStorage.get('user').userId, ids)
+		            .success(function (result) { });
+            }
+            $location.path('/recommendgroup');
+        };
+    })
+    .controller('GroupCoursesCtrl', function ($scope, $http, $location) {
+
+        var positionUser = $.jStorage.get('positionUser');
+        var user = $.jStorage.get('user');
+        getGroupsFromServer(user);
+
+        function getDistanceBeetweenGroupAndUserPosition(groups) {
+            var positionUser = $.jStorage.get('positionUser');
+            var currentPositionUser = new google.maps.LatLng(positionUser.latitude, positionUser.longitude);
+            $.each(groups, function (i, group) {
+                var groupPosition = new google.maps.LatLng(group.latitude, group.longitude);
+                var metersInMile = 1609.344;
+                var distanceInMeters = google.maps.geometry.spherical.computeDistanceBetween(currentPositionUser, groupPosition);
+                group.distance = Math.round(distanceInMeters / metersInMile);
+            });
+        }
+
+        function getGroupsFromServer(userInfo) {
+            var packet = {
+                LatLng: positionUser,
+                GroupModel: {
+                    CourseName: "",
+                    Address: userInfo.address,
+                    CountryId: 1,
+                    StateName: userInfo.state,
+                    City: userInfo.city,
+                    Zip: userInfo.zip,
+                    Mileage: 300,
+                    NumberOfHoles: 9
+                }
+            };
+
+            var url = socialputtsLink + "/api/Group/GetSearchedGroup?email=" + $.jStorage.get('user').userName;
+            $http.post(url, packet)
+			.success(function (groups) {
+			    $scope.Groups = groups;
+			    getDistanceBeetweenGroupAndUserPosition($scope.Groups);
+			});
+        };
+
+        function getIdGroupsToJoin(groups) {
+            var ids = [];
+            $.each(groups, function (i, group) {
+                if (group.toJoin) {
+                    ids.push(group.id);
+                }
+            });
+
+            return ids;
+        }
+
+        $scope.GetMiles = function (miles) {
+            if (miles == 0) {
+                return "mile";
+            }
+            var mileStr = miles.toString();
+            var valueStr = mileStr[mileStr.length - 1];
+            if (valueStr == "4" ||
+              valueStr == "7" ||
+              valueStr == "8") {
+                return "mile";
+            } else {
+                return "miles";
+            }
+        };
+
+        $scope.SelectGroupToJoin = function (group) {
+            group.toJoin = true;
+         //   alert("Course " + group.id + " selected Group   ");
+        };
+
+        $scope.GoToStep3 = function () {
+            var ids = getIdGroupsToJoin($scope.Groups);
+            if (ids.length > 0) {
+                $http.post(socialputtsLink + "/api/Group/AddManyGroupsToJoin?userId=" + $.jStorage.get('user').userId, ids)
+		            .success(function (result) { });
+            }
+
+            $location.path('/recommendbuddy');
+        };
+
+    })
+    .controller('BuddyCoursesCtrl', function ($scope, $http, $location) {
+        $scope.SP = window.socialputtsLink;
+
+        $scope.getAvatar = function (email) {
+            var url = $scope.SP + "/Profile/GetAvatar/" + email;
+            return url;
+        };
+        
+        $http.get(socialputtsLink + "/api/Buddies/GetRecommendBuddies?userId=" + $.jStorage.get('user').userId)
+		            .success(function (recommendBuddies) {
+		                $scope.RecommendBuddies = recommendBuddies;
+		            });
+
+        $scope.AddBuddy = function (buddy) {
+            buddy.toJoin = true;
+        };
+
+        function getIdBuddies(recommendBuddies) {
+            var packageBudiesInfo = {BuddyInfos:[]};
+            $.each(recommendBuddies.recBuddiesFromGrops, function (i, buddy) {
+                if (buddy.toJoin) {
+                    packageBudiesInfo.BuddyInfos.push({ id: buddy.userId, email: buddy.email });
+                }
+            });
+
+            $.each(recommendBuddies.recBuddiesFromCourses, function (i, buddy) {
+                if (buddy.toJoin) {
+                    packageBudiesInfo.BuddyInfos.push({ id: buddy.userId, email: buddy.email });
+                }
+            });
+
+            return packageBudiesInfo;
+        }
+
+        $scope.Done = function () {
+            var buddiesInfo = getIdBuddies($scope.RecommendBuddies);
+
+            if (buddiesInfo.BuddyInfos.length > 0) {
+                $http.post(socialputtsLink + "/api/Buddies/AddBuddies?userId=" + $.jStorage.get('user').userId, buddiesInfo)
+		            .success(function (result) {
+		            });
+            }
+            $location.path('/index');
+        };
+    })
+
+    .controller('BuddiesCtrl', function ($scope, $http, $location) {
+        // checkUserLogedOff($location, $scope);
+        $scope.SP = socialputtsLink;
+        //$scope.buddiesArray = [];
+        $http.get(socialputtsLink + "/api/Buddies/Get?userId=" + $.jStorage.get("user").userId)
+	    .success(function (buddies) {
+	        $scope.buddies = buddies;
+
+	        //buddies.forEach(function (buddy) {
+
+	        //    $scope.countIncomingMessage = $scope.countIncomingMessage + buddy.incomingMessages;
+	        //    if (buddy.incomingMessages > 0) {
+	        //        $scope.buddiesArray.push(buddy);
+	        //    }
+	        //})
+	    });
 
 
-    $scope.countIncomingMessage = 0;
-    $http.get(socialputtsLink + "/api/Buddies/GetIncomingMessage?id=" + $.jStorage.get("user").userId)
+        $scope.countIncomingMessage = 0;
+        $http.get(socialputtsLink + "/api/Buddies/GetIncomingMessage?id=" + $.jStorage.get("user").userId)
 	.success(function (countmessageAndBuddies) {
 	    $scope.countmessageAndBuddies = countmessageAndBuddies;
 	    countmessageAndBuddies.forEach(function (countmessage) {
 	        $scope.countIncomingMessage = $scope.countIncomingMessage + countmessage.count;
-	    })
+	    });
 	});
 
 
-    $.connection.messageHub.client.userLoggedIn = function (userId) {
-        var buddy = _.find($scope.buddies, function (buddyItem) {
-            return buddyItem.id == userId;
-        });
-        buddy.isOnline = true;
+        $.connection.messageHub.client.userLoggedIn = function (userId) {
+            var buddy = _.find($scope.buddies, function (buddyItem) {
+                return buddyItem.id == userId;
+            });
+            buddy.isOnline = true;
 
-        $scope.buddies = _.sortBy($scope.buddies, function (buddy) {
-            return !buddy.isOnline == true;
-        });
+            $scope.buddies = _.sortBy($scope.buddies, function (buddy) {
+                return !buddy.isOnline == true;
+            });
 
-        $scope.$apply();
-    };
+            $scope.$apply();
+        };
 
-    $.connection.messageHub.client.userLoggedOut = function (userId) {
-        var buddy = _.find($scope.buddies, function (buddyItem) {
-            return buddyItem.id == userId;
-        });
-        buddy.isOnline = false;
+        $.connection.messageHub.client.userLoggedOut = function (userId) {
+            var buddy = _.find($scope.buddies, function (buddyItem) {
+                return buddyItem.id == userId;
+            });
+            buddy.isOnline = false;
 
-        $scope.buddies = _.sortBy($scope.buddies, function (buddy) {
-            return !buddy.isOnline == false;
-        });
+            $scope.buddies = _.sortBy($scope.buddies, function (buddy) {
+                return !buddy.isOnline == false;
+            });
 
-        $scope.$apply();
-    };
-})
+            $scope.$apply();
+        };
+    })
 .controller('ChatCtrl', function ($scope, $http, $location, $route) {
     checkUserLogedOff($location, $scope);
-    var userId = $route.current.params.userId
+    var userId = $route.current.params.userId;
     $scope.firstName = $route.current.params.firstName;
     $scope.lastName = $route.current.params.lastName;
 
@@ -364,7 +850,7 @@
     $scope.sendMessage = function () {
 
         $.connection.messageHub.server.sendPrivateMessage($.jStorage.get("user").userId, userId, $scope.messageText);
-    }
+    };
 })
 .controller('InviteYourBuddiesCtrl', function ($scope, $http, $location, $route) {
     checkUserLogedOff($location, $scope);
@@ -1542,7 +2028,6 @@
            } else {
                alert("Favorite Golf Destination already exists!");
            }
-
        });
     };
 
@@ -1556,17 +2041,23 @@
 
 function checkUserLogedOff($location, $scope) {
     if ($.jStorage.get('user') == null) {
-        $location.path('#/signin');
+        alert("user is null");
+        $location.path('/signin');
+        return false;
+    } else {
+       // alert(JSON.stringify($.jStorage.get('user')));
+        $scope.Hello = $.jStorage.get("user").name;
+        startConnection();
+        $scope.SP = socialputtsLink;
+        return true;
     }
-	$scope.Hello = $.jStorage.get("user").name;
-	startConnection();
-    $scope.SP = socialputtsLink;
+
 }
 
-function startConnection(){
-	jQuery.support.cors = true;
-	$.connection.hub.url = socialputtsLink + "/signalr/hubs";
-	$.connection.hub.qs = { "userId" : $.jStorage.get("user").userId };
-	$.connection.hub.stop();
-	$.connection.hub.start();
+function startConnection() {
+    jQuery.support.cors = true;
+    $.connection.hub.url = socialputtsLink + "/signalr/hubs";
+    $.connection.hub.qs = { "userId": $.jStorage.get("user").userId };
+    $.connection.hub.stop();
+    $.connection.hub.start();
 }

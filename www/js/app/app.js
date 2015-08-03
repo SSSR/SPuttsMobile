@@ -22,7 +22,14 @@ socialputts
         .when('/courseResult', { templateUrl: 'partials/CourseResult.html', controller: 'CourseResultCtrl' })
         .when('/fillYourFoursome', { templateUrl: 'partials/FillYourFoursome.html', controller: 'FillYourFoursomeCtrl' })
         .when('/manageInvitations', { templateUrl: 'partials/ManageInvitations.html', controller: 'ManageInvitationsCtrl' })
-        .otherwise({ redirectTo: '/signin' });
+        .when('/aproveaccess', { templateUrl: 'partials/AproveAccess.html', controller: 'ApproveCtrl' })
+        .when('/postfacebook', { templateUrl: 'partials/Postfacebook.html', controller: 'FbPostCtrl' })
+        .when('/allowlocation', { templateUrl: 'partials/AllowLocation.html', controller: 'AllowLocationCtrl' })
+        .when('/pushnotification', { templateUrl: 'partials/PushNotification.html', controller: 'PushNotificationCtrl' })
+        .when('/recommendcourses', { templateUrl: 'partials/RecommendCourses.html', controller: 'RecommendCoursesCtrl' })
+        .when('/recommendgroup', { templateUrl: 'partials/RecommendGroup.html', controller: 'GroupCoursesCtrl' })
+        .when('/recommendbuddy', { templateUrl: 'partials/RecommendBuddy.html', controller: 'BuddyCoursesCtrl' })
+       .otherwise({ redirectTo: '/signin' });
 } ]);
 
 

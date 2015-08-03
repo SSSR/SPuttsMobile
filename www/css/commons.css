@@ -1,4 +1,9 @@
-
+.fl-right {
+    float: right!important;
+}
+.fl-left {
+    float: left;
+}
 .mrgL45per 
 {
     margin-left: 45%;
@@ -71,4 +76,12 @@
 .checkbox-group
 {
     overflow: hidden;
+}
+
+.error-text {
+    color: red;
+}
+
+.center-text {
+        text-align: center;
 }

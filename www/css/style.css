@@ -93,6 +93,16 @@ section#content
 	margin-bottom: 30px;
 }
 
+
+.css-form input.ng-invalid.ng-touched {
+    background-color: #FA787E;
+  }
+
+  .css-form input.ng-valid.ng-touched {
+    background-color: #78FA89;
+  }
+  
+  
 /*Fill Your Foursome page ================================================================================== */
 h2.green 
 {
@@ -722,3 +732,70 @@ height:200px;
 }
 
 /* Settings page end --------------------------------------------------------------------------------------------------------- */
+
+
+
+/* Recommend Courses  page  ------------------------------------------------------------------------------------------------------------ */
+
+ #steps .step 
+ {
+    border-radius: 30px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 5px;
+    background: gray!important;
+    color: black !important; 
+    float: left;
+ }
+
+#steps .right-arrow 
+{
+    float: left;
+     width: 9%;
+}
+
+ #steps .current-step 
+ {
+     background: green!important;
+     color: white !important;
+ }
+ 
+ #steps .done 
+ {
+    display: block;
+    float: left;
+    font-weight: bold;
+    font-size: 18px;
+    padding-top: 4px;
+ }
+ 
+ .select-fv-courses {
+     height: 300px;
+         overflow: auto;
+     /*overflow-y: scroll;*/
+         padding: 0 15px 0 0;
+ }
+ 
+ #steps .course-item 
+ {
+     width: 45px;
+ }
+/* Recommend Coursesend page END--------------------------------------------------------------------------------------------------------- */
+
+.recommended-buddy 
+{
+    float: left;
+        width: 99%;
+}
+
+.recommended-buddy img 
+{
+    margin-right: 10px;
+}
+
+.course-name 
+{
+    float: left;
+    width: 70%;
+}
