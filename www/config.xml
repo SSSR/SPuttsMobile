@@ -13,17 +13,17 @@
     </description>
 	
 	<!-- FB Connect Section -->
-	<gap:plugin name="com.phonegap.plugins.facebookconnect"  >
-		<param name="APP_ID" value="1626691300888292" /> <!-- FB App ID-->
-		<param name="APP_NAME" value="socialputts-mobile" /> <!-- FB App Namespace-->
+	<gap:plugin name="com.phonegap.plugins.facebookconnect" version="0.4.0" >
+		<param name="APP_ID" value="847815531980575" /> <!-- FB App ID-->
+		<param name="APP_NAME" value="sp-mobile-app" /> <!-- FB App Namespace-->
 	</gap:plugin>
 
   <feature name="org.apache.cordova.facebook.Connect">
     <param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin" />
   </feature>
 
-  <feature name="FacebookConnectPlugin">
-    <param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin" />
+  <feature name="org.apache.cordova.facebook.Connect">
+    <param name="ios-package" value="FacebookConnectPlugin" />
   </feature>
   
      <author href="http://phonegap.com" email="support@phonegap.com">

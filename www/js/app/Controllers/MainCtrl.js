@@ -309,11 +309,11 @@
     };
 
     $scope.login = function () {
-         alert("login");
+        alert("login");
         getLoginStatus();
         FB.login(function (response) {
             if (response.authResponse) {
-                 alert("login " + JSON.stringify(response));
+                alert("login " + JSON.stringify(response));
 
                 FB.api('/me',
                { fields: "name,first_name,last_name,picture,email" },
@@ -333,20 +333,20 @@
                 });
 
             } else {
-                   alert(JSON.stringify(response));
+                alert(JSON.stringify(response));
             }
-        }, { scope: "email" });
+        }, { scope: "email,user_friends" });
     };
 
     var bindFbAccountToSp = function (accountInfo) {
         var url = socialputtsLink + "/api/account/BindFbAccountToSp";
-           alert("bindFbAccountToSp " + JSON.stringify(accountInfo));
+        alert("bindFbAccountToSp " + JSON.stringify(accountInfo));
         $http.post(url, accountInfo)
             .success(function (data) {
 
                 data.photo = accountInfo.photo;
                 $.jStorage.set('user', data);
-                  alert("jStorage user" + JSON.stringify($.jStorage.get('user')));
+                alert("jStorage user" + JSON.stringify($.jStorage.get('user')));
                 $location.path('/aproveaccess');
             });
     };
@@ -357,48 +357,19 @@
 
     /* ============= for future ======================*/
     var getLoginStatus = function () {
-       // alert("getLoginStatus");
+        // alert("getLoginStatus");
         FB.getLoginStatus(function (response) {
-         //   alert(JSON.stringify(response));
+            //   alert(JSON.stringify(response));
 
             if (response.status == 'connected') {
-          //      alert('logged in');
+                //      alert('logged in');
             } else {
-          //      alert('not logged in');
+                //      alert('not logged in');
             }
         });
     };
 
-    var friendIDs = [];
-    var fdata;
 
-    $scope.me = function () {
-        FB.api('/me/friends', { fields: 'id, name, picture' }, function (response) {
-            //  alert('me' + JSON.stringify(response));
-            if (response.error) {
-                //   alert(JSON.stringify(response.error));
-            } else {
-                var data = document.getElementById('data');
-                fdata = response.data;
-                //   alert("fdata: " + fdata);
-                response.data.forEach(function (item) {
-                    var d = document.createElement('div');
-                    d.innerHTML = "<img src=" + item.picture + "/>" + item.name;
-                    data.appendChild(d);
-                });
-            }
-            var friends = response.data;
-            //   alert(JSON.stringify(friends));
-            // alert(friends.length);
-            for (var k = 0; k < friends.length && k < 200; k++) {
-                var friend = friends[k];
-                var index = 1;
-                friendIDs[k] = friend.id;
-                //friendsInfo[k] = friend;
-            }
-            console.log("friendId's: " + friendIDs);
-        });
-    };
 
     $scope.publishStoryFriend = function () {
         var randNum = Math.floor(Math.random() * friendIDs.length);
@@ -417,7 +388,7 @@
                 caption: 'Reference Documentation',
                 description: 'Dialogs provide a simple, consistent interface for applications to interface with users.'
             };
-            FB.ui(params, function(obj) {
+            FB.ui(params, function (obj) {
                 // alert(JSON.stringify(obj));
             });
         }
@@ -429,7 +400,42 @@
     };
 
     $scope.Approve = function () {
-        $location.path('/postfacebook');
+        getFriends();
+
+    };
+
+    var friendIDs = [];
+    var fdata;
+
+    var getFriends = function () {
+        alert("getFriends");
+ 
+        FB.api('/me/taggable_friends', { fields: 'id, name, picture' }, function (response) {
+            alert('me' + JSON.stringify(response));
+            if (response.error) {
+                alert(JSON.stringify(response.error));
+            } else {
+                var data = document.getElementById('data');
+                fdata = response.data;
+                //   alert("fdata: " + fdata);
+//                response.data.forEach(function (item) {
+//                    var d = document.createElement('div');
+//                    d.innerHTML = "<img src=" + item.picture + "/>" + item.name;
+//                    data.appendChild(d);
+//                });
+            }
+            var friends = response.data;
+            //   alert(JSON.stringify(friends));
+            // alert(friends.length);
+            for (var k = 0; k < friends.length && k < 200; k++) {
+                var friend = friends[k];
+                var index = 1;
+                friendIDs[k] = friend.id;
+                //friendsInfo[k] = friend;
+            }
+            //  $location.path('/postfacebook');
+            alert("friendId's: " + friendIDs);
+        });
     };
 
     $scope.getImageData = function () {
@@ -595,7 +601,7 @@
 
         $scope.SelectCourseIsFavorite = function (course) {
             course.isFavourite = true;
-           // alert("Course " + course.id + " selected like favorite ");
+            // alert("Course " + course.id + " selected like favorite ");
         };
 
         $scope.GetMiles = function (miles) {
@@ -614,7 +620,7 @@
         };
 
         $scope.QuickSetUp = function () {
-          //  alert("Quick Set Up");
+            //  alert("Quick Set Up");
         };
 
         $scope.GoToStep2 = function () {
@@ -694,7 +700,7 @@
 
         $scope.SelectGroupToJoin = function (group) {
             group.toJoin = true;
-         //   alert("Course " + group.id + " selected Group   ");
+            //   alert("Course " + group.id + " selected Group   ");
         };
 
         $scope.GoToStep3 = function () {
@@ -715,7 +721,7 @@
             var url = $scope.SP + "/Profile/GetAvatar/" + email;
             return url;
         };
-        
+
         $http.get(socialputtsLink + "/api/Buddies/GetRecommendBuddies?userId=" + $.jStorage.get('user').userId)
 		            .success(function (recommendBuddies) {
 		                $scope.RecommendBuddies = recommendBuddies;
@@ -726,7 +732,7 @@
         };
 
         function getIdBuddies(recommendBuddies) {
-            var packageBudiesInfo = {BuddyInfos:[]};
+            var packageBudiesInfo = { BuddyInfos: [] };
             $.each(recommendBuddies.recBuddiesFromGrops, function (i, buddy) {
                 if (buddy.toJoin) {
                     packageBudiesInfo.BuddyInfos.push({ id: buddy.userId, email: buddy.email });

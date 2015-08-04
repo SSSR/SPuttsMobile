@@ -56,11 +56,7 @@ var app = {
             FB.init({ appId: "847815531980575", nativeInterface: CDV.FB, useCachedDialogs: false });
         } catch (e) {
             alert(e);
-        }
-
-        /* angular.element(document).ready(function () {
-        angular.bootstrap(document, ['ngView']);
-        });*/
+        } 
     }
 };
 
