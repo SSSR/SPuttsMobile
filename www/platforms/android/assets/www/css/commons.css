@@ -1,0 +1,87 @@
+.fl-right {
+    float: right!important;
+}
+.fl-left {
+    float: left;
+}
+.mrgL45per 
+{
+    margin-left: 45%;
+}
+
+.mrg0 
+{
+    margin: 0px;
+}
+
+.mrgL5
+{
+    margin-left: 5px;
+}
+
+.mrgL10 
+{
+    margin-left: 10px !important;
+}
+.mrgR4 
+{
+    margin-right: 4px;
+}
+
+.mrgR10
+{
+    margin-right: 10px !important   
+}
+
+.mrgR30 
+{
+    margin-right: 30px;
+}
+
+.mrgT10 
+{
+    margin-top: 10px !important;
+}
+
+.mrgT20 
+{    
+    margin-top: 20px;
+}
+
+.mrgB20
+{
+	margin-bottom: 20px;
+}
+
+.w13pers
+{
+    width: 13%;
+}
+
+.w21pers 
+{
+    width: 21%;
+}
+
+.w24pers 
+{
+    width: 24%;
+} 
+
+.pd-left-0 
+{
+    padding-left: 0px;
+}
+
+.checkbox-group
+{
+    overflow: hidden;
+}
+
+.error-text {
+    color: red;
+}
+
+.center-text {
+        text-align: center;
+}
