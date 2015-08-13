@@ -9,21 +9,24 @@
             }
         });
 
-        $http.jsonp(socialputtsLink + "/api/email/getTinyUrl?email=" + $.jStorage.get('user').userName + "&alt=json-in-script&callback=JSON_CALLBACK")
+        $.blockUI();    
+$http.jsonp(socialputtsLink + "/api/email/getTinyUrl?email=" + $.jStorage.get('user').userName + "&alt=json-in-script&callback=JSON_CALLBACK")
 	.success(function (tinyUrl) {
 	    $scope.tinyUrl = tinyUrl;
+	    $.unblockUI();
 	});
 
         $scope.numberPage = 1;
         $scope.countPages = 0;
         getAllPostAndComment(1);
 
-        $http.get(socialputtsLink + "/api/News/InvitaitionCount/?UserId=" + $.jStorage.get('user').userId)
+        $.blockUI();   
+  $http.get(socialputtsLink + "/api/News/InvitaitionCount/?UserId=" + $.jStorage.get('user').userId)
     .success(function (countInvitation) {
+        $.unblockUI();
         $scope.countRequiredResponses = countInvitation.countReqiuredResponses;
         $scope.countTotalInvitation = countInvitation.countTotalInvitation;
     });
-
     }
 
     function getAllPostAndComment(numberPage) {

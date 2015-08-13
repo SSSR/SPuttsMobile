@@ -29,8 +29,8 @@
 
       $http.get(socialputtsLink + "/api/settings/GetFavoriteDestinationsForUser?userId=" + $.jStorage.get('user').userId)
     .success(function (result) {
-        $scope.favoriteGolfDestinationsArray = result;
-    });
+            $scope.favoriteGolfDestinationsArray = result;
+        });
 
       $scope.changePassword = function () {
           $(".change-password-popup").dialog({

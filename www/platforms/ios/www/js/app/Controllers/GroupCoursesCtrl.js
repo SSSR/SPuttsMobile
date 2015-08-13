@@ -24,7 +24,7 @@
                     CourseName: "",
                     Address: userInfo.address,
                     CountryId: 1,
-                    StateName: userInfo.state,
+                    StateName: userInfo.state != "" ?   userInfo.state:"Kansas",
                     City: userInfo.city,
                     Zip: userInfo.zip,
                     Mileage: 300,
@@ -32,9 +32,11 @@
                 }
             };
 
+            $.blockUI();
             var url = socialputtsLink + "/api/Group/GetSearchedGroup?email=" + $.jStorage.get('user').userName;
             $http.post(url, packet)
 			.success(function (groups) {
+			    $.unblockUI();
 			    $scope.Groups = groups;
 			    getDistanceBeetweenGroupAndUserPosition($scope.Groups);
 			});
@@ -74,8 +76,12 @@
         $scope.GoToStep3 = function () {
             var ids = getIdGroupsToJoin($scope.Groups);
             if (ids.length > 0) {
+
+                $.blockUI();
                 $http.post(socialputtsLink + "/api/Group/AddManyGroupsToJoin?userId=" + $.jStorage.get('user').userId, ids)
-		            .success(function (result) { });
+		            .success(function(result) {
+		                $.unblockUI();
+		            });
             }
 
             $location.path('/recommendbuddy');

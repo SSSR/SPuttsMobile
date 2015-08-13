@@ -8,8 +8,9 @@
 
         $scope.logout = function(event) {
             event.preventDefault();
-            $.connection.messageHub.server.logout();
+
             $location.path("#");
+            $.connection.messageHub.server.logout();
         };
 
     });

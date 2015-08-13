@@ -92,6 +92,6 @@
     <feature name="org.apache.cordova.facebook.Connect">
         <param name="ios-package" value="FacebookConnectPlugin" />
     </feature>
-    <engine name="ios" spec="^3.9.0" />
     <engine name="android" spec="^4.1.1" />
+    <engine name="ios" spec="^3.9.0" />
 </widget>

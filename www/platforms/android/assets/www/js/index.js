@@ -33,30 +33,12 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function () {
         app.receivedEvent('deviceready');
-        alert("device ready");
-        if (!window.cordova) {
-            alert("!window.cordova");
             facebookConnectPlugin.browserInit("847815531980575", "v2.4");
-            // version is optional. It refers to the version of API you may want to use.
-        } else {
-            alert("window.cordova");
-            facebookConnectPlugin.browserInit("847815531980575", "v2.4");
-        }
+        
     },
     // Update DOM on a Received Event
     receivedEvent: function (id) {
 
-    },
-    LoginFB: function () {
-        alert("LoginFB");
-        var fbLoginSuccess = function (userData) {
-            alert("UserInfo: " + JSON.stringify(userData));
-        }
-
-        facebookConnectPlugin.login(["public_profile"],
-        fbLoginSuccess,
-        function (error) { alert("" + error) }
-    );
     }
 };
 
@@ -65,3 +47,4 @@ app.initialize();
 /*var socialputtsLink = "http://localhost:52017";*/
 var socialputtsLink = "http://socialputtstest.azurewebsites.net/";
 
+$(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);

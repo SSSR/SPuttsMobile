@@ -4,11 +4,6 @@ angular
     .controller('BuddyCoursesCtrl', function ($scope, $http, $location) {
         $scope.SP = window.socialputtsLink;
 
-        $scope.getAvatar = function (email) {
-            var url = $scope.SP + "/Profile/GetAvatar/" + email;
-            return url;
-        };
-
         $http.get(socialputtsLink + "/api/Buddies/GetRecommendBuddies?userId=" + $.jStorage.get('user').userId)
 		            .success(function (recommendBuddies) {
 		                $scope.RecommendBuddies = recommendBuddies;

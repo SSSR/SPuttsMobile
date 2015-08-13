@@ -247,7 +247,7 @@
                         <div class="buddy" >            
                             <input type="hidden" name="Buddies" value="<%= item.get('Id') %>" />
                             <div class="avatar pull-left">
-                                <img src="{{SP}}/Profile/GetAvatar/{{buddy.username}}" alt="" class="small-avatar"/>
+                                <img ngCloak src="{{SP}}/Profile/GetAvatar?username={{buddy.username}}" alt="" class="small-avatar"/>
                             </div>
                             <div class='name pull-left'>
                                 {{buddy.firstName}} {{buddy.lastName}}
@@ -671,7 +671,7 @@
         <div ng-repeat="buddy in invitation.userBuddies">
             <div class="buddy" ng-class="{selected: buddy.IsSelected}">
                 <div class="avatar pull-left">
-                    <img src="{{SP}}/Profile/GetAvatar/{{buddy.username}}" alt="" class="small-avatar"/>
+                    <img ngCloak ng-src="{{SP}}/Profile/GetAvatar?username={{buddy.username}}" alt="" class="small-avatar"/>
                 </div>
                 <div class='name pull-left'>
                     {{buddy.firstName}} {{buddy.lastName}}

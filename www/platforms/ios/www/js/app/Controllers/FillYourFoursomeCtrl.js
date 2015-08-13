@@ -13,8 +13,10 @@
 
     if (invitationId != null) {
         $scope.isEdit = true;
+        $.blockUI();
         $http.jsonp(socialputtsLink + "/api/FoursomeInvitation/GetInvitation?userId=" + $.jStorage.get('user').userId + "&invitationId=" + invitationId + "&alt=json-in-script&callback=JSON_CALLBACK")
 		.success(function (data) {
+		    $.unblockUI();
 		    _.each(data.buddies, function (buddyId) {
 		        _.each(data.userBuddies, function (buddy) {
 		            if (buddy.id == buddyId) {
@@ -45,10 +47,13 @@
 		    $scope.invitation = data;
 		    $scope.SetDisplayBuddyContainer();
 		});
-    } else {
+} else {
+
+    $.blockUI();
         $http
 		.jsonp(socialputtsLink + "/api/FoursomeInvitation/GetInvitation?userId=" + $.jStorage.get('user').userId + "&courseId=" + courseId + "&alt=json-in-script&callback=JSON_CALLBACK")
 		.success(function (data) {
+		    $.unblockUI();
 		    if (courseId == null) {
 		        data.date = "";
 		        data.timeframe = null;

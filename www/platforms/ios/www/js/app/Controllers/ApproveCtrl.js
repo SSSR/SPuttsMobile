@@ -9,31 +9,14 @@
           getFriends();
 
       };
-
-      var friendIDs = [];
-      var fdata;
-
       var getFriends = function () {
-          alert("getFriends");
-          facebookConnectPlugin.api("/me/taggable_friends?fields=id,name,picture", ["user_friends"], function (response) {
-              alert('me' + JSON.stringify(response));
-              if (response.error) {
-                  alert(JSON.stringify(response.error));
-              } else {
-                  var data = document.getElementById('data');
-                  fdata = response.data;
-              }
-              alert(JSON.stringify(response.data));
+         // alert("getFriends");
 
-              
-//            var friends = response.data;
-//              for (var k = 0; k < friends.length && k < 200; k++) {
-//                  var friend = friends[k];
-//                  var index = 1;
-//                  friendIDs[k] = friend.id;
-//                 
-//              }
-           //   alert("friendId's: " + friendIDs);
+          $.blockUI();
+          facebookConnectPlugin.api("/me/taggable_friends?fields=id,name,picture", ["user_friends"], function (response) {
+              $.unblockUI();
+              alert('Friends info ' + JSON.stringify(response));
+              $location.path('/postfacebook');
           });
       };
 

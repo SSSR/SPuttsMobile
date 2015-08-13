@@ -7,7 +7,6 @@
         $http.get(socialputtsLink + "/api/Buddies/Get?userId=" + $.jStorage.get("user").userId)
 	    .success(function (buddies) {
 	        $scope.buddies = buddies;
-
 	        //buddies.forEach(function (buddy) {
 
 	        //    $scope.countIncomingMessage = $scope.countIncomingMessage + buddy.incomingMessages;

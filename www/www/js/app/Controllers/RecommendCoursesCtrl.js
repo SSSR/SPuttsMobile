@@ -51,8 +51,11 @@ angular
             };
 
             var url = socialputtsLink + "/api/Course/GetSearchedCourses?email=" + $.jStorage.get('user').userName;
+
+            $.blockUI();
             $http.post(url, packet)
 			.success(function (courses) {
+			    $.unblockUI();
 			    $scope.Courses = courses;
 			    getDistanceBeetweenCourseAndUserPosition($scope.Courses);
 			});
@@ -100,15 +103,14 @@ angular
             }
         };
 
-        $scope.QuickSetUp = function () {
-            //  alert("Quick Set Up");
-        };
-
         $scope.GoToStep2 = function () {
             var ids = getIdFavoriteCourses($scope.Courses);
             if (ids.length > 0) {
+                $.blockUI();
                 $http.post(socialputtsLink + "/api/Course/AddManyCoursesToFavorite?userId=" + $.jStorage.get('user').userId, ids)
-		            .success(function (result) { });
+		            .success(function(result) {
+		                $.unblockUI();
+		            });
             }
             $location.path('/recommendgroup');
         };

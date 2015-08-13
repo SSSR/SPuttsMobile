@@ -1,4 +1,4 @@
-var socialputts = angular.module('socialputts', ['socialputts.controllers', 'socialputts.services', 'ui.router', 'ui.bootstrap']);
+var socialputts = angular.module('socialputts', ['socialputts.controllers', 'socialputts.services', 'ui.router', 'ui.bootstrap' ]);
 
 socialputts
 .config(function ($compileProvider) {
@@ -30,6 +30,6 @@ socialputts
         .when('/recommendgroup', { templateUrl: 'partials/RecommendGroup.html', controller: 'GroupCoursesCtrl' })
         .when('/recommendbuddy', { templateUrl: 'partials/RecommendBuddy.html', controller: 'BuddyCoursesCtrl' })
        .otherwise({ redirectTo: '/signin' });
-} ]);
+}]);
 
 

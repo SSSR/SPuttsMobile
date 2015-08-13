@@ -334,7 +334,7 @@
                     <div ng-repeat="userConfirm in InvitationRespons.usersConfirmed" class="col-lg-12">
                         <div class="confirm-user-item row col-lg-12">
                             <div class="col-lg-2 pull-left">
-                                <img src="{{SP}}/Profile/GetAvatar/{{userConfirm.email}}" alt="{{userConfirm.email}}" class="img-avatar-invintation" />
+                                <img ngCloak ng-src="{{SP}}/Profile/GetAvatar?username={{userConfirm.email}}" alt="{{userConfirm.email}}" class="img-avatar-invintation" />
                             </div>
                             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 pd-left-0 ">
                                 <h5>
@@ -368,7 +368,7 @@
                         <div class="row" ng-show="IsShowAcceptedUser.value">
                             <div ng-repeat="userAccepted in InvitationRespons.usersAccepted" class="col-lg-12 clearfix mrgT10">
                                 <div class="col-lg-4">
-                                    <img src="{{SP}}/Profile/GetAvatar/{{userAccepted.email}}" alt="{{userAccepted.email}}"
+                                    <img ngCloak src="{{SP}}/Profile/GetAvatar?username={{userAccepted.email}}" alt="{{userAccepted.email}}"
                                          class="img-avatar-invintation">
                                 </div>
                                 <div class="col-lg-4">
@@ -395,7 +395,7 @@
                         <div class="row" ng-show="IsShowDeclinedUser.value">
                             <div ng-repeat="declinedUser in InvitationRespons.usersDeclined" class="row col-lg-12 clearfix mrgT10">
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
-                                    <img src="{{SP}}/Profile/GetAvatar/{{declinedUser.email}}" alt="{{declinedUser.email}}"
+                                    <img ngCloak ng-src="{{SP}}/Profile/GetAvatar?username={{declinedUser.email}}" alt="{{declinedUser.email}}"
                                          class="img-avatar-invintation">
                                 </div>
                                 <div class="col-lg-5">
@@ -418,7 +418,7 @@
                         <div class="row" ng-show="IsShowNotRepliedUser.value">
                             <div ng-repeat="notRepliedUser in InvitationRespons.usersNotReplied" class="row col-lg-12 clearfix mrgT10">
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
-                                    <img src="{{SP}}/Profile/GetAvatar/{{notRepliedUser.email}}" alt="{{notRepliedUser.email}}"
+                                    <img ngCloak ng-src="{{SP}}/Profile/GetAvatar?username={{notRepliedUser.email}}" alt="{{notRepliedUser.email}}"
                                          class="img-avatar-invintation">
                                 </div>
                                 <div class="col-lg-5">
