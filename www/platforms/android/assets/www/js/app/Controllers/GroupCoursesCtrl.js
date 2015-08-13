@@ -27,7 +27,7 @@
                     StateName: userInfo.state != "" ?   userInfo.state:"Kansas",
                     City: userInfo.city,
                     Zip: userInfo.zip,
-                    Mileage: 300,
+                    Mileage: 1000,
                     NumberOfHoles: 9
                 }
             };

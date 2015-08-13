@@ -12,16 +12,6 @@
             $.blockUI();
             facebookConnectPlugin.api(url, ["publish_actions"], function (response) {
                 $.unblockUI();
-     
-                       /* alert(JSON.stringify(response), 'response');
-                            if (response && !response.error) {
-                                alert('Successful Post');
-                            } else {
-                                alert(JSON.stringify(response));
-                            }
-                        }, function (error) {
-                            $.unblockUI();
-                            alert(error);*/
                         }
             );
         };

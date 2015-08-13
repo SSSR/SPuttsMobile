@@ -33,8 +33,11 @@ $http.jsonp(socialputtsLink + "/api/email/getTinyUrl?email=" + $.jStorage.get('u
         $scope.numberPage = numberPage;
         document.getElementById('nextButton').disabled = true;
         document.getElementById('previousButton').disabled = true;
+
+        $.blockUI();
         $http.get(socialputtsLink + "/api/News/GetNewsForUser?targetUserId=" + $.jStorage.get('user').userId + "&page=" + numberPage)
            .success(function (model) {
+               $.unblockUI();
                _.each(model.postAndNewsCollection, function (post) {
                    post.createdAt = moment.utc(post.createdAt).local().format('MM/DD/YYYY hh:mm A');
                    _.each(post.comments, function (comment) {
@@ -77,8 +80,10 @@ $http.jsonp(socialputtsLink + "/api/email/getTinyUrl?email=" + $.jStorage.get('u
 
         var model = { Body: body };
 
+        $.blockUI();
         $http.post(socialputtsLink + "/api/News/AddPost?userId=" + $.jStorage.get('user').userId + "&isFromManageResponsesPage=true", model)
             .success(function () {
+                $.unblockUI();
                 $("#news-feed-message").val("");
                 getAllPostAndComment(1);
                 /* alert("Message has been posted to News Feed!");*/
@@ -121,8 +126,10 @@ $http.jsonp(socialputtsLink + "/api/email/getTinyUrl?email=" + $.jStorage.get('u
     $scope.commentBody = "";
     $scope.addComment = function AddComment(commentBody, postIdForComment) {
 
+        $.blockUI();
         $http.get(socialputtsLink + "/api/News/AddComment/?authorId=" + $.jStorage.get('user').userId + "&body=" + commentBody + "&postId=" + postIdForComment)
             .success(function (commentsForPost) {
+                $.unblockUI();
                 angular.forEach($scope.model.postAndNewsCollection, function (post) {
                     if (post.id === postIdForComment) {
                         var today = new Date()
@@ -151,17 +158,13 @@ $http.jsonp(socialputtsLink + "/api/email/getTinyUrl?email=" + $.jStorage.get('u
         }
         return false;
     };
-    /*  $scope.checkingCurent = function (authorUser) {
-    if ($.jStorage.get('user').userId == authorUser) {
-    return true;
-    }
-
-    };*/
-
+   
     $scope.editCommentforPost = function (editCommentBody, commentId) {
 
+        $.blockUI();
         $http.get(socialputtsLink + "/api/News/EditComment/?authorId=" + $.jStorage.get('user').userId + "&text=" + editCommentBody + "&commentId=" + commentId)
             .success(function () {
+                $.unblockUI();
                 angular.forEach($scope.model.postAndNewsCollection, function (post) {
                     angular.forEach(post.comments, function (comment) {
                         if (comment.id === commentId) {
@@ -175,8 +178,10 @@ $http.jsonp(socialputtsLink + "/api/email/getTinyUrl?email=" + $.jStorage.get('u
 
     $scope.editpost = function (editPostBody, postId) {
 
+        $.blockUI();
         $http.get(socialputtsLink + "/api/News/EditPost/?authorId=" + $.jStorage.get('user').userId + "&text=" + editPostBody + "&postId=" + postId)
             .success(function () {
+                $.unblockUI();
                 angular.forEach($scope.model.postAndNewsCollection, function (post) {
 
                     if (post.id === postId) {
@@ -190,8 +195,10 @@ $http.jsonp(socialputtsLink + "/api/email/getTinyUrl?email=" + $.jStorage.get('u
     };
 
     $scope.removePost = function (postIdForRemove) {
+        $.blockUI();
         $http.get(socialputtsLink + "/api/News/RemovePost/?postId=" + postIdForRemove)
             .success(function () {
+                $.unblockUI();
                 angular.forEach($scope.model.postAndNewsCollection, function (post) {
 
                     if (post.id === postIdForRemove) {
@@ -203,9 +210,11 @@ $http.jsonp(socialputtsLink + "/api/email/getTinyUrl?email=" + $.jStorage.get('u
             });
     };
 
-    $scope.removeComment = function (commentId) {
+        $scope.removeComment = function (commentId) {
+            $.blockUI();
         $http.get(socialputtsLink + "/api/News/RemoveComment/?commentId=" + commentId)
             .success(function () {
+                $.unblockUI();
                 angular.forEach($scope.model.postAndNewsCollection, function (post) {
                     angular.forEach(post.comments, function (comment) {
                         if (comment.id === commentId) {

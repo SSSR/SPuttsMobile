@@ -1,43 +1,65 @@
 ﻿angular
   .module('socialputts')
     .controller('CourseResultCtrl', function ($scope, $http, $location, courseFinderService) {
-    checkUserLogedOff($location, $scope);
+        checkUserLogedOff($location, $scope);
 
-    $scope.coursesOnMap = [];
-    $scope.allMarkers = [];
-    $scope.coursesToSort = [];
-    $scope.coordsArray = [];
-    $scope.favsCoordArray = [];
-    $scope.markers = [];
-    $scope.infoWindows = [];
-    $scope.popupInfo = {};
-    $scope.popupInfo.url = "";
+        $scope.coursesOnMap = [];
+        $scope.allMarkers = [];
+        $scope.coursesToSort = [];
+        $scope.coordsArray = [];
+        $scope.favsCoordArray = [];
+        $scope.markers = [];
+        $scope.infoWindows = [];
+        $scope.popupInfo = {};
+        $scope.popupInfo.url = "";
 
-    var formObject = courseFinderService.getObject();
+        function initializeMap() {
+            if (document.getElementById("map") != null) {
+                map = new google.maps.Map(document.getElementById("map"));
+            }
+        };
 
-    var geocoder = new google.maps.Geocoder();
-    geocoder.geocode({ 'address': courseFinderService.getAddress() }, function (results, status) {
-        initializeMap();
-        var zoom = 17;
-        if (status == google.maps.GeocoderStatus.OK) {
-            switch (results[0].address_components[0].types[0]) {
+        var formObject = courseFinderService.getObject();
 
-                case "route":
-                    break;
-                case "administrative_area_level_2":
-                    zoom = 6;
-                    break;
-                case "administrative_area_level_1":
-                    zoom = 7;
-                    break;
-                case "locality":
-                    zoom = 10;
-                    break;
-                case "country":
-                    zoom = 4;
-                    break;
+       
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ 'address': courseFinderService.getAddress() }, function (results, status) {
+            initializeMap();
+            var zoom = 17;
+            if (status == google.maps.GeocoderStatus.OK) {
+                switch (results[0].address_components[0].types[0]) {
+
+                    case "route":
+                        break;
+                    case "administrative_area_level_2":
+                        zoom = 6;
+                        break;
+                    case "administrative_area_level_1":
+                        zoom = 7;
+                        break;
+                    case "locality":
+                        zoom = 10;
+                        break;
+                    case "country":
+                        zoom = 4;
+                        break;
+                }
+                map.setCenter(results[0].geometry.location);
             }
 
+            var center = map.getCenter();
+            if (center == undefined) {
+                center = new google.maps.LatLng("39.805733", "-98.555510");     // geografic center Usa - state Kansas
+                map.setCenter(center);
+            }
+            var packet = {
+                CourseModel: formObject.form,
+                LatLng: {
+                    Latitude: center.lat(),
+                    Longitude: center.lng()
+                }
+            };
+            
             var mileage = formObject.form.Mileage;
             if (mileage != "0") {
                 switch (mileage) {
@@ -52,25 +74,16 @@
                 }
             } else if ((formObject.form.City != "") || (formObject.form.Zip != "")) {
                 zoom = 10;
-                formObject.form.Mileage = "30"
+                formObject.form.Mileage = "30";
             }
             map.setZoom(zoom);
-            map.setCenter(results[0].geometry.location);
-        }
 
 
 
-        var center = map.getCenter();
-        var packet = {
-            CourseModel: formObject.form,
-            LatLng: {
-                Latitude: center.lat(),
-                Longitude: center.lng()
-            }
-        };
-
-        $http.post(socialputtsLink + "/api/Course/GetSearchedCourses?email=" + $.jStorage.get('user').userName, packet)
+            $.blockUI();
+            $http.post(socialputtsLink + "/api/Course/GetSearchedCourses?email=" + $.jStorage.get('user').userName, packet)
 			.success(function (courses) {
+			    $.unblockUI();
 			    var myOptions = {
 			        zoom: map.getZoom(),
 			        center: map.getCenter(),
@@ -116,12 +129,12 @@
 			        $scope.coursesOnMap.push(course);
 			    });
 			});
-    });
+        });
 
-    $scope.addToFavorite = function ($event) {
-        $event.preventDefault();
-        var id = $($event.target).attr("courseId");
-        $http.post(socialputtsLink + "/api/Course/AddCourseToFavorite?userId=" + $.jStorage.get('user').userId + "&id=" + id)
+        $scope.addToFavorite = function ($event) {
+            $event.preventDefault();
+            var id = $($event.target).attr("courseId");
+            $http.post(socialputtsLink + "/api/Course/AddCourseToFavorite?userId=" + $.jStorage.get('user').userId + "&id=" + id)
 		.success(function (result) {
 		    if (result) {
 		        var courseToFav = _.find($scope.coursesOnMap, function (course) {
@@ -134,11 +147,11 @@
 		        alert("Error!");
 		    }
 		});
-    };
-    $scope.removeFromFavorite = function ($event) {
-        $event.preventDefault();
-        var id = $($event.target).attr("courseId");
-        $http.post(socialputtsLink + "/api/Course/RemoveFromFavorite?userId=" + $.jStorage.get('user').userId + "&id=" + id)
+        };
+        $scope.removeFromFavorite = function ($event) {
+            $event.preventDefault();
+            var id = $($event.target).attr("courseId");
+            $http.post(socialputtsLink + "/api/Course/RemoveFromFavorite?userId=" + $.jStorage.get('user').userId + "&id=" + id)
 		.success(function (courseId) {
 		    var courseToRemove = _.find($scope.coursesOnMap, function (course) {
 		        return course.id == id;
@@ -148,10 +161,10 @@
 		    $(".not-fav[courseid=" + courseId + "]").hide();
 		    $(".list-as-fav[courseid=" + courseId + "]").show();
 		});
-    };
-    $scope.mapRoute = function (data) {
-        map.setZoom(14);
-        var latlng = new google.maps.LatLng(data.latitude, data.longitude);
-        map.setCenter(latlng);
-    };
-})
+        };
+        $scope.mapRoute = function (data) {
+            map.setZoom(14);
+            var latlng = new google.maps.LatLng(data.latitude, data.longitude);
+            map.setCenter(latlng);
+        };
+    })
