@@ -45,7 +45,7 @@ angular
                     StateName: userInfo.state,
                     City: userInfo.city,
                     Zip: userInfo.zip,
-                    Mileage: 1000,
+                    Mileage: 3000,
                     NumberOfHoles: 0
                 }
             };

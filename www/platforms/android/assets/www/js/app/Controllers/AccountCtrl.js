@@ -18,23 +18,23 @@
           });
       };
 
-      /*For testing
+      //For testing
       $scope.loginWithData = function () {
 
-      bindFbAccountToSp({
-      Id: "105324989818094",
-      Email: "socialputts.mobile@gmail.com",
-      FirstName: "Art",
-      LastName: "Falcone",
-      City: "Richmond",
-      State: "Virginia"
-      });
+              bindFbAccountToSp({
+                  Id: "105324989818094",
+                  Email: "socialputts.mobile@gmail.com",
+                  FirstName: "Art",
+                  LastName: "Falcone",
+                  City: "Naples",
+                  State: "Florida"
+              });
 
-      getAddress({
-      hometown:{id:"10376564665161",name:"Virginia"},
-      location:{id:"10371326548468",name:"Redmond,Watington"},
-      });
-      };*/
+           /*   getAddress({
+              hometown:{id:"10376564665161",name:"Virginia"},
+              location:{id:"10371326548468",name:"Redmond,Watington"},
+              });*/
+      };
 
       $scope.logIn = function () {
           $scope.invalidForm = false;

@@ -76,7 +76,6 @@
         $scope.GoToStep3 = function () {
             var ids = getIdGroupsToJoin($scope.Groups);
             if (ids.length > 0) {
-
                 $.blockUI();
                 $http.post(socialputtsLink + "/api/Group/AddManyGroupsToJoin?userId=" + $.jStorage.get('user').userId, ids)
 		            .success(function(result) {
