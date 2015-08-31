@@ -76,6 +76,7 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <platform name="android">
+	 <hook src="my-icon-hook.js" type="after_platform_add" />
         <allow-intent href="market:*" />
     </platform>
     <platform name="ios">
