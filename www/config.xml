@@ -79,6 +79,7 @@
         <allow-intent href="market:*" />
     </platform>
     <platform name="ios">
+        <hook src="my-icon-hook.js" type="after_platform_add" />
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
