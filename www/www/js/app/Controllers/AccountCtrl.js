@@ -108,16 +108,16 @@
 
 
       function fbLoginSuccess(response) {
-          //  alert("fbLoginSuccess2: " + JSON.stringify(response));
+           alert("fbLoginSuccess2: " + JSON.stringify(response));
           facebookConnectPlugin.api("me/?fields=id,name,last_name,picture,email,hometown,location", ["public_profile"], fbAPIResponse);
       };
 
       $scope.login = function () {
-          //    alert("facebookConnectPlugin.login"); //,email,user_friends //public_profile,
+           alert("facebookConnectPlugin.login"); //,email,user_friends //public_profile,
           facebookConnectPlugin.login(["email", "user_location", "user_hometown"],
             fbLoginSuccess,
             function (error) {
-                // alert("error" + JSON.stringify(error));
+                alert("error" + JSON.stringify(error));
             }
         );
       };
